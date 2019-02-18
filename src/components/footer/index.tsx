@@ -7,11 +7,8 @@ const Footer = () => (
             <span>Copyright © 2019 B2D1</span>
         </a>
         <div className='by_farbox'>
-            <a
-                target='_blank'
-                href='https://github.com/Ben02/hexo-theme-Anatole'
-            >
-                React + Typescript + Koa2 + mongodb / Todo List
+            <a target='_blank' href='https://github.com/B2D1/TodoList'>
+                React + TS + Koa2 + MongoDB / TodoList
             </a>
         </div>
     </div>

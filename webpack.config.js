@@ -33,6 +33,7 @@ const config = {
             template: require('html-webpack-template'),
             inject: false,
             appMountId: 'app',
+            title: 'TodoList App',
         }),
     ],
     optimization: {
