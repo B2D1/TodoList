@@ -1,4 +1,4 @@
-## 🚩 一款基于 TS + React + Redux-Saga + Koa2+ MongoDB 实现的 TodoList 全栈应用。
+## 🚩 一款基于 TS,React,Redux-Saga,Koa2,MongoDB 实现的 TodoList 全栈应用
 
 ### 线上访问地址
 
