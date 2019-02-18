@@ -1,0 +1,41 @@
+{
+    "name": "todo-list",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "clean": "rm dist/bundle.js",
+        "dev": "webpack-dev-server -d --mode development",
+        "build": "webpack -p --mode production"
+    },
+    "dependencies": {
+        "antd": "^3.13.2",
+        "react": "^16.8.1",
+        "react-dom": "^16.8.1",
+        "react-redux": "^6.0.0",
+        "redux": "^4.0.1",
+        "redux-saga": "^1.0.1",
+        "react-router-dom": "^4.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^11.9.4",
+        "@types/react": "^16.8.2",
+        "@types/react-dom": "^16.8.0",
+        "@types/react-redux": "^7.0.1",
+        "@types/react-router-dom": "^4.3.1",
+        "axios": "^0.18.0",
+        "css-loader": "^2.1.0",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "html-webpack-plugin": "^3.2.0",
+        "html-webpack-template": "^6.2.0",
+        "style-loader": "^0.23.1",
+        "ts-loader": "^5.3.3",
+        "typescript": "^3.3.3",
+        "webpack": "^4.29.3",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.1.14"
+    }
+}
