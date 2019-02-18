@@ -8,7 +8,7 @@
 
 前后端分离开发，RESTful 接口联调，实现用户的登录注册，todo 的关键词查询，内容修改，状态更改，记录删除，是一个非常值得入手实践的全栈项目。
 
-![](https://user-gold-cdn.xitu.io/2019/2/18/168ffd0a48e17d37?w=1920&h=1048&f=png&s=69412)
+![](https://user-gold-cdn.xitu.io/2019/2/18/168ffd201171cf8b?w=1920&h=1048&f=png&s=69412)
 ![](https://user-gold-cdn.xitu.io/2019/2/18/168ffc207020d835?w=1920&h=1048&f=png&s=78425)
 ![](https://user-gold-cdn.xitu.io/2019/2/18/168ffc248829116e?w=1920&h=1048&f=png&s=76216)
 
