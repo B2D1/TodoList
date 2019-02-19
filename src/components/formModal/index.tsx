@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { FormComponentProps } from 'antd/lib/form';
 import { Input, Modal, Form, message } from 'antd';
-require('../../style/todo.css');
 
 interface IAddFormProps extends FormComponentProps {
     title: string;

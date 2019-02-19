@@ -7,7 +7,7 @@ import { Form, Icon, Input, Button, message } from 'antd';
 import { History, Location } from 'history';
 import { UserState } from '../interface/UserState';
 import { register } from '../actions/user';
-require('../style/login.css');
+import '../style/login.less';
 
 interface IRegisterProps extends FormComponentProps {
     user: UserState;

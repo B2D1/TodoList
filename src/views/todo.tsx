@@ -14,7 +14,7 @@ import {
 import { FormComponentProps } from 'antd/lib/form';
 import { Input, Button, Icon, Empty, message } from 'antd';
 import ModalForm from '../components/formModal';
-require('../style/todo.css');
+import '../style/todo.less';
 
 interface IAddFormProps extends FormComponentProps {
     searchTodo: any;

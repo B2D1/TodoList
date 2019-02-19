@@ -5,6 +5,8 @@ import Register from './views/register';
 import Todo from './views/todo';
 import Footer from './components/footer';
 
+import 'antd/dist/antd.less';
+
 export default class App extends React.Component {
     render() {
         return (

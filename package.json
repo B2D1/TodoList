@@ -12,6 +12,7 @@
         "build": "webpack -p --mode production"
     },
     "dependencies": {
+        "axios": "^0.18.0",
         "antd": "^3.13.2",
         "react": "^16.8.1",
         "react-dom": "^16.8.1",
@@ -26,11 +27,13 @@
         "@types/react-dom": "^16.8.0",
         "@types/react-redux": "^7.0.1",
         "@types/react-router-dom": "^4.3.1",
-        "axios": "^0.18.0",
+        "clean-webpack-plugin": "^1.0.1",
         "css-loader": "^2.1.0",
-        "extract-text-webpack-plugin": "^3.0.2",
         "html-webpack-plugin": "^3.2.0",
         "html-webpack-template": "^6.2.0",
+        "less": "^3.9.0",
+        "less-loader": "^4.1.0",
+        "mini-css-extract-plugin": "^0.5.0",
         "style-loader": "^0.23.1",
         "ts-loader": "^5.3.3",
         "typescript": "^3.3.3",
