@@ -1,8 +1,8 @@
-## 🚩 一款基于 TS,React,Redux-Saga,Koa2,MongoDB 实现的 TodoList 全栈应用
+## 🚩 一款基于 TS React Antd Koa2 MongoDB 实现的 TodoList 全栈应用
 
 ### 线上访问地址
 
-[https://b2d1.top:5000/](https://b2d1.top:5000/)（自己搭建的阿里云服务器，已设置 HTTPS 安全，不过由于是学生版，性能较差，首屏加载速度较慢，请耐心等待）
+[https://b2d1.top:5000/](https://b2d1.top:5000/)（自己搭建的阿里云服务器，已设置 HTTPS 安全，不过由于是学生版，首屏加载速度较慢，请耐心等待，后续会进行优化）
 
 ### 应用效果
 
