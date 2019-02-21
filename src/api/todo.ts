@@ -1,26 +1,33 @@
 import request from './request';
 
 class TodoApi {
+    prefix = '/todos';
     fetchTodo(user_id: String) {
-        return request.get(`/todos/${user_id}/all`);
+        return request.get(`${this.prefix}/${user_id}/all`);
     }
     addTodo(user_id: string, content: string) {
-        return request.post(`/todos`, {
+        return request.post(`${this.prefix}`, {
             user_id,
             content,
         });
     }
     searchTodo(user_id: string, q: string) {
-        return request.get(`/todos/${user_id}/word?q=${q}`);
+        return request.post(`${this.prefix}/search`, {
+            user_id,
+            q,
+        });
     }
     deleteTodo(todo_id: string) {
-        return request.delete(`/todos/${todo_id}`);
+        return request.delete(`${this.prefix}/${todo_id}`);
     }
     updateTodoStatus(todo_id: string) {
-        return request.put(`/todos/status/${todo_id}`);
+        return request.put(`${this.prefix}/status`, {
+            todo_id,
+        });
     }
     updateTodoContent(todo_id: string, content: string) {
-        return request.put(`/todos/content/${todo_id}`, {
+        return request.put(`${this.prefix}/content`, {
+            todo_id,
             content,
         });
     }

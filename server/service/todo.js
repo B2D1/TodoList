@@ -28,13 +28,6 @@ class TodoService {
             return todos;
         } catch (error) {}
     }
-    async getPortionTodos(user_id, status) {
-        try {
-            const flag = status === '1' ? true : false;
-            const record = await todoModel.find({ user_id, status: flag });
-            return record;
-        } catch (error) {}
-    }
     async updateTodoStatus(todo_id) {
         try {
             let _record = await todoModel.findById(todo_id);

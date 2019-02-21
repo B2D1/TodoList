@@ -29,7 +29,7 @@ userRouter
             }
         } catch (error) {}
     })
-    .post('/register', async (ctx, next) => {
+    .post('/', async (ctx, next) => {
         const { username, password } = ctx.request.body;
         try {
             const data = await userService.addUser(username, password);

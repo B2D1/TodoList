@@ -20,9 +20,8 @@ todoRouter
             }
         } catch (error) {}
     })
-    .get('/:user_id/word', async (ctx, next) => {
-        const user_id = ctx.params.user_id;
-        const q = ctx.query.q;
+    .post('/search', async (ctx, next) => {
+        const { user_id, q } = ctx.request.body;
         try {
             const data = await todoService.searchTodo(user_id, q);
             if (data) {
@@ -33,18 +32,8 @@ todoRouter
             }
         } catch (error) {}
     })
-    .get('/:user_id/portion', async (ctx, next) => {
-        const user_id = ctx.params.user_id;
-        const status = ctx.query.status;
-        try {
-            const data = await todoService.getPortionTodos(user_id, status);
-            if (data) {
-                handleRes({ ctx, data });
-            }
-        } catch (error) {}
-    })
-    .put('/status/:todo_id', async (ctx, next) => {
-        const todo_id = ctx.params.todo_id;
+    .put('/status', async (ctx, next) => {
+        const { todo_id } = ctx.request.body;
         try {
             const data = await todoService.updateTodoStatus(todo_id);
             if (data) {
@@ -59,9 +48,8 @@ todoRouter
             });
         }
     })
-    .put('/content/:todo_id', async (ctx, next) => {
-        const todo_id = ctx.params.todo_id;
-        const { content } = ctx.request.body;
+    .put('/content', async (ctx, next) => {
+        const { todo_id, content } = ctx.request.body;
         try {
             const data = await todoService.updateTodoContent(todo_id, content);
             if (data) {
