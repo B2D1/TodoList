@@ -46,5 +46,5 @@ cd /TodoList // 进入TodoList文件夹
 
 npm install // 安装前端所需要的NPM包
 
-npm run build // 打包生成dist文件夹，打开dist/index.html即可
+npm start // 运行项目
 ```
