@@ -8,10 +8,10 @@ const todoRouter = new Router({
 });
 
 todoRouter
-    .get('/:user_id/all', async (ctx, next) => {
-        const user_id = ctx.params.user_id;
+    .get('/:userId/all', async (ctx, next) => {
+        const userId = ctx.params.userId;
         try {
-            const data = await todoService.getAllTodos(user_id);
+            const data = await todoService.getAllTodos(userId);
             if (data) {
                 handleRes({
                     ctx,
@@ -21,9 +21,9 @@ todoRouter
         } catch (error) {}
     })
     .post('/search', async (ctx, next) => {
-        const { user_id, q } = ctx.request.body;
+        const { userId, q } = ctx.request.body;
         try {
-            const data = await todoService.searchTodo(user_id, q);
+            const data = await todoService.searchTodo(userId, q);
             if (data) {
                 handleRes({
                     ctx,
@@ -33,9 +33,9 @@ todoRouter
         } catch (error) {}
     })
     .put('/status', async (ctx, next) => {
-        const { todo_id } = ctx.request.body;
+        const { todoId } = ctx.request.body;
         try {
-            const data = await todoService.updateTodoStatus(todo_id);
+            const data = await todoService.updateTodoStatus(todoId);
             if (data) {
                 handleRes({ ctx, status_code: 202 });
             }
@@ -49,9 +49,9 @@ todoRouter
         }
     })
     .put('/content', async (ctx, next) => {
-        const { todo_id, content } = ctx.request.body;
+        const { todoId, content } = ctx.request.body;
         try {
-            const data = await todoService.updateTodoContent(todo_id, content);
+            const data = await todoService.updateTodoContent(todoId, content);
             if (data) {
                 handleRes({ ctx, status_code: 202 });
             }
@@ -65,9 +65,9 @@ todoRouter
         }
     })
     .post('/', async (ctx, next) => {
-        const { user_id, content } = ctx.request.body;
+        const { userId, content } = ctx.request.body;
         try {
-            const data = await todoService.addTodo(user_id, content);
+            const data = await todoService.addTodo(userId, content);
             if (data) {
                 handleRes({
                     ctx,
@@ -77,10 +77,10 @@ todoRouter
             }
         } catch (error) {}
     })
-    .delete('/:todo_id', async (ctx, next) => {
-        const todo_id = ctx.params.todo_id;
+    .delete('/:todoId', async (ctx, next) => {
+        const todoId = ctx.params.todoId;
         try {
-            const data = await todoService.deleteTodo(todo_id);
+            const data = await todoService.deleteTodo(todoId);
             if (data) {
                 handleRes({ ctx, status_code: 204 });
             }

@@ -1,24 +1,18 @@
-import actionTypes from './types';
 import { takeEvery } from 'redux-saga/effects';
+
+import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from './actions/todo-saga';
 import { login, register } from './actions/user-sage';
-import {
-    fetchTodo,
-    searchTodo,
-    addTodo,
-    deleteTodo,
-    updateTodoStatus,
-    updateTodoContent,
-} from './actions/todo-saga';
+import ActionTypes from './types';
 
 function* rootSaga() {
-    yield takeEvery(actionTypes.LOGIN, login);
-    yield takeEvery(actionTypes.REGISTER, register);
-    yield takeEvery(actionTypes.FETCH_TODO, fetchTodo);
-    yield takeEvery(actionTypes.SEARCH_TODO, searchTodo);
-    yield takeEvery(actionTypes.ADD_TODO, addTodo);
-    yield takeEvery(actionTypes.DELETE_TODO, deleteTodo);
-    yield takeEvery(actionTypes.UPDATE_TODO_STATUS, updateTodoStatus);
-    yield takeEvery(actionTypes.UPDATE_TODO_CONTENT, updateTodoContent);
+    yield takeEvery(ActionTypes.LOGIN, login);
+    yield takeEvery(ActionTypes.REGISTER, register);
+    yield takeEvery(ActionTypes.FETCH_TODO, fetchTodo);
+    yield takeEvery(ActionTypes.SEARCH_TODO, searchTodo);
+    yield takeEvery(ActionTypes.ADD_TODO, addTodo);
+    yield takeEvery(ActionTypes.DELETE_TODO, deleteTodo);
+    yield takeEvery(ActionTypes.UPDATE_TODO_STATUS, updateTodoStatus);
+    yield takeEvery(ActionTypes.UPDATE_TODO_CONTENT, updateTodoContent);
 }
 
 export default rootSaga;

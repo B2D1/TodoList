@@ -1,9 +1,9 @@
 const todoModel = require('../db/models/todo');
 
 class TodoService {
-    async addTodo(user_id, content) {
+    async addTodo(userId, content) {
         const todo = new todoModel({
-            user_id,
+            userId,
             content,
             status: false,
         });
@@ -12,28 +12,28 @@ class TodoService {
             return data;
         } catch (error) {}
     }
-    async deleteTodo(todo_id) {
+    async deleteTodo(todoId) {
         try {
-            const todo = await todoModel.findByIdAndDelete(todo_id);
+            const todo = await todoModel.findByIdAndDelete(todoId);
             return todo;
         } catch (error) {
             throw new Error('delete failed!');
         }
     }
-    async getAllTodos(user_id) {
+    async getAllTodos(userId) {
         try {
             const todos = todoModel.find({
-                user_id,
+                userId,
             });
             return todos;
         } catch (error) {}
     }
-    async updateTodoStatus(todo_id) {
+    async updateTodoStatus(todoId) {
         try {
-            let _record = await todoModel.findById(todo_id);
+            let _record = await todoModel.findById(todoId);
             const _status = !_record.status;
             const record = await todoModel.updateOne(
-                { _id: todo_id },
+                { _id: todoId },
                 { status: _status }
             );
             if (record.nModified) {
@@ -44,10 +44,10 @@ class TodoService {
             throw new Error('delete failed!');
         }
     }
-    async updateTodoContent(todo_id, content) {
+    async updateTodoContent(todoId, content) {
         try {
             const record = await todoModel.updateOne(
-                { _id: todo_id },
+                { _id: todoId },
                 { content }
             );
             if (record.nModified) {
@@ -58,9 +58,9 @@ class TodoService {
             throw new Error('update failed!');
         }
     }
-    async searchTodo(user_id, q) {
+    async searchTodo(userId, q) {
         try {
-            let record = await todoModel.find({ user_id });
+            let record = await todoModel.find({ userId });
             return record.filter(v => v.content.includes(q));
         } catch (error) {}
     }

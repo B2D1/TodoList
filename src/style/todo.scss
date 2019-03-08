@@ -66,7 +66,7 @@ ul {
 }
 
 .no-data {
-    margin-top: 3rem;
+    margin-top: 3rem !important;
 }
 
 .todo-icon {
@@ -75,7 +75,7 @@ ul {
     transition: transform 0.2s ease;
 }
 
-.todo-icon + .todo-icon {
+.todo-icon+.todo-icon {
     margin-left: 1rem;
 }
 

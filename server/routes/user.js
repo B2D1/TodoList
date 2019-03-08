@@ -16,7 +16,7 @@ userRouter
                 handleRes({
                     ctx,
                     data: {
-                        user_id: data._id,
+                        userId: data._id,
                         username: data.usr,
                     },
                 });

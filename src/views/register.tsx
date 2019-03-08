@@ -1,27 +1,28 @@
-import * as React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { MouseEvent } from 'react';
+import '../style/login.scss';
+
+import { Button, Form, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { Form, Icon, Input, Button, message } from 'antd';
-import { History, Location } from 'history';
-import { UserState } from '../interface/UserState';
+import { History } from 'history';
+import * as React from 'react';
+import { MouseEvent } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+
 import { register } from '../actions/user';
-import '../style/login.less';
+import { IUserState } from '../interface/UserState';
 
 interface IRegisterProps extends FormComponentProps {
-    user: UserState;
+    user: IUserState;
     register: any;
     history: History;
-    location: Location;
     [name: string]: any;
 }
 
 class Register extends React.Component<IRegisterProps> {
-    ToLogin = () => {
+    public ToLogin = () => {
         this.props.history.push('/');
     };
-    handleReg = () => {
+    public handleReg = () => {
         const { user } = this.props;
         if (user.err_msg) {
             message.warning(user.err_msg);
@@ -30,7 +31,7 @@ class Register extends React.Component<IRegisterProps> {
             this.ToLogin();
         }
     };
-    handleSubmit = (e: MouseEvent<HTMLElement>) => {
+    public handleSubmit = (e: MouseEvent<HTMLElement>) => {
         this.props.user.err_msg = '';
         e.preventDefault();
         this.props.form.validateFields((err: any, values: any) => {
@@ -40,7 +41,7 @@ class Register extends React.Component<IRegisterProps> {
             }
         });
     };
-    render() {
+    public render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <React.Fragment>
@@ -114,9 +115,9 @@ class Register extends React.Component<IRegisterProps> {
 const mapStateToProps = (store: any) => {
     return { user: store.user };
 };
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        register: (username: string, password: string, cb: any) => {
+        register: (username: string, password: string, cb: () => {}) => {
             dispatch(register(username, password, cb));
         },
     };

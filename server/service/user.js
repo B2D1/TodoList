@@ -1,16 +1,16 @@
-const userModel = require('../db/models/user')
+const userModel = require('../db/models/user');
 
 class UserService {
     async addUser(usr, psd) {
         const user = new userModel({
             usr,
             psd,
-        })
+        });
         try {
-            const data = await user.save()
-            return data
+            const data = await user.save();
+            return data;
         } catch (error) {
-            throw new Error('save failed')
+            throw new Error('save failed');
         }
     }
     async validUser(usr, psd) {
@@ -18,10 +18,10 @@ class UserService {
             const user = await userModel.findOne({
                 usr,
                 psd,
-            })
-            return user
+            });
+            return user;
         } catch (error) {}
     }
 }
 
-module.exports = UserService
+module.exports = UserService;

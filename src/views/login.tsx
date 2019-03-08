@@ -1,51 +1,53 @@
-import * as React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { MouseEvent } from 'react';
+import '../style/login.scss';
+
+import { Button, Form, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { Form, Icon, Input, Button, message } from 'antd';
-import { History, Location } from 'history';
-import { UserState } from '../interface/UserState';
+import { History } from 'history';
+import * as React from 'react';
+import { MouseEvent } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+
 import { login } from '../actions/user';
-import '../style/login.less';
+import { IUserState } from '../interface/UserState';
 
 interface ILoginProps extends FormComponentProps {
     login: any;
     todo: any;
-    user: UserState;
+    user: IUserState;
     history: History;
-    location: Location;
     [name: string]: any;
 }
 
 class Login extends React.Component<ILoginProps> {
-    componentDidMount() {}
-    OnRegister = () => {
+    public OnRegister = () => {
         this.props.history.push('/register');
     };
-    ToTodo = () => {
+    public ToTodo = () => {
         this.props.history.push('/todo');
     };
-    handleSubmit = (e: MouseEvent<HTMLElement>) => {
+    public handleSubmit = (e: MouseEvent<HTMLElement>) => {
         this.props.user.err_msg = '';
         e.preventDefault();
-        this.props.form.validateFields((err: any, values: any) => {
-            if (!err) {
-                const { username, password } = values;
-                this.props.login(username, password, this.handleLogin);
+        this.props.form.validateFields(
+            (err: Error, values: { username: string; password: string }) => {
+                if (!err) {
+                    const { username, password } = values;
+                    this.props.login(username, password, this.handleLogin);
+                }
             }
-        });
+        );
     };
-    handleLogin = () => {
+    public handleLogin = () => {
         const { user } = this.props;
         if (user.err_msg) {
             message.warning(user.err_msg);
         }
-        if (user.user_id) {
+        if (user.userId) {
             this.ToTodo();
         }
     };
-    render() {
+    public render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <React.Fragment>
@@ -119,9 +121,9 @@ class Login extends React.Component<ILoginProps> {
 const mapStateToProps = (store: any) => {
     return { todo: store.todo, user: store.user };
 };
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        login: (username: string, password: string, cb: any) => {
+        login: (username: string, password: string, cb: () => {}) => {
             dispatch(login(username, password, cb));
         },
     };

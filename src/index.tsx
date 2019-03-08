@@ -1,17 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { store } from './store';
-import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import { store } from './store';
 
-var mountNode = document.getElementById('app');
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <App />
-        </HashRouter>
+        </BrowserRouter>
     </Provider>,
-    mountNode as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
+registerServiceWorker();

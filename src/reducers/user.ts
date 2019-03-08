@@ -1,23 +1,24 @@
-import actionTypes from '../types';
-import { UserState } from '../interface/UserState';
+import { IAction } from '../interface/Action';
+import { IUserState } from '../interface/UserState';
+import ActionTypes from '../types';
 
-let initialState: UserState;
+let initialState: IUserState;
 initialState = {};
 
-export default function user(state = initialState, action: any) {
+export default function user(state = initialState, action: IAction) {
     switch (action.type) {
-        case actionTypes.REGISTER_FAIL:
+        case ActionTypes.REGISTER_FAIL:
             return {
                 ...state,
                 err_msg: action.payload,
             };
-        case actionTypes.LOGIN_SUC:
+        case ActionTypes.LOGIN_SUC:
             return {
                 ...state,
-                user_id: action.payload.user_id,
+                userId: action.payload.userId,
                 username: action.payload.username,
             };
-        case actionTypes.LOGIN_FAIL:
+        case ActionTypes.LOGIN_FAIL:
             return {
                 ...state,
                 err_msg: action.payload,

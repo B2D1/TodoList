@@ -1,7 +1,6 @@
-export interface TodoState {
+export interface ITodoState {
     _id: string;
     content: string;
-    user_id: string;
-    __v?: number;
+    userId: string;
     status: boolean;
 }

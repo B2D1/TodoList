@@ -1,29 +1,29 @@
-import actionTypes from '../types';
-import { Action } from '../interface/Action';
-import { TodoState } from '../interface/TodoState';
+import { IAction } from '../interface/Action';
+import { ITodoState } from '../interface/TodoState';
+import ActionTypes from '../types';
 
-let initialState: TodoState[];
+let initialState: ITodoState[];
 initialState = [];
 
-export default function todos(state = initialState, action: Action) {
+export default function todos(state = initialState, action: IAction) {
     switch (action.type) {
-        case actionTypes.ADD_TODO_SUC:
+        case ActionTypes.ADD_TODO_SUC:
             return [...state, action.payload];
-        case actionTypes.FETCH_TODO_SUC:
+        case ActionTypes.FETCH_TODO_SUC:
             return [...initialState, ...action.payload];
-        case actionTypes.DELETE_TODO_SUC:
+        case ActionTypes.DELETE_TODO_SUC:
             return state.filter(v => v._id !== action.payload);
-        case actionTypes.UPDATE_TODO_STATUS_SUC:
+        case ActionTypes.UPDATE_TODO_STATUS_SUC:
             return state.map(v =>
-                v._id === action.payload.todo_id
+                v._id === action.payload.todoId
                     ? { ...v, status: !v.status }
                     : v
             );
-        case actionTypes.SEARCH_TODO_SUC:
+        case ActionTypes.SEARCH_TODO_SUC:
             return [...initialState, ...action.payload];
-        case actionTypes.UPDATE_TODO_CONTENT_SUC:
+        case ActionTypes.UPDATE_TODO_CONTENT_SUC:
             return state.map(v =>
-                v._id === action.payload.todo_id
+                v._id === action.payload.todoId
                     ? { ...v, content: action.payload.content }
                     : v
             );

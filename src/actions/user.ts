@@ -1,8 +1,8 @@
-import actionTypes from '../types';
+import ActionTypes from '../types';
 
 export function login(username: string, password: string, cb: any) {
     return {
-        type: actionTypes.LOGIN,
+        type: ActionTypes.LOGIN,
         payload: {
             username,
             password,
@@ -13,7 +13,7 @@ export function login(username: string, password: string, cb: any) {
 
 export function register(username: string, password: string, cb: any) {
     return {
-        type: actionTypes.REGISTER,
+        type: ActionTypes.REGISTER,
         payload: {
             username,
             password,

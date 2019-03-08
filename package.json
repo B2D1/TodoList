@@ -1,44 +1,33 @@
 {
-    "name": "todo-list",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "scripts": {
-        "clean": "rm dist/bundle.js",
-        "dev": "webpack-dev-server -d --mode development",
-        "build": "webpack -p --mode production"
-    },
-    "dependencies": {
-        "axios": "^0.18.0",
-        "antd": "^3.13.2",
-        "react": "^16.8.1",
-        "react-dom": "^16.8.1",
-        "react-redux": "^6.0.0",
-        "redux": "^4.0.1",
-        "redux-saga": "^1.0.1",
-        "react-router-dom": "^4.3.1"
-    },
-    "devDependencies": {
-        "@types/node": "^11.9.4",
-        "@types/react": "^16.8.2",
-        "@types/react-dom": "^16.8.0",
-        "@types/react-redux": "^7.0.1",
-        "@types/react-router-dom": "^4.3.1",
-        "clean-webpack-plugin": "^1.0.1",
-        "css-loader": "^2.1.0",
-        "html-webpack-plugin": "^3.2.0",
-        "html-webpack-template": "^6.2.0",
-        "less": "^3.9.0",
-        "less-loader": "^4.1.0",
-        "mini-css-extract-plugin": "^0.5.0",
-        "style-loader": "^0.23.1",
-        "ts-loader": "^5.3.3",
-        "typescript": "^3.3.3",
-        "webpack": "^4.29.3",
-        "webpack-cli": "^3.2.3",
-        "webpack-dev-server": "^3.1.14"
-    }
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^24.0.9",
+    "@types/node": "^11.10.5",
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.2",
+    "@types/react-router": "^4.4.4",
+    "react-redux": "^6.0.1",
+    "react-scripts-ts-antd": "2.17.0",
+    "redux": "^4.0.1",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^4.3.1",
+    "antd": "^3.14.1",
+    "axios": "^0.18.0",
+    "hoist-non-react-statics": "^3.3.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-router-dom": "^4.3.1",
+    "redux-saga": "^1.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts-ts-antd start",
+    "build": "react-scripts-ts-antd build",
+    "test": "react-scripts-ts-antd test --env=jsdom",
+    "eject": "react-scripts-ts-antd eject"
+  }
 }

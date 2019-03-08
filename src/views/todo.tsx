@@ -1,20 +1,15 @@
-import * as React from 'react';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { MouseEvent } from 'react';
-import { TodoState } from '../interface/TodoState';
-import {
-    fetchTodo,
-    addTodo,
-    deleteTodo,
-    updateTodoStatus,
-    updateTodoContent,
-    searchTodo,
-} from '../actions/todo';
+import '../style/todo.scss';
+
+import { Button, Empty, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { Input, Button, Icon, Empty, message } from 'antd';
+import * as React from 'react';
+import { MouseEvent } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+
+import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from '../actions/todo';
 import ModalForm from '../components/formModal';
-import '../style/todo.less';
+import { ITodoState } from '../interface/TodoState';
 
 interface IAddFormProps extends FormComponentProps {
     searchTodo: any;
@@ -23,67 +18,71 @@ interface IAddFormProps extends FormComponentProps {
     deleteTodo: any;
     addTodo: any;
     fetchTodo: any;
-    todo: TodoState[];
+    todo: ITodoState[];
     [name: string]: any;
 }
 
 const Search = Input.Search;
 
 class Todo extends React.Component<IAddFormProps> {
-    state = {
+    public modalForm: any;
+    public state = {
         ResolvedStatus: false,
         modalTitle: '',
-        user_id: '',
+        userId: '',
         q: '',
     };
-    componentDidMount() {
-        const user_id = localStorage.getItem('user_id');
+    public componentDidMount() {
+        const userId = localStorage.getItem('userId');
         this.setState(
             {
-                user_id,
+                userId,
             },
             () => {
-                this.props.fetchTodo(user_id);
+                this.props.fetchTodo(userId);
             }
         );
     }
-    OnShowResolvedTodo(flag: boolean) {
+    public OnShowResolvedTodo(flag: boolean) {
         this.setState({
             ResolvedStatus: flag,
         });
     }
-    addTodo = (content: string) => {
-        const { user_id } = this.state;
-        this.props.addTodo(user_id, content);
+    public addTodo = (content: string) => {
+        const { userId } = this.state;
+        this.props.addTodo(userId, content);
     };
-    editTodo = (content: string, todo_id: string) => {
-        this.props.updateTodoContent(todo_id, content);
+    public editTodo = (content: string, todoId: string) => {
+        this.props.updateTodoContent(todoId, content);
     };
-    OnDeleteTodo = (todo_id: string) => {
-        this.props.deleteTodo(todo_id);
+    public OnDeleteTodo = (todoId: string) => {
+        this.props.deleteTodo(todoId);
         message.success('删除成功');
     };
-    OnUpdateTodoStatus = (todo_id: string) => {
-        this.props.updateTodoStatus(todo_id);
+    public OnUpdateTodoStatus = (todoId: string) => {
+        this.props.updateTodoStatus(todoId);
     };
-    OnSearch = (val: string) => {
-        const { user_id } = this.state;
-        this.props.searchTodo(user_id, val);
+    public OnSearch = (val: string) => {
+        const { userId } = this.state;
+        this.props.searchTodo(userId, val);
     };
-    onRef = (ref: any) => {
+    public onRef = (ref: any) => {
         this.modalForm = ref;
     };
-    onShowModal = (action: string, todo_id?: string, old_content?: string) => {
+    public onShowModal = (
+        action: string,
+        todoId?: string,
+        oldContent?: string
+    ) => {
         if (action === 'add') {
             this.setState({ modalTitle: '新增Todo' });
         }
         if (action === 'edit') {
             this.setState({ modalTitle: '编辑Todo' });
         }
-        this.modalForm.showModal(action, todo_id, old_content);
+        this.modalForm.showModal(action, todoId, oldContent);
     };
-    modalForm: any;
-    render() {
+    public render() {
         const filterTodo = this.props.todo.filter(
             v => v.status === this.state.ResolvedStatus
         );
@@ -202,23 +201,23 @@ const mapStateToProps = (store: any) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-        fetchTodo: (user_id: string) => {
-            dispatch(fetchTodo(user_id));
+        fetchTodo: (userId: string) => {
+            dispatch(fetchTodo(userId));
         },
-        addTodo: (user_id: string, content: string) => {
-            dispatch(addTodo(user_id, content));
+        addTodo: (userId: string, content: string) => {
+            dispatch(addTodo(userId, content));
         },
-        deleteTodo: (todo_id: string) => {
-            dispatch(deleteTodo(todo_id));
+        deleteTodo: (todoId: string) => {
+            dispatch(deleteTodo(todoId));
         },
-        updateTodoStatus: (todo_id: string) => {
-            dispatch(updateTodoStatus(todo_id));
+        updateTodoStatus: (todoId: string) => {
+            dispatch(updateTodoStatus(todoId));
         },
-        updateTodoContent: (todo_id: string, content: string) => {
-            dispatch(updateTodoContent(todo_id, content));
+        updateTodoContent: (todoId: string, content: string) => {
+            dispatch(updateTodoContent(todoId, content));
         },
-        searchTodo: (user_id: string, q: string) => {
-            dispatch(searchTodo(user_id, q));
+        searchTodo: (userId: string, q: string) => {
+            dispatch(searchTodo(userId, q));
         },
     };
 };

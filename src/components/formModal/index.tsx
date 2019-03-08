@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { Form, Input, message, Modal } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { Input, Modal, Form, message } from 'antd';
+import * as React from 'react';
 
 interface IAddFormProps extends FormComponentProps {
     title: string;
@@ -10,43 +10,49 @@ interface IAddFormProps extends FormComponentProps {
 }
 
 class ModalForm extends React.Component<IAddFormProps> {
-    state = { visible: false, action: '', todo_id: '', old_content: '' };
-    componentDidMount() {
+    public state = { visible: false, action: '', todoId: '', oldContent: '' };
+    public componentDidMount() {
         this.props.onRef(this);
     }
-    showModal = (action: string, todo_id?: string, old_content?: string) => {
+    public showModal = (
+        action: string,
+        todoId?: string,
+        oldContent?: string
+    ) => {
         this.setState({
             visible: true,
             action,
-            todo_id,
-            old_content,
+            todoId,
+            oldContent,
         });
     };
-    handleCancel = () => {
+    public handleCancel = () => {
         this.setState({
             visible: false,
             action: '',
         });
     };
-    handleSubmit = () => {
-        this.props.form.validateFields((err: any, values: any) => {
-            if (!err) {
-                const { content } = values;
-                if (this.state.action === 'add') {
-                    this.props.onAddTodo(content);
-                    message.success('新增成功');
+    public handleSubmit = () => {
+        this.props.form.validateFields(
+            (err: Error, values: { content: string }) => {
+                if (!err) {
+                    const { content } = values;
+                    if (this.state.action === 'add') {
+                        this.props.onAddTodo(content);
+                        message.success('新增成功');
+                    }
+                    if (this.state.action === 'edit') {
+                        this.props.onEditTodo(content, this.state.todoId);
+                        message.success('编辑成功');
+                    }
+                    this.setState({
+                        visible: false,
+                    });
                 }
-                if (this.state.action === 'edit') {
-                    this.props.onEditTodo(content, this.state.todo_id);
-                    message.success('编辑成功');
-                }
-                this.setState({
-                    visible: false,
-                });
             }
-        });
+        );
     };
-    render() {
+    public render() {
         const { getFieldDecorator } = this.props.form;
         return (
             <Modal
@@ -62,7 +68,7 @@ class ModalForm extends React.Component<IAddFormProps> {
                     <Form.Item label='内容'>
                         {getFieldDecorator('content', {
                             rules: [{ required: true, message: '请输入内容!' }],
-                            initialValue: this.state.old_content,
+                            initialValue: this.state.oldContent,
                         })(
                             <Input
                                 placeholder='请输入内容'

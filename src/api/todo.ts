@@ -1,33 +1,34 @@
 import request from './request';
 
 class TodoApi {
-    prefix = '/todos';
-    fetchTodo(user_id: String) {
-        return request.get(`${this.prefix}/${user_id}/all`);
+    public static prefix = '/todos';
+    public fetchTodo(userId: string) {
+        return request.get(`${TodoApi.prefix}/${userId}/all`);
     }
-    addTodo(user_id: string, content: string) {
-        return request.post(`${this.prefix}`, {
-            user_id,
+    public addTodo(userId: string, content: string) {
+        return request.post(`${TodoApi.prefix}`, {
+            userId,
             content,
         });
     }
-    searchTodo(user_id: string, q: string) {
-        return request.post(`${this.prefix}/search`, {
-            user_id,
+    public searchTodo(userId: string, q: string) {
+        return request.post(`${TodoApi.prefix}/search`, {
+            userId,
             q,
         });
     }
-    deleteTodo(todo_id: string) {
-        return request.delete(`${this.prefix}/${todo_id}`);
+    public deleteTodo(todoId: string) {
+        return request.delete(`${TodoApi.prefix}/${todoId}`);
     }
-    updateTodoStatus(todo_id: string) {
-        return request.put(`${this.prefix}/status`, {
-            todo_id,
+    public updateTodoStatus(todoId: string) {
+        return request.put(`${TodoApi.prefix}/status`, {
+            todoId,
         });
     }
-    updateTodoContent(todo_id: string, content: string) {
-        return request.put(`${this.prefix}/content`, {
-            todo_id,
+    public updateTodoContent(todoId: string, content: string) {
+        console.log(todoId,content);
+        return request.put(`${TodoApi.prefix}/content`, {
+            todoId,
             content,
         });
     }
