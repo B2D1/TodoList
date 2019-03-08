@@ -38,13 +38,12 @@ class Login extends React.Component<ILoginProps> {
             }
         );
     };
-    public handleLogin = () => {
+    public handleLogin = (flag: boolean) => {
         const { user } = this.props;
-        if (user.err_msg) {
-            message.warning(user.err_msg);
-        }
-        if (user.userId) {
+        if (flag) {
             this.ToTodo();
+        } else {
+            message.warning(user.err_msg);
         }
     };
     public render() {

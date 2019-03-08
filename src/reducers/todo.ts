@@ -12,7 +12,7 @@ export default function todos(state = initialState, action: IAction) {
         case ActionTypes.FETCH_TODO_SUC:
             return [...initialState, ...action.payload];
         case ActionTypes.DELETE_TODO_SUC:
-            return state.filter(v => v._id !== action.payload);
+            return state.filter(v => v._id !== action.payload.todoId);
         case ActionTypes.UPDATE_TODO_STATUS_SUC:
             return state.map(v =>
                 v._id === action.payload.todoId

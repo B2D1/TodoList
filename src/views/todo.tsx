@@ -2,6 +2,7 @@ import '../style/todo.scss';
 
 import { Button, Empty, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
+import { History } from 'history';
 import * as React from 'react';
 import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ interface IAddFormProps extends FormComponentProps {
     deleteTodo: any;
     addTodo: any;
     fetchTodo: any;
+    history: History;
     todo: ITodoState[];
     [name: string]: any;
 }
@@ -34,6 +36,9 @@ class Todo extends React.Component<IAddFormProps> {
     };
     public componentDidMount() {
         const userId = localStorage.getItem('userId');
+        if (!userId) {
+            this.props.history.push('/');
+        }
         this.setState(
             {
                 userId,
