@@ -1,0 +1,24 @@
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-wrapper {
+    .form-body {
+        min-width: 300px;
+    }
+
+    .form-tip {
+        min-width: 300px;
+
+    }
+
+    .form-button {
+        width: 100%;
+    }
+}

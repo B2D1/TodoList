@@ -10,17 +10,18 @@ const todoRouter = require('./routes/todo');
 
 const app = new Koa();
 
-app.use(cors());
-app.use(bodyParser())
-    .use(userRouter.routes())
-    .use(todoRouter.routes());
-app.use(static(path.resolve(__dirname, 'dist')));
+app
+  .use(cors())
+  .use(bodyParser())
+  .use(userRouter.routes())
+  .use(todoRouter.routes())
+  .use(static(path.resolve(__dirname, 'dist')));
 
-app.listen(config.PORT, function() {
-    console.log(
-        '------Server is running on: http://localhost:%s------',
-        config.PORT
-    );
+app.listen(config.PORT, () => {
+  console.log(
+    '------Server is running on: http://localhost:%s------',
+    config.PORT
+  );
 });
 
 initDB(config.DB_URL);

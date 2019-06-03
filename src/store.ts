@@ -7,5 +7,5 @@ import rootSaga from './saga';
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
+export type AppStore = ReturnType<typeof rootReducer>;
 sagaMiddleware.run(rootSaga);

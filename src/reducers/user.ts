@@ -1,29 +1,34 @@
-import { IAction } from '../interface/Action';
-import { IUserState } from '../interface/UserState';
-import ActionTypes from '../types';
+import { ActionTypes, IUserInfo, LoginActionTypes, RegActionTypes } from '../types';
 
-let initialState: IUserState;
-initialState = {};
+const initialState: IUserInfo = {
+  userId: '',
+  username: '',
+  errMsg: ''
+};
 
-export default function user(state = initialState, action: IAction) {
-    switch (action.type) {
-        case ActionTypes.REGISTER_FAIL:
-            return {
-                ...state,
-                err_msg: action.payload,
-            };
-        case ActionTypes.LOGIN_SUC:
-            return {
-                ...state,
-                userId: action.payload.userId,
-                username: action.payload.username,
-            };
-        case ActionTypes.LOGIN_FAIL:
-            return {
-                ...state,
-                err_msg: action.payload,
-            };
-        default:
-            return state;
-    }
+export default function userReducer(
+  state = initialState,
+  action: LoginActionTypes | RegActionTypes
+) {
+  switch (action.type) {
+    case ActionTypes.REGISTER_RES:
+      return {
+        ...state,
+        errMsg: action.payload.errMsg
+      };
+    case ActionTypes.LOGIN_SUC:
+      return {
+        ...state,
+        userId: action.payload.userId,
+        username: action.payload.username,
+        errMsg: action.payload.errMsg
+      };
+    case ActionTypes.LOGIN_FAIL:
+      return {
+        ...state,
+        errMsg: action.payload.errMsg
+      };
+    default:
+      return state;
+  }
 }
