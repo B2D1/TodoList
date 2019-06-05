@@ -41,7 +41,6 @@ const TodoItem: React.FunctionComponent<ITodoItem> = ({
             onClick={() => onUpdateStatus(_id)}
           />
         )}
-
         <Icon
           type='delete'
           className='todo-icon icon-delete'

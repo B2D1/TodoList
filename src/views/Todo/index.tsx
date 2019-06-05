@@ -69,9 +69,14 @@ class Todo extends React.Component<ITodoProps, ISate> {
   public handleAddTodo = (content: string) => {
     const { userId } = this.state;
     this.props.addTodo({ userId, content });
+    this.setState({
+      resolvedStatus: false
+    });
+    message.success('新增成功');
   };
   public handleUpdateTodoContent = (todoId: string, content: string) => {
     this.props.updateTodoContent({ _id: todoId, content });
+    message.success('编辑成功');
   };
   public handleDeleteTodo = (todoId: string) => {
     this.props.deleteTodo({ _id: todoId });
@@ -127,7 +132,7 @@ class Todo extends React.Component<ITodoProps, ISate> {
           <Search
             placeholder='输入要查询的内容'
             onSearch={(value) => this.handleSearch(value)}
-            style={{ width: 300 }}
+            className='todo-bar-input'
           />
           <Button
             type='primary'

@@ -1,4 +1,4 @@
-import { Form, Input, message, Modal } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import * as React from 'react';
 import { FormAction } from 'src/common/enum';
@@ -26,11 +26,9 @@ class ModalForm extends React.Component<IModalFormProps> {
           const { content } = values;
           if (this.props.formAction === FormAction.Add) {
             this.props.onAddTodo(content);
-            message.success('新增成功');
           }
           if (this.props.formAction === FormAction.Edit) {
             this.props.onUpdateTodoContent(this.props.todoId, content);
-            message.success('编辑成功');
           }
           this.props.onClose(false);
         }

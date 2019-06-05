@@ -18,10 +18,22 @@
 
 .open-todo {
     margin-left: 50px;
+
+    @media screen and (max-width: 700px) {
+        margin-left: 20px;
+    }
 }
 
 .todo-bar {
     margin-bottom: 50px;
+
+    &-input {
+        width: 300px;
+
+        @media screen and (max-width: 700px) {
+            width: 200px;
+        }
+    }
 }
 
 .todo-nav {
@@ -37,11 +49,19 @@
         width: 300px;
         display: flex;
         padding: 1rem;
+
+        @media screen and (max-width: 700px) {
+            width: 150px;
+        }
     }
 }
 
 .todo-list {
     width: 600px;
+
+    @media screen and (max-width: 700px) {
+        width: 300px;
+    }
 }
 
 .color {
@@ -70,8 +90,17 @@ ul {
 
 .todo-item {
     span {
+        width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         font-weight: bold;
         font-size: 1.2rem;
+
+        @media screen and (max-width: 700px) {
+            width: 150px;
+            font-size: 1rem;
+        }
     }
 }
 
@@ -83,6 +112,10 @@ ul {
     cursor: pointer;
     font-size: 1.5rem;
     transition: transform 0.2s ease;
+
+    @media screen and (max-width: 700px) {
+        font-size: 1.2rem;
+    }
 }
 
 .todo-icon+.todo-icon {
