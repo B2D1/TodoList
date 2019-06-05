@@ -1,49 +1,38 @@
 import { Form, Input, message, Modal } from 'antd';
+import { FormComponentProps } from 'antd/lib/form';
 import * as React from 'react';
+import { FormAction } from 'src/enum';
 
-interface IAddFormProps {
+interface IModalFormProps extends FormComponentProps {
+  onClose: (isShow: boolean) => void;
+  userId: string;
+  todoId: string;
+  formAction: string;
+  visible: boolean;
   title: string;
-  onAddTodo: any;
-  onEditTodo: any;
-  onRef: any;
-  [name: string]: any;
+  oldContent: string;
+  onAddTodo: (content: string) => void;
+  onUpdateTodoContent: (todoId: string, content: string) => void;
 }
 
-class ModalForm extends React.Component<IAddFormProps> {
-  public state = { visible: false, action: '', todoId: '', oldContent: '' };
-  public componentDidMount() {
-    this.props.onRef(this);
-  }
-  public showModal = (action: string, todoId?: string, oldContent?: string) => {
-    this.setState({
-      visible: true,
-      action,
-      todoId,
-      oldContent
-    });
-  };
+class ModalForm extends React.Component<IModalFormProps> {
   public handleCancel = () => {
-    this.setState({
-      visible: false,
-      action: ''
-    });
+    this.props.onClose(false);
   };
   public handleSubmit = () => {
     this.props.form.validateFields(
       (err: Error, values: { content: string }) => {
         if (!err) {
           const { content } = values;
-          if (this.state.action === 'add') {
+          if (this.props.formAction === FormAction.Add) {
             this.props.onAddTodo(content);
             message.success('新增成功');
           }
-          if (this.state.action === 'edit') {
-            this.props.onEditTodo(content, this.state.todoId);
+          if (this.props.formAction === FormAction.Edit) {
+            this.props.onUpdateTodoContent(this.props.todoId, content);
             message.success('编辑成功');
           }
-          this.setState({
-            visible: false
-          });
+          this.props.onClose(false);
         }
       }
     );
@@ -53,18 +42,17 @@ class ModalForm extends React.Component<IAddFormProps> {
     return (
       <Modal
         title={this.props.title}
-        visible={this.state.visible}
+        visible={this.props.visible}
         onOk={this.handleSubmit}
         onCancel={this.handleCancel}
         okText='提交'
         cancelText='取消'
-        destroyOnClose={true}
-      >
+        destroyOnClose={true}>
         <Form layout='horizontal'>
           <Form.Item label='内容'>
             {getFieldDecorator('content', {
               rules: [{ required: true, message: '请输入内容!' }],
-              initialValue: this.state.oldContent
+              initialValue: this.props.oldContent
             })(<Input placeholder='请输入内容' autoComplete='off' />)}
           </Form.Item>
         </Form>
@@ -73,6 +61,6 @@ class ModalForm extends React.Component<IAddFormProps> {
   }
 }
 
-const WrapperModalForm = Form.create()(ModalForm);
+const WrapperModalForm = Form.create<IModalFormProps>()(ModalForm);
 
 export default WrapperModalForm;

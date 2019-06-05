@@ -6,7 +6,7 @@ import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { register } from 'src/actions/user';
-import { IAuthData, IUserInfo } from 'src/types';
+import { IAuthData, IUserState } from 'src/types';
 
 import { AppStore } from '../../store';
 
@@ -14,7 +14,7 @@ interface IRegForm extends FormComponentProps {
   triggerForm: () => void;
   onRegister: (authData: IAuthData) => void;
   history: History;
-  user: IUserInfo;
+  user: IUserState;
 }
 class RegForm extends React.Component<IRegForm> {
   public handleReg = () => {

@@ -1,15 +1,22 @@
 import { call, put } from 'redux-saga/effects';
 
 import TodoApi from '../api/todo';
-import { IAction } from '../interface/Action';
-import { ActionTypes } from '../types';
+import {
+  ActionTypes,
+  IAddTodo,
+  IDeleteTodo,
+  IFetchTodo,
+  ISearchTodo,
+  IUpdateTodoContent,
+  IUpdateTodoStatus,
+} from '../types';
 
 const todoApi = new TodoApi();
 
-export function* fetchTodo(action: IAction) {
+export function* fetchTodo(action: IFetchTodo) {
   const { userId } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.fetchTodo(userId);
+    const { data } = await todoApi.fetchTodo(userId!);
     return data;
   };
   const res = yield call(p);
@@ -19,10 +26,10 @@ export function* fetchTodo(action: IAction) {
   });
 }
 
-export function* addTodo(action: IAction) {
+export function* addTodo(action: IAddTodo) {
   const { userId, content } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.addTodo(userId, content);
+    const { data } = await todoApi.addTodo(userId!, content!);
     return data;
   };
 
@@ -33,24 +40,24 @@ export function* addTodo(action: IAction) {
   });
 }
 
-export function* deleteTodo(action: IAction) {
-  const { todoId } = action.payload;
+export function* deleteTodo(action: IDeleteTodo) {
+  const { _id } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.deleteTodo(todoId);
+    const { data } = await todoApi.deleteTodo(_id!);
     return data;
   };
 
   yield call(p);
   yield put({
     type: ActionTypes.DELETE_TODO_SUC,
-    payload: { todoId }
+    payload: { _id }
   });
 }
 
-export function* searchTodo(action: IAction) {
+export function* searchTodo(action: ISearchTodo) {
   const { userId, q } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.searchTodo(userId, q);
+    const { data } = await todoApi.searchTodo(userId!, q!);
     return data;
   };
 
@@ -61,30 +68,30 @@ export function* searchTodo(action: IAction) {
   });
 }
 
-export function* updateTodoStatus(action: IAction) {
-  const { todoId } = action.payload;
+export function* updateTodoStatus(action: IUpdateTodoStatus) {
+  const { _id } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.updateTodoStatus(todoId);
+    const { data } = await todoApi.updateTodoStatus(_id!);
     return data;
   };
 
   yield call(p);
   yield put({
     type: ActionTypes.UPDATE_TODO_STATUS_SUC,
-    payload: { todoId }
+    payload: { _id }
   });
 }
 
-export function* updateTodoContent(action: IAction) {
-  const { todoId, content } = action.payload;
+export function* updateTodoContent(action: IUpdateTodoContent) {
+  const { _id, content } = action.payload;
   const p = async function() {
-    const { data } = await todoApi.updateTodoContent(todoId, content);
+    const { data } = await todoApi.updateTodoContent(_id!, content!);
     return data;
   };
 
   yield call(p);
   yield put({
     type: ActionTypes.UPDATE_TODO_CONTENT_SUC,
-    payload: { todoId, content }
+    payload: { _id, content }
   });
 }

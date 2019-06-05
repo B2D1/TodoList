@@ -4,88 +4,102 @@ import { Button, Empty, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { History } from 'history';
 import * as React from 'react';
-import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { FormAction } from 'src/enum';
+import { AppStore } from 'src/store';
+import { IUserState } from 'src/types';
 
 import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from '../../actions/todo';
 import ModalForm from '../../components/FormModal';
 import { ITodoState } from '../../interface/TodoState';
 
-interface IAddFormProps extends FormComponentProps {
-  searchTodo: any;
-  updateTodoContent: any;
-  updateTodoStatus: any;
-  deleteTodo: any;
-  addTodo: any;
-  fetchTodo: any;
+interface ITodoProps extends FormComponentProps {
+  searchTodo: (todo: Partial<ITodoState & { q: string }>) => void;
+  updateTodoContent: (todo: Partial<ITodoState>) => void;
+  updateTodoStatus: (todoId: Partial<ITodoState>) => void;
+  deleteTodo: (todoId: Partial<ITodoState>) => void;
+  addTodo: (todo: Partial<ITodoState>) => void;
+  fetchTodo: (userId: Partial<ITodoState>) => void;
   history: History;
   todo: ITodoState[];
-  [name: string]: any;
+  user: IUserState;
 }
-
+const initialState = {
+  ResolvedStatus: false,
+  showModal: false,
+  oldContent: '',
+  todoId: '',
+  userId: '',
+  formAction: '',
+  modalTitle: '',
+  q: ''
+};
+type ISate = Readonly<typeof initialState>;
 const Search = Input.Search;
 
-class Todo extends React.Component<IAddFormProps> {
-  public modalForm: any;
-  public state = {
-    ResolvedStatus: false,
-    modalTitle: '',
-    userId: '',
-    q: ''
-  };
+class Todo extends React.Component<ITodoProps, ISate> {
+  public state = initialState;
   public componentDidMount() {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId')!;
+    this.setState({
+      userId
+    });
     if (!userId) {
       this.props.history.push('/');
+    } else {
+      this.props.fetchTodo({ userId });
     }
-    this.setState(
-      {
-        userId
-      },
-      () => {
-        this.props.fetchTodo(userId);
-      }
-    );
   }
   public OnShowResolvedTodo(flag: boolean) {
     this.setState({
       ResolvedStatus: flag
     });
   }
-  public addTodo = (content: string) => {
+  public handleAddTodo = (content: string) => {
     const { userId } = this.state;
-    this.props.addTodo(userId, content);
+    this.props.addTodo({ userId, content });
   };
-  public editTodo = (content: string, todoId: string) => {
-    this.props.updateTodoContent(todoId, content);
+  public handleUpdateTodoContent = (todoId: string, content: string) => {
+    this.props.updateTodoContent({ _id: todoId, content });
   };
-  public OnDeleteTodo = (todoId: string) => {
-    this.props.deleteTodo(todoId);
+  public handleDeleteTodo = (todoId: string) => {
+    this.props.deleteTodo({ _id: todoId });
     message.success('删除成功');
   };
-  public OnUpdateTodoStatus = (todoId: string) => {
-    this.props.updateTodoStatus(todoId);
+  public handleUpdateTodoStatus = (todoId: string) => {
+    this.props.updateTodoStatus({ _id: todoId });
   };
-  public OnSearch = (val: string) => {
+  public handleSearch = (val: string) => {
     const { userId } = this.state;
-    this.props.searchTodo(userId, val);
+    this.props.searchTodo({ userId, q: val });
   };
-  public onRef = (ref: any) => {
-    this.modalForm = ref;
+  public handleToggleModal = (isShow: boolean) => {
+    this.setState({
+      showModal: isShow
+    });
   };
-  public onShowModal = (
+  public handleShowModal = (
     action: string,
     todoId?: string,
     oldContent?: string
   ) => {
-    if (action === 'add') {
-      this.setState({ modalTitle: '新增Todo' });
+    this.handleToggleModal(true);
+    if (action === FormAction.Add) {
+      this.setState({
+        modalTitle: '新增Todo',
+        formAction: FormAction.Add,
+        oldContent: ''
+      });
     }
-    if (action === 'edit') {
-      this.setState({ modalTitle: '编辑Todo' });
+    if (action === FormAction.Edit) {
+      this.setState({
+        modalTitle: '编辑Todo',
+        formAction: FormAction.Edit,
+        oldContent: oldContent!,
+        todoId: todoId!
+      });
     }
-    this.modalForm.showModal(action, todoId, oldContent);
   };
   public render() {
     const filterTodo = this.props.todo.filter(
@@ -96,12 +110,12 @@ class Todo extends React.Component<IAddFormProps> {
         <div className='todo-bar'>
           <Search
             placeholder='输入要查询的内容'
-            onSearch={(value) => this.OnSearch(value)}
+            onSearch={(value) => this.handleSearch(value)}
             style={{ width: 300 }}
           />
           <Button
             type='primary'
-            onClick={(evt: MouseEvent) => this.onShowModal('add')}
+            onClick={() => this.handleShowModal(FormAction.Add)}
             className='open-todo'>
             新增
           </Button>
@@ -110,7 +124,7 @@ class Todo extends React.Component<IAddFormProps> {
           <ul className='todo-nav'>
             <li
               className={this.state.ResolvedStatus ? '' : 'active'}
-              onClick={(evt) => this.OnShowResolvedTodo(false)}>
+              onClick={() => this.OnShowResolvedTodo(false)}>
               <i className='color pending' />
               未完成
             </li>
@@ -132,8 +146,12 @@ class Todo extends React.Component<IAddFormProps> {
                         <Icon
                           type='edit'
                           className='todo-icon'
-                          onClick={(evt: MouseEvent) =>
-                            this.onShowModal('edit', v._id, v.content)
+                          onClick={() =>
+                            this.handleShowModal(
+                              FormAction.Edit,
+                              v._id,
+                              v.content
+                            )
                           }
                         />
                         {this.state.ResolvedStatus ? (
@@ -141,7 +159,7 @@ class Todo extends React.Component<IAddFormProps> {
                             type='undo'
                             className='todo-icon'
                             onClick={(evt) =>
-                              this.OnUpdateTodoStatus(v._id || '')
+                              this.handleUpdateTodoStatus(v._id || '')
                             }
                           />
                         ) : (
@@ -149,7 +167,7 @@ class Todo extends React.Component<IAddFormProps> {
                             type='check'
                             className='todo-icon icon-check'
                             onClick={(evt) =>
-                              this.OnUpdateTodoStatus(v._id || '')
+                              this.handleUpdateTodoStatus(v._id || '')
                             }
                           />
                         )}
@@ -157,7 +175,7 @@ class Todo extends React.Component<IAddFormProps> {
                         <Icon
                           type='delete'
                           className='todo-icon icon-delete'
-                          onClick={(evt) => this.OnDeleteTodo(v._id || '')}
+                          onClick={(evt) => this.handleDeleteTodo(v._id || '')}
                         />
                       </div>
                     </div>
@@ -170,26 +188,35 @@ class Todo extends React.Component<IAddFormProps> {
           </ul>
         </div>
         <ModalForm
-        //   onRef={this.onRef}
-        //   onAddTodo={this.addTodo}
-        //   onEditTodo={this.editTodo}
-        //   title={this.state.modalTitle}
+          userId={this.state.userId}
+          todoId={this.state.todoId}
+          formAction={this.state.formAction}
+          oldContent={this.state.oldContent}
+          visible={this.state.showModal}
+          title={this.state.modalTitle}
+          onClose={this.handleToggleModal}
+          onAddTodo={this.handleAddTodo}
+          onUpdateTodoContent={this.handleUpdateTodoContent}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (store: any) => ({ todo: store.todo });
+const mapStateToProps = (store: AppStore) => ({
+  todo: store.todo,
+  user: store.user
+});
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchTodo: (userId: string) => dispatch(fetchTodo(userId)),
-  addTodo: (userId: string, content: string) =>
-    dispatch(addTodo(userId, content)),
-  deleteTodo: (todoId: string) => dispatch(deleteTodo(todoId)),
-  updateTodoStatus: (todoId: string) => dispatch(updateTodoStatus(todoId)),
-  updateTodoContent: (todoId: string, content: string) =>
-    dispatch(updateTodoContent(todoId, content)),
-  searchTodo: (userId: string, q: string) => dispatch(searchTodo(userId, q))
+  fetchTodo: (userId: Partial<ITodoState>) => dispatch(fetchTodo(userId)),
+  addTodo: (todo: Partial<ITodoState>) => dispatch(addTodo(todo)),
+  deleteTodo: (todoId: Partial<ITodoState>) => dispatch(deleteTodo(todoId)),
+  updateTodoStatus: (todoId: Partial<ITodoState>) =>
+    dispatch(updateTodoStatus(todoId)),
+  updateTodoContent: (todo: Partial<ITodoState>) =>
+    dispatch(updateTodoContent(todo)),
+  searchTodo: (todo: Partial<ITodoState & { q: string }>) =>
+    dispatch(searchTodo(todo))
 });
 
 export default connect(

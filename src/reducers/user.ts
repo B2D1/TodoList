@@ -1,6 +1,6 @@
-import { ActionTypes, IUserInfo, LoginActionTypes, RegActionTypes } from '../types';
+import { ActionTypes, IUserState, LoginActionTypes, RegActionTypes } from '../types';
 
-const initialState: IUserInfo = {
+const initialState: IUserState = {
   userId: '',
   username: '',
   errMsg: ''

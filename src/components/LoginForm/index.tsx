@@ -6,13 +6,13 @@ import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { login } from 'src/actions/user';
-import { IAuthData, IUserInfo } from 'src/types';
+import { IAuthData, IUserState } from 'src/types';
 
 interface ILoginForm extends FormComponentProps {
   triggerForm: () => void;
   onLogin: (authData: IAuthData) => void;
   history: History;
-  user: IUserInfo;
+  user: IUserState;
 }
 
 class LoginForm extends React.Component<ILoginForm> {

@@ -1,58 +1,55 @@
-import { ActionTypes } from '../types';
+import { ActionTypes, ITodoState, TodoActionTypes } from '../types';
 
-export function addTodo(userId: string, content: string) {
+export const addTodo: (todo: Partial<ITodoState>) => TodoActionTypes = (
+  todo
+) => {
   return {
     type: ActionTypes.ADD_TODO,
-    payload: {
-      userId,
-      content
-    }
+    payload: todo
   };
-}
+};
 
-export function fetchTodo(userId: string) {
+export const fetchTodo: (todo: Partial<ITodoState>) => TodoActionTypes = (
+  todo
+) => {
   return {
     type: ActionTypes.FETCH_TODO,
-    payload: {
-      userId
-    }
+    payload: todo
   };
-}
+};
 
-export function searchTodo(userId: string, q: string) {
+export const searchTodo: (
+  searchParam: Partial<ITodoState & { q: string }>
+) => TodoActionTypes = (params) => {
   return {
     type: ActionTypes.SEARCH_TODO,
-    payload: {
-      userId,
-      q
-    }
+    payload: params
   };
-}
+};
 
-export function deleteTodo(todoId: string) {
+export const deleteTodo: (todoId: Partial<ITodoState>) => TodoActionTypes = (
+  todoId
+) => {
   return {
     type: ActionTypes.DELETE_TODO,
-    payload: {
-      todoId
-    }
+    payload: todoId
   };
-}
+};
 
-export function updateTodoStatus(todoId: string) {
+export const updateTodoStatus: (
+  todoId: Partial<ITodoState>
+) => TodoActionTypes = (todoId) => {
   return {
     type: ActionTypes.UPDATE_TODO_STATUS,
-    payload: {
-      todoId
-    }
+    payload: todoId
   };
-}
+};
 
-export function updateTodoContent(todoId: string, content: string) {
+export const updateTodoContent: (todo: ITodoState) => TodoActionTypes = (
+  todo
+) => {
   return {
     type: ActionTypes.UPDATE_TODO_CONTENT,
-    payload: {
-      todoId,
-      content
-    }
+    payload: todo
   };
-}
+};
