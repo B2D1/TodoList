@@ -1,22 +1,16 @@
 import { call, put } from 'redux-saga/effects';
 
-import UserApi from '../api/user';
-import { ActionTypes, ILoginAction, IRegisterAction } from '../types';
+import UserService from '../../service/user';
+import { ILoginAction, IRegisterAction, LOGIN_FAIL, LOGIN_SUC, REGISTER_RES } from './types';
 
-const userApi = new UserApi();
+const userService = new UserService();
 
 export function* login(action: ILoginAction) {
-  const p = async function() {
-    const { data } = await userApi.login(
-      action.payload.username,
-      action.payload.password
-    );
-    return data;
-  };
-  const res = yield call(p);
+  const { username, password } = action.payload;
+  const res: IRes = yield call(userService.login, username, password);
   if (res.error_code) {
     yield put({
-      type: ActionTypes.LOGIN_FAIL,
+      type: LOGIN_FAIL,
       payload: { errMsg: res.msg }
     });
     const removeUserToken = async function() {
@@ -29,7 +23,7 @@ export function* login(action: ILoginAction) {
     };
     yield call(setUserToken);
     yield put({
-      type: ActionTypes.LOGIN_SUC,
+      type: LOGIN_SUC,
       payload: { ...res.data, errMsg: res.msg }
     });
   }
@@ -37,16 +31,11 @@ export function* login(action: ILoginAction) {
 }
 
 export function* register(action: IRegisterAction) {
-  const p = async function() {
-    const { data } = await userApi.register(
-      action.payload.username,
-      action.payload.password
-    );
-    return data;
-  };
-  const res = yield call(p);
+  const { username, password } = action.payload;
+
+  const res: IRes = yield call(userService.register, username, password);
   yield put({
-    type: ActionTypes.REGISTER_RES,
+    type: REGISTER_RES,
     payload: { errMsg: res.msg }
   });
   action.payload.callback();

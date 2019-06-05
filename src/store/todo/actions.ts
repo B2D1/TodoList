@@ -1,10 +1,19 @@
-import { ActionTypes, ITodoState, TodoActionTypes } from '../types';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  FETCH_TODO,
+  ITodoState,
+  SEARCH_TODO,
+  TodoActionTypes,
+  UPDATE_TODO_CONTENT,
+  UPDATE_TODO_STATUS,
+} from './types';
 
 export const addTodo: (todo: Partial<ITodoState>) => TodoActionTypes = (
   todo
 ) => {
   return {
-    type: ActionTypes.ADD_TODO,
+    type: ADD_TODO,
     payload: todo
   };
 };
@@ -13,7 +22,7 @@ export const fetchTodo: (todo: Partial<ITodoState>) => TodoActionTypes = (
   todo
 ) => {
   return {
-    type: ActionTypes.FETCH_TODO,
+    type: FETCH_TODO,
     payload: todo
   };
 };
@@ -22,7 +31,7 @@ export const searchTodo: (
   searchParam: Partial<ITodoState & { q: string }>
 ) => TodoActionTypes = (params) => {
   return {
-    type: ActionTypes.SEARCH_TODO,
+    type: SEARCH_TODO,
     payload: params
   };
 };
@@ -31,7 +40,7 @@ export const deleteTodo: (todoId: Partial<ITodoState>) => TodoActionTypes = (
   todoId
 ) => {
   return {
-    type: ActionTypes.DELETE_TODO,
+    type: DELETE_TODO,
     payload: todoId
   };
 };
@@ -40,7 +49,7 @@ export const updateTodoStatus: (
   todoId: Partial<ITodoState>
 ) => TodoActionTypes = (todoId) => {
   return {
-    type: ActionTypes.UPDATE_TODO_STATUS,
+    type: UPDATE_TODO_STATUS,
     payload: todoId
   };
 };
@@ -49,7 +58,7 @@ export const updateTodoContent: (todo: ITodoState) => TodoActionTypes = (
   todo
 ) => {
   return {
-    type: ActionTypes.UPDATE_TODO_CONTENT,
+    type: UPDATE_TODO_CONTENT,
     payload: todo
   };
 };

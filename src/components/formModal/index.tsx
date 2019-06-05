@@ -1,7 +1,7 @@
 import { Form, Input, message, Modal } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import * as React from 'react';
-import { FormAction } from 'src/enum';
+import { FormAction } from 'src/common/enum';
 
 interface IModalFormProps extends FormComponentProps {
   onClose: (isShow: boolean) => void;

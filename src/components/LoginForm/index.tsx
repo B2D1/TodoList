@@ -5,8 +5,8 @@ import * as React from 'react';
 import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { login } from 'src/actions/user';
-import { IAuthData, IUserState } from 'src/types';
+import { login } from 'src/store/user/actions';
+import { IAuthData, IUserState } from 'src/store/user/types';
 
 interface ILoginForm extends FormComponentProps {
   triggerForm: () => void;

@@ -6,15 +6,16 @@ import { History } from 'history';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { FormAction } from 'src/enum';
+import { FormAction } from 'src/common/enum';
 import { AppStore } from 'src/store';
-import { IUserState } from 'src/types';
+import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from 'src/store/todo/actions';
+import { ITodoState } from 'src/store/todo/types';
+import { IUserState } from 'src/store/user/types';
 
-import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from '../../actions/todo';
 import ModalForm from '../../components/FormModal';
-import { ITodoState } from '../../interface/TodoState';
 
 interface ITodoProps extends FormComponentProps {
+  dispatch: Dispatch;
   searchTodo: (todo: Partial<ITodoState & { q: string }>) => void;
   updateTodoContent: (todo: Partial<ITodoState>) => void;
   updateTodoStatus: (todoId: Partial<ITodoState>) => void;

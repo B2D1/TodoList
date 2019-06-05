@@ -1,4 +1,13 @@
-import { ActionTypes, ITodoState, TodoActionTypes } from '../types';
+import {
+  ADD_TODO_SUC,
+  DELETE_TODO_SUC,
+  FETCH_TODO_SUC,
+  ITodoState,
+  SEARCH_TODO_SUC,
+  TodoActionTypes,
+  UPDATE_TODO_CONTENT_SUC,
+  UPDATE_TODO_STATUS_SUC,
+} from './types';
 
 const initialState: ITodoState[] = [];
 
@@ -7,19 +16,19 @@ export default function todoReducer(
   action: TodoActionTypes
 ) {
   switch (action.type) {
-    case ActionTypes.ADD_TODO_SUC:
+    case ADD_TODO_SUC:
       return [...state, action.payload];
-    case ActionTypes.FETCH_TODO_SUC:
+    case FETCH_TODO_SUC:
       return [...initialState, ...action.payload];
-    case ActionTypes.DELETE_TODO_SUC:
+    case DELETE_TODO_SUC:
       return state.filter((v) => v._id !== action.payload._id);
-    case ActionTypes.UPDATE_TODO_STATUS_SUC:
+    case UPDATE_TODO_STATUS_SUC:
       return state.map((v) =>
         v._id === action.payload._id ? { ...v, status: !v.status } : v
       );
-    case ActionTypes.SEARCH_TODO_SUC:
+    case SEARCH_TODO_SUC:
       return [...initialState, ...action.payload];
-    case ActionTypes.UPDATE_TODO_CONTENT_SUC:
+    case UPDATE_TODO_CONTENT_SUC:
       return state.map((v) =>
         v._id === action.payload._id
           ? { ...v, content: action.payload.content }
