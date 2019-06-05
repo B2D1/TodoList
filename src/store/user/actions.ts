@@ -1,15 +1,11 @@
 import { IAuthData, LOGIN, LoginActionTypes, RegActionTypes, REGISTER } from './types';
 
-export const login: (user: IAuthData) => LoginActionTypes = (user) => {
-  return {
-    type: LOGIN,
-    payload: user
-  };
-};
+export const login: (user: IAuthData) => LoginActionTypes = (user) => ({
+  type: LOGIN,
+  payload: user
+});
 
-export function register(user: IAuthData): RegActionTypes {
-  return {
-    type: REGISTER,
-    payload: user
-  };
-}
+export const register: (user: IAuthData) => RegActionTypes = (user) => ({
+  type: REGISTER,
+  payload: user
+});
