@@ -13,7 +13,7 @@ export const UPDATE_TODO_STATUS_SUC = 'UPDATE_TODO_STATUS_SUC';
 
 export interface IFetchTodo {
   type: typeof FETCH_TODO;
-  payload: ITodoState;
+  payload: Partial<ITodoState>;
 }
 export interface IFetchTodoSuc {
   type: typeof FETCH_TODO_SUC;
@@ -21,7 +21,7 @@ export interface IFetchTodoSuc {
 }
 export interface IAddTodo {
   type: typeof ADD_TODO;
-  payload: ITodoState;
+  payload: Partial<ITodoState>;
 }
 export interface IAddTodoSuc {
   type: typeof ADD_TODO_SUC;
@@ -61,10 +61,10 @@ export interface IUpdateTodoStatusSuc {
 }
 
 export interface ITodoState {
-  _id?: string;
-  content?: string;
-  userId?: string;
-  status?: boolean;
+  _id: string;
+  content: string;
+  userId: string;
+  status: boolean;
 }
 export type TodoActionTypes =
   | IFetchTodo

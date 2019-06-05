@@ -6,6 +6,16 @@
     align-items: center;
 }
 
+.user {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    >span {
+        margin-right: 10px;
+    }
+}
+
 .open-todo {
     margin-left: 50px;
 }

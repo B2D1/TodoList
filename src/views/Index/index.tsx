@@ -13,6 +13,14 @@ type IState = Readonly<typeof initialState>;
 
 class Home extends React.Component<RouteComponentProps, IState> {
   public state = initialState;
+  public componentDidMount() {
+    if (window.localStorage.getItem('userId')) {
+      this.props.history.push('/todo');
+    }
+  }
+  public toTodo = () => {
+    this.props.history.push('/todo');
+  };
   public toggleForm = () => {
     this.setState({
       showLogin: !this.state.showLogin
@@ -23,15 +31,9 @@ class Home extends React.Component<RouteComponentProps, IState> {
       <React.Fragment>
         <div className='bg form-wrapper'>
           {this.state.showLogin ? (
-            <LoginForm
-              history={this.props.history}
-              triggerForm={this.toggleForm}
-            />
+            <LoginForm onToTodo={this.toTodo} triggerForm={this.toggleForm} />
           ) : (
-            <RegForm
-              history={this.props.history}
-              triggerForm={this.toggleForm}
-            />
+            <RegForm triggerForm={this.toggleForm} />
           )}
         </div>
       </React.Fragment>

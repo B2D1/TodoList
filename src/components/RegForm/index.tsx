@@ -1,6 +1,5 @@
 import { Button, Form, Icon, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { History } from 'history';
 import * as React from 'react';
 import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
@@ -13,20 +12,12 @@ import { AppStore } from '../../store';
 interface IRegForm extends FormComponentProps {
   triggerForm: () => void;
   onRegister: (authData: IAuthData) => void;
-  history: History;
   user: IUserState;
 }
 class RegForm extends React.Component<IRegForm> {
   public handleReg = () => {
-    const {
-      user: { errMsg }
-    } = this.props;
-    if (errMsg) {
-      message.warning(errMsg);
-    } else {
-      message.success('注册成功');
-      this.props.triggerForm();
-    }
+    message.success('注册成功');
+    this.props.triggerForm();
   };
   public handleSubmit = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -41,7 +32,7 @@ class RegForm extends React.Component<IRegForm> {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className='form-body'>
-        <h1>TodoList</h1>
+        <h1>Todo List</h1>
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [

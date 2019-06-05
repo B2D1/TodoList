@@ -1,8 +1,10 @@
 export const REGISTER = 'REGISTER';
-export const REGISTER_RES = 'REGISTER_RES';
+export const REGISTER_SUC = 'REGISTER_SUC';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUC = 'LOGIN_SUC';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
 
 export interface IAuthData {
   username: string;
@@ -31,11 +33,16 @@ export interface IRegisterAction {
   payload: IAuthData;
 }
 export interface IRegFailAction {
-  type: typeof REGISTER_RES;
+  type: typeof REGISTER_FAIL;
   payload: IUserState;
 }
+export interface IRegSucAction {
+  type: typeof REGISTER_SUC;
+  payload: IUserState;
+}
+
 export type LoginActionTypes =
   | ILoginAction
   | ILoginSucAction
   | ILoginFailAction;
-export type RegActionTypes = IRegisterAction | IRegFailAction;
+export type RegActionTypes = IRegisterAction | IRegFailAction | IRegSucAction;

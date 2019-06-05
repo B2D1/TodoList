@@ -1,6 +1,5 @@
-import { Button, Form, Icon, Input, message } from 'antd';
+import { Button, Form, Icon, Input } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { History } from 'history';
 import * as React from 'react';
 import { MouseEvent } from 'react';
 import { connect } from 'react-redux';
@@ -11,26 +10,15 @@ import { IAuthData, IUserState } from 'src/store/user/types';
 interface ILoginForm extends FormComponentProps {
   triggerForm: () => void;
   onLogin: (authData: IAuthData) => void;
-  history: History;
+  onToTodo: () => void;
   user: IUserState;
 }
 
 class LoginForm extends React.Component<ILoginForm> {
-  public toTodo = () => {
-    this.props.history.push('/todo');
-  };
   public handleLogin = () => {
-    const {
-      user: { userId, errMsg }
-    } = this.props;
-    if (userId) {
-      this.toTodo();
-    } else {
-      message.warning(errMsg);
-    }
+    this.props.onToTodo();
   };
   public handleSubmit = (e: MouseEvent<HTMLElement>) => {
-    this.props.user.errMsg = '';
     e.preventDefault();
     this.props.form.validateFields((err: Error, values) => {
       if (!err) {
@@ -43,7 +31,7 @@ class LoginForm extends React.Component<ILoginForm> {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className='form-body'>
-        <h1>TodoList</h1>
+        <h1>Todo List</h1>
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [

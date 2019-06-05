@@ -42,9 +42,9 @@ export const updateTodoStatus: (
   payload: todoId
 });
 
-export const updateTodoContent: (todo: ITodoState) => TodoActionTypes = (
-  todo
-) => ({
+export const updateTodoContent: (
+  todo: Partial<ITodoState>
+) => TodoActionTypes = (todo) => ({
   type: UPDATE_TODO_CONTENT,
   payload: todo
 });

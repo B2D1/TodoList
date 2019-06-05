@@ -1,4 +1,4 @@
-import { IUserState, LOGIN_FAIL, LOGIN_SUC, LoginActionTypes, RegActionTypes, REGISTER_RES } from './types';
+import { IUserState, LOGIN_FAIL, LOGIN_SUC, LoginActionTypes, RegActionTypes, REGISTER_FAIL, REGISTER_SUC } from './types';
 
 const initialState: IUserState = {
   userId: '',
@@ -11,22 +11,25 @@ export default function userReducer(
   action: LoginActionTypes | RegActionTypes
 ) {
   switch (action.type) {
-    case REGISTER_RES:
+    case REGISTER_FAIL:
       return {
         ...state,
-        errMsg: action.payload.errMsg
+        ...action.payload
+      };
+    case REGISTER_SUC:
+      return {
+        ...state,
+        ...action.payload
       };
     case LOGIN_SUC:
       return {
         ...state,
-        userId: action.payload.userId,
-        username: action.payload.username,
-        errMsg: action.payload.errMsg
+        ...action.payload
       };
     case LOGIN_FAIL:
       return {
         ...state,
-        errMsg: action.payload.errMsg
+        ...action.payload
       };
     default:
       return state;

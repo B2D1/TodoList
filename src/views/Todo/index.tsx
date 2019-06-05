@@ -1,12 +1,13 @@
 import './index.scss';
 
-import { Button, Empty, Icon, Input, message } from 'antd';
+import { Button, Empty, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { History } from 'history';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { FormAction } from 'src/common/enum';
+import TodoItem from 'src/components/TodoItem';
 import { AppStore } from 'src/store';
 import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from 'src/store/todo/actions';
 import { ITodoState } from 'src/store/todo/types';
@@ -27,11 +28,12 @@ interface ITodoProps extends FormComponentProps {
   user: IUserState;
 }
 const initialState = {
-  ResolvedStatus: false,
+  resolvedStatus: false,
   showModal: false,
   oldContent: '',
   todoId: '',
   userId: '',
+  username: '',
   formAction: '',
   modalTitle: '',
   q: ''
@@ -43,8 +45,10 @@ class Todo extends React.Component<ITodoProps, ISate> {
   public state = initialState;
   public componentDidMount() {
     const userId = localStorage.getItem('userId')!;
+    const username = localStorage.getItem('username')!;
     this.setState({
-      userId
+      userId,
+      username
     });
     if (!userId) {
       this.props.history.push('/');
@@ -52,9 +56,14 @@ class Todo extends React.Component<ITodoProps, ISate> {
       this.props.fetchTodo({ userId });
     }
   }
-  public OnShowResolvedTodo(flag: boolean) {
+  public logout = () => {
+    window.localStorage.removeItem('userId');
+    window.localStorage.removeItem('username');
+    this.props.history.push('/');
+  };
+  public handleShowResolved(flag: boolean) {
     this.setState({
-      ResolvedStatus: flag
+      resolvedStatus: flag
     });
   }
   public handleAddTodo = (content: string) => {
@@ -104,10 +113,16 @@ class Todo extends React.Component<ITodoProps, ISate> {
   };
   public render() {
     const filterTodo = this.props.todo.filter(
-      (v) => v.status === this.state.ResolvedStatus
+      (v) => v.status === this.state.resolvedStatus
     );
     return (
       <div className='todo-wrapper'>
+        <div className='user'>
+          <span>Hello，{this.state.username}</span>
+          <Button type='ghost' size='small' onClick={this.logout}>
+            退出
+          </Button>
+        </div>
         <div className='todo-bar'>
           <Search
             placeholder='输入要查询的内容'
@@ -124,65 +139,30 @@ class Todo extends React.Component<ITodoProps, ISate> {
         <div className='todo-main'>
           <ul className='todo-nav'>
             <li
-              className={this.state.ResolvedStatus ? '' : 'active'}
-              onClick={() => this.OnShowResolvedTodo(false)}>
+              className={this.state.resolvedStatus ? '' : 'active'}
+              onClick={() => this.handleShowResolved(false)}>
               <i className='color pending' />
               未完成
             </li>
             <li
-              className={this.state.ResolvedStatus ? 'active' : ''}
-              onClick={(evt) => this.OnShowResolvedTodo(true)}>
+              className={this.state.resolvedStatus ? 'active' : ''}
+              onClick={(evt) => this.handleShowResolved(true)}>
               <i className='color resolved' />
               已完成
             </li>
           </ul>
           <ul className='todo-list'>
             {filterTodo.length ? (
-              filterTodo.map((v) => {
-                return (
-                  <li key={v._id}>
-                    <div className='todo-item'>
-                      <span>{v.content}</span>
-                      <div>
-                        <Icon
-                          type='edit'
-                          className='todo-icon'
-                          onClick={() =>
-                            this.handleShowModal(
-                              FormAction.Edit,
-                              v._id,
-                              v.content
-                            )
-                          }
-                        />
-                        {this.state.ResolvedStatus ? (
-                          <Icon
-                            type='undo'
-                            className='todo-icon'
-                            onClick={(evt) =>
-                              this.handleUpdateTodoStatus(v._id || '')
-                            }
-                          />
-                        ) : (
-                          <Icon
-                            type='check'
-                            className='todo-icon icon-check'
-                            onClick={(evt) =>
-                              this.handleUpdateTodoStatus(v._id || '')
-                            }
-                          />
-                        )}
-
-                        <Icon
-                          type='delete'
-                          className='todo-icon icon-delete'
-                          onClick={(evt) => this.handleDeleteTodo(v._id || '')}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                );
-              })
+              filterTodo.map((v) => (
+                <TodoItem
+                  {...v}
+                  key={v._id}
+                  resolved={this.state.resolvedStatus}
+                  onShowModal={this.handleShowModal}
+                  onDelete={this.handleDeleteTodo}
+                  onUpdateStatus={this.handleUpdateTodoStatus}
+                />
+              ))
             ) : (
               <Empty className='no-data' />
             )}
