@@ -1,10 +1,9 @@
 import { message } from 'antd';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-import Footer from './components/Footer';
-import Index from './views/Index';
-import Todo from './views/Todo';
+import Footer from 'src/components/Footer';
+import Index from 'src/views/Index';
+import Todo from 'src/views/Todo';
 
 // 配置全局 message
 message.config({
