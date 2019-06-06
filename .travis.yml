@@ -4,11 +4,26 @@ node_js:
 branchs:
   only:
     - master
+addons:
+  ssh_known_hosts:
+    - 47.106.87.3
 cache:
   directories:
     - node_modules
+before_install:
+  - openssl aes-256-cbc -K $encrypted_XXXXXXXXXXXX_key -iv $encrypted_XXXXXXXXXXXX_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d
+  # 开启 ssh-agent，即允许使用 ssh 命令
+  - eval "$(ssh-agent -s)"
+  # 给予 id_rsa 文件权限，避免警告
+  - chmod 600 ~/.ssh/id_rsa
+  # 将私钥添加到 ssh
+  - ssh-add ~/.ssh/id_rsa
 install:
   - npm install -g cnpm --registry=https://registry.npm.taobao.org
   - cnpm install
 scripts:
+  - npm test
   - npm build
+after_success:
+  # 登录服务器，执行部署脚本，其实最好把后面一串写成 shell 文件
+  - ssh root@47.106.87.3 -o StrictHostKeyChecking=no 'cd /home/root/TodoList && git pull && npm install -g cnpm --registry=https://registry.npm.taobao.org && cnpm i && npm build && cd server && cnpmi && pm2 restart app.js --name TodoList'
