@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Footer from 'src/components/footer';
+import Footer from 'src/components/BFooter';
 import Index from 'src/views/Index';
 import Todo from 'src/views/Todo';
 
