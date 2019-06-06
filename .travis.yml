@@ -11,7 +11,7 @@ cache:
   directories:
     - node_modules
 before_install:
-  - openssl aes-256-cbc -K $encrypted_XXXXXXXXXXXX_key -iv $encrypted_XXXXXXXXXXXX_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d
+  - - openssl aes-256-cbc -K $encrypted_0ec4f66d4059_key -iv $encrypted_0ec4f66d4059_iv -in ./id_rsa.enc -out ~/.ssh/id_rsa -d
   # 开启 ssh-agent，即允许使用 ssh 命令
   - eval "$(ssh-agent -s)"
   # 给予 id_rsa 文件权限，避免警告
