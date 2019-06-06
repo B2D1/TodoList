@@ -7,10 +7,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { FormAction } from 'src/common/enum';
-import ModalForm from 'src/components/FormModal';
-import TodoItem from 'src/components/TodoItem';
+import ModalForm from 'src/components/formModal';
+import TodoItem from 'src/components/todoItem';
 import { AppStore } from 'src/store';
-import { addTodo, deleteTodo, fetchTodo, searchTodo, updateTodoContent, updateTodoStatus } from 'src/store/todo/actions';
+import {
+  addTodo,
+  deleteTodo,
+  fetchTodo,
+  searchTodo,
+  updateTodoContent,
+  updateTodoStatus
+} from 'src/store/todo/actions';
 import { ITodoState } from 'src/store/todo/types';
 import { IUserState } from 'src/store/user/types';
 

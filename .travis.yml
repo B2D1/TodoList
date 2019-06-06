@@ -26,6 +26,5 @@ scripts:
 after_success:
   # 登录服务器，执行部署脚本，其实最好把后面一串写成 shell 文件
   - ssh root@47.106.87.3 -o StrictHostKeyChecking=no 'cd /home/root/TodoList && git pull && npm i && npm run build'
-  - cd server
-  - npm i
+  - 'cd /home/root/TodoList/server && npm i'
   - pm2 restart TodoList

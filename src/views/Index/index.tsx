@@ -3,8 +3,8 @@ import './index.scss';
 import { message } from 'antd';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import LoginForm from 'src/components/LoginForm';
-import RegForm from 'src/components/RegForm';
+import LoginForm from 'src/components/loginForm';
+import RegForm from 'src/components/regForm';
 
 const initialState = {
   showLogin: true
