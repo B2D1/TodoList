@@ -17,7 +17,7 @@ before_install:
   # 将私钥添加到 ssh
   - ssh-add ~/.ssh/id_rsa
 install:
-  - npm i -g npm@6
+  - npm i -g npm@5
   - npm ci
 script:
   - npm run test
