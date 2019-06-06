@@ -15,7 +15,7 @@ app
   .use(bodyParser())
   .use(userRouter.routes())
   .use(todoRouter.routes())
-  .use(static(path.resolve(__dirname, 'dist')));
+  .use(static(path.resolve(__dirname, '../build')));
 
 app.listen(config.PORT, () => {
   console.log(
