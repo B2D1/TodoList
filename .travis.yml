@@ -7,9 +7,6 @@ branchs:
 addons:
   ssh_known_hosts:
     - 47.106.87.3
-cache:
-  directories:
-    - node_modules
 before_install:
   - openssl aes-256-cbc -K $encrypted_0ec4f66d4059_key -iv $encrypted_0ec4f66d4059_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
   # 开启 ssh-agent，即允许使用 ssh 命令
