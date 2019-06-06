@@ -8,40 +8,40 @@ class TodoService {
       status: false
     });
     try {
-      const data = await todo.save();
-      return data;
-    } catch (error) {}
+      return await todo.save();
+    } catch (error) {
+      throw new Error('新增失败 (￣o￣).zZ');
+    }
   }
   async deleteTodo(todoId) {
     try {
-      const todo = await todoModel.findByIdAndDelete(todoId);
-      return todo;
+      return await todoModel.findByIdAndDelete(todoId);
     } catch (error) {
-      throw new Error('delete failed!');
+      throw new Error('删除失败 (￣o￣).zZ');
     }
   }
   async getAllTodos(userId) {
     try {
-      const todos = todoModel.find({
+      return todoModel.find({
         userId
       });
-      return todos;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error('获取失败 (￣o￣).zZ');
+    }
   }
   async updateTodoStatus(todoId) {
     try {
       let _record = await todoModel.findById(todoId);
-      const _status = !_record.status;
       const record = await todoModel.updateOne(
         { _id: todoId },
-        { status: _status }
+        { status: !record.status }
       );
+      // mongodb 修改标志位
       if (record.nModified) {
         return record;
       }
-      throw new Error('update failed!');
     } catch (error) {
-      throw new Error('delete failed!');
+      throw new Error('更新状态失败 (￣o￣).zZ');
     }
   }
   async updateTodoContent(todoId, content) {
@@ -50,16 +50,17 @@ class TodoService {
       if (record.nModified) {
         return record;
       }
-      throw new Error('update failed!');
     } catch (error) {
-      throw new Error('update failed!');
+      throw new Error('更新内容失败 (￣o￣).zZ');
     }
   }
   async searchTodo(userId, q) {
     try {
       let record = await todoModel.find({ userId });
       return record.filter((v) => v.content.includes(q));
-    } catch (error) {}
+    } catch (error) {
+      throw new Error('查询失败 (￣o￣).zZ');
+    }
   }
 }
 

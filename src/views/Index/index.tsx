@@ -1,5 +1,6 @@
 import './index.scss';
 
+import { message } from 'antd';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import LoginForm from 'src/components/LoginForm';
@@ -20,6 +21,7 @@ class Home extends React.Component<RouteComponentProps, IState> {
   }
   public toTodo = () => {
     this.props.history.push('/todo');
+    message.destroy();
   };
   public toggleForm = () => {
     this.setState({
