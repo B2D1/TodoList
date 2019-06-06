@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/B2D1/TodoList.svg?branch=master)](https://travis-ci.org/B2D1/TodoList)
+
 ## 🚩 一款基于 TS React Antd Koa2 MongoDB 实现的 TodoList 全栈应用
 
 ### 线上访问地址
@@ -14,7 +16,7 @@
 ### 技术栈
 
 - 前端
-  - TypeScript（使 JS 成为强类型语言）
+  - TypeScript（赋予 JS 强类型语言的特性）
   - React（当下最流行的前端框架）
   - Axios（处理 HTTP 请求）
   - Ant-Design（UI 框架）
