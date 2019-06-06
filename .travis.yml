@@ -18,11 +18,8 @@ before_install:
   - chmod 600 ~/.ssh/id_rsa
   # 将私钥添加到 ssh
   - ssh-add ~/.ssh/id_rsa
-install:
-  - npm install -g cnpm --registry=https://registry.npm.taobao.org
-  - cnpm install
-scripts:
-  - npm test
+install: true
+scripts: true
 after_success:
   # 登录服务器，执行部署脚本，其实最好把后面一串写成 shell 文件
   - ssh root@47.106.87.3 -o StrictHostKeyChecking=no 'cd /home/root/TodoList && git pull && npm i && npm run build'
