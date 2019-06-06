@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
+import UserService from 'src/service/user';
 import { removeStorage, setStorage } from 'src/utils/store';
 
-import UserService from '../../service/user';
 import { ILoginAction, IRegisterAction, LOGIN_FAIL, LOGIN_SUC, REGISTER_FAIL, REGISTER_SUC } from './types';
 
 const userService = new UserService();

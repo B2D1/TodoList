@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import rootSaga from 'src/saga';
 
-import rootSaga from '../saga';
 import todoReducer from './todo/reducers';
 import userReducer from './user/reducers';
 

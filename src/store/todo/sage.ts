@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
+import TodoService from 'src/service/todo';
 
-import TodoService from '../../service/todo';
 import {
   ADD_TODO_SUC,
   DELETE_TODO_SUC,

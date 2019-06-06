@@ -1,7 +1,6 @@
 import { message } from 'antd';
 import axios from 'axios';
-
-import Config from '../config';
+import Config from 'src/config';
 
 const request = axios.create({
   baseURL: Config.BASE_URL,
