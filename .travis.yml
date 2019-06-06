@@ -17,13 +17,11 @@ before_install:
   # 将私钥添加到 ssh
   - ssh-add ~/.ssh/id_rsa
 install:
-  - npm i -g npm@5
-  - npm ci
+  - npm install -g cnpm --registry=https://registry.npm.taobao.org
+  - cnpm i
 script:
   - npm run test
 after_success:
-  - npm install -g cnpm --registry=https://registry.npm.taobao.org
-  - cnpm i
   - npm run build
   - tar -zcvf build.tar.gz build
   - scp build.tar.gz root@47.106.87.3:/home/root/TodoList
