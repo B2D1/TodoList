@@ -18,7 +18,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/Users/baobangdong/Desktop/project/TodoList/tsconfig.test.json"
+        "tsConfigFile": "tsconfig.test.json"
       }
     },
     "moduleFileExtensions": [
