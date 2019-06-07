@@ -25,5 +25,5 @@ after_success:
   - npm run build
   - tar -zcvf build.tar.gz build
   - scp build.tar.gz root@47.106.87.3:/home/root/TodoList
-  - ssh root@47.106.87.3 'cd /home/root/TodoList && tar -zxvf build.tar.gz'
+  - ssh root@47.106.87.3 'cd /home/root/TodoList && tar -zxvf build.tar.gz && git pull'
   - ssh root@47.106.87.3 'curl -L https://npmjs.org/install.sh | sudo sh && npm i pm2 -g && pm2 restart TodoList'
