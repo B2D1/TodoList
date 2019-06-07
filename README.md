@@ -4,7 +4,7 @@
 
 ### 线上访问地址
 
-[https://b2d1.top:5000/](https://b2d1.top:5000/)（已设置 HTTPS 安全)
+[http://47.106.87.3:4000/](http://47.106.87.3:4000/)
 
 ### 应用效果
 
@@ -29,11 +29,11 @@
 
 ### 本地运行
 
-```
+```bash
 git clone https://github.com/B2D1/TodoList.git // clone到本地
 ```
 
-```
+```bash
 cd /TodoList/server // 进入server文件夹
 
 npm install // 安装后端所需要的NPM包
@@ -41,7 +41,7 @@ npm install // 安装后端所需要的NPM包
 node app // 启动后端服务，监听本地5000端口，请自行下载MongoDB，并开启数据库服务
 ```
 
-```
+```bash
 // 开启一个新的终端
 
 cd /TodoList // 进入TodoList文件夹
