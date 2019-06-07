@@ -34,7 +34,7 @@ class TodoService {
       let _record = await todoModel.findById(todoId);
       const record = await todoModel.updateOne(
         { _id: todoId },
-        { status: !record.status }
+        { status: !_record.status }
       );
       // mongodb 修改标志位
       if (record.nModified) {
