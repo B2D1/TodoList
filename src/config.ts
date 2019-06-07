@@ -1,5 +1,5 @@
 enum Config {
-  BASE_URL = 'http://localhost:5000/api/'
+  BASE_URL = 'http://47.106.87.3/api/'
 }
 
 export default Config;
