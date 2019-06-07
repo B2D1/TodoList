@@ -1,6 +1,5 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-const static = require('koa-static');
 const path = require('path');
 const cors = require('koa2-cors');
 const config = require('./config');
@@ -14,8 +13,7 @@ app
   .use(cors())
   .use(bodyParser())
   .use(userRouter.routes())
-  .use(todoRouter.routes())
-  .use(static(path.resolve(__dirname, '../build')));
+  .use(todoRouter.routes());
 
 app.listen(config.PORT, () => {
   console.log(
