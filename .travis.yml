@@ -26,4 +26,4 @@ after_success:
   - tar -zcvf build.tar.gz build
   - scp build.tar.gz root@47.106.87.3:/home/root/TodoList
   - ssh root@47.106.87.3 'cd /home/root/TodoList && tar -zxvf build.tar.gz'
-  - ssh root@47.106.87.3 'pm2 restart TodoList'
+  - ssh root@47.106.87.3 'cnpm i pm2 -g && pm2 restart TodoList'

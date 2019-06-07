@@ -19,8 +19,9 @@ app
 
 app.listen(config.PORT, () => {
   console.log(
-    '------Server is running on: http://localhost:%s------',
-    config.PORT
+    `${new Date().toLocaleString()}: Server is running on: http://localhost:${
+      config.PORT
+    }`
   );
 });
 
