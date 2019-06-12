@@ -16,22 +16,23 @@
 
 ### 技术栈
 
--   前端
-    -   TypeScript（赋予 JS 强类型语言的特性）
-    -   React（当下最流行的前端框架）
-    -   Axios（处理 HTTP 请求）
-    -   Ant-Design（阿里开源的 UI 语言框架）
-    -   React-Router（处理页面路由）
-    -   Redux（数据状态管理）
-    -   Redux-Saga（处理异步 Action）
--   后端
-    -   Koa2（基于 Node.js 平台的下一代 web 开发框架）
-    -   MongoDB（非关系型数据库）
+- 前端
+  - TypeScript（赋予 JS 强类型语言的特性）
+  - React（当下最流行的前端框架）
+  - Axios（处理 HTTP 请求）
+  - Ant-Design（阿里开源的 UI 语言框架）
+  - React-Router（处理页面路由）
+  - Redux（数据状态管理）
+  - Redux-Saga（处理异步 Action）
+- 后端
+  - Koa2（基于 Node.js 平台的下一代 web 开发框架）
+  - MongoDB（非关系型数据库）
 
 ### 本地运行
 
 ```bash
-git clone https://github.com/B2D1/TodoList.git // clone 到本地
+# clone 到本地
+git clone https://github.com/B2D1/TodoList.git
 ```
 
 ```bash
