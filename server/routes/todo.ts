@@ -1,6 +1,7 @@
-const Router = require('koa-router');
-const TodoService = require('../service/todo');
-const handleRes = require('../utils/response');
+import * as Router from 'koa-router';
+
+import TodoService from '../service/todo';
+import handleRes from '../utils/response';
 
 const todoService = new TodoService();
 const todoRouter = new Router({
@@ -109,4 +110,4 @@ todoRouter
     }
   });
 
-module.exports = todoRouter;
+export default todoRouter;

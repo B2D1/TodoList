@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -10,4 +11,4 @@ const userSchema = new Schema({
   psd: String
 });
 
-module.exports = userSchema;
+export default userSchema;

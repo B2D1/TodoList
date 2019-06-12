@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
-const initDB = (dbUrl) => {
+const initDB = (dbUrl: string) => {
   mongoose.connect(dbUrl, {
     useCreateIndex: true,
     useNewUrlParser: true
@@ -19,4 +19,4 @@ const initDB = (dbUrl) => {
   });
 };
 
-module.exports = initDB;
+export default initDB;

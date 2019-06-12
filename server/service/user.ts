@@ -1,7 +1,7 @@
-const userModel = require('../db/models/user');
+import userModel from '../db/models/user';
 
-class UserService {
-  async addUser(usr, psd) {
+export default class UserService {
+  async addUser(usr: string, psd: string) {
     try {
       const user = new userModel({
         usr,
@@ -13,7 +13,7 @@ class UserService {
       throw new Error('用户名已存在 (￣o￣).zZ');
     }
   }
-  async validUser(usr, psd) {
+  async validUser(usr: string, psd: string) {
     try {
       const user = await userModel.findOne({
         usr
@@ -32,5 +32,3 @@ class UserService {
     }
   }
 }
-
-module.exports = UserService;

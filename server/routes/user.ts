@@ -1,6 +1,7 @@
-const Router = require('koa-router');
-const UserService = require('../service/user');
-const handleRes = require('../utils/response');
+import * as Router from 'koa-router';
+
+import UserService from '../service/user';
+import handleRes from '../utils/response';
 
 const userService = new UserService();
 const userRouter = new Router({
@@ -46,4 +47,4 @@ userRouter
     }
   });
 
-module.exports = userRouter;
+export default userRouter;

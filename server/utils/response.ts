@@ -28,4 +28,4 @@ const handleRes = (params) => {
   }
 };
 
-module.exports = handleRes;
+export default handleRes;
