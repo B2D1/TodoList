@@ -1,3 +1,4 @@
+import { Request } from 'koa';
 import * as Router from 'koa-router';
 
 import UserService from '../service/user';
@@ -8,9 +9,15 @@ const userRouter = new Router({
   prefix: '/api/users'
 });
 
+interface IPayload extends Request {
+  username?: string;
+  password?: string;
+}
+
 userRouter
   .post('/login', async (ctx, next) => {
-    const { username, password } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { username, password } = body;
     try {
       const data = await userService.validUser(username, password);
       handleRes({
@@ -29,7 +36,8 @@ userRouter
     }
   })
   .post('/', async (ctx, next) => {
-    const { username, password } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { username, password } = body;
     try {
       const data = await userService.addUser(username, password);
       if (data) {

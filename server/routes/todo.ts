@@ -1,3 +1,4 @@
+import { Request } from 'koa';
 import * as Router from 'koa-router';
 
 import TodoService from '../service/todo';
@@ -7,6 +8,15 @@ const todoService = new TodoService();
 const todoRouter = new Router({
   prefix: '/api/todos'
 });
+
+interface IPayload extends Request {
+  username?: string;
+  password?: string;
+  todoId?: string;
+  content?: string;
+  q?: string;
+  userId?: string;
+}
 
 todoRouter
   .get('/:userId/all', async (ctx, next) => {
@@ -28,7 +38,8 @@ todoRouter
     }
   })
   .post('/search', async (ctx, next) => {
-    const { userId, q } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { userId, q } = body;
     try {
       const data = await todoService.searchTodo(userId, q);
       if (data) {
@@ -46,7 +57,8 @@ todoRouter
     }
   })
   .put('/status', async (ctx, next) => {
-    const { todoId } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { todoId } = body;
     try {
       const data = await todoService.updateTodoStatus(todoId);
       if (data) {
@@ -61,7 +73,8 @@ todoRouter
     }
   })
   .put('/content', async (ctx, next) => {
-    const { todoId, content } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { todoId, content } = body;
     try {
       const data = await todoService.updateTodoContent(todoId, content);
       if (data) {
@@ -76,7 +89,8 @@ todoRouter
     }
   })
   .post('/', async (ctx, next) => {
-    const { userId, content } = ctx.request.body;
+    const body: IPayload = ctx.request;
+    const { userId, content } = body;
     try {
       const data = await todoService.addTodo(userId, content);
       if (data) {
