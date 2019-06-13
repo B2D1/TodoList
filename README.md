@@ -6,13 +6,19 @@
 
 [http://47.106.87.3:4000/](http://47.106.87.3:4000/)
 
-### 应用效果
+### 应用成果
 
-自主设计 `RESTful` 接口并联调，实现用户的登录注册，Todo 的关键词查询，内容修改，状态更改，记录删除，是一个非常值得入手实践的全栈项目。
-
-[掘金传送门](https://juejin.im/post/5c6cda0ae51d457139114898)
+> [掘金文章传送门](https://juejin.im/post/5c6cda0ae51d457139114898)
 
 ![](https://user-gold-cdn.xitu.io/2019/2/19/169053e1533bad8a?imageslim)
+
+### 应用功能点
+
+- 前后端均用 `TS` 编写
+- 自主设计 `RESTful` 接口、数据库，并实现前后端分离开发
+- 实现用户的登录注册
+- 实现 `Todo` 的关键词查询，内容修改，状态更改，记录删除
+- 服务端的优雅错误处理
 
 ### 技术栈
 
@@ -31,28 +37,31 @@
 ### 本地运行
 
 ```bash
-# clone 到本地
+# clone
 git clone https://github.com/B2D1/TodoList.git
+
+# 全局安装 typescript
+cnpm i typescript -g
 ```
 
 ```bash
-# 进入 server文件夹
+# 进入server文件夹，运行服务端
 cd /TodoList/server
 
 # 安装后端所需要的依赖包
 cnpm i
 
-# 启动后端服务，监听本地5000端口，请自行下载 MongoDB，并开启数据库服务
-node app
+# 启动后端服务，监听本地5000端口，请自行下载MongoDB，并开启数据库服务
+npm run dev
 ```
 
 ```bash
-# 开启一个新的终端
+# 开启一个新的终端，运行浏览器端
 cd /TodoList
 
 # 安装前端所需要的依赖包
 cnpm i
 
 # 运行项目
-npm start
+npm run start
 ```
