@@ -38,10 +38,10 @@ todoRouter
     }
   })
   .post('/search', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { userId, q } = body;
+    const payload = ctx.request.body as IPayload;
+    const { userId, q } = payload;
     try {
-      const data = await todoService.searchTodo(userId, q);
+      const data = await todoService.searchTodo(userId!, q!);
       if (data) {
         handleRes({
           ctx,
@@ -57,10 +57,10 @@ todoRouter
     }
   })
   .put('/status', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { todoId } = body;
+    const payload = ctx.request.body as IPayload;
+    const { todoId } = payload;
     try {
-      const data = await todoService.updateTodoStatus(todoId);
+      const data = await todoService.updateTodoStatus(todoId!);
       if (data) {
         handleRes({ ctx, status_code: 202 });
       }
@@ -73,10 +73,10 @@ todoRouter
     }
   })
   .put('/content', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { todoId, content } = body;
+    const payload = ctx.request.body as IPayload;
+    const { todoId, content } = payload;
     try {
-      const data = await todoService.updateTodoContent(todoId, content);
+      const data = await todoService.updateTodoContent(todoId!, content!);
       if (data) {
         handleRes({ ctx, status_code: 202 });
       }
@@ -89,10 +89,10 @@ todoRouter
     }
   })
   .post('/', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { userId, content } = body;
+    const payload = ctx.request.body as IPayload;
+    const { userId, content } = payload;
     try {
-      const data = await todoService.addTodo(userId, content);
+      const data = await todoService.addTodo(userId!, content!);
       if (data) {
         handleRes({
           ctx,

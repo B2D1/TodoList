@@ -1,7 +1,8 @@
 import todoModel from '../db/models/todo';
+import { ITodo } from '../interface';
 
 export default class TodoService {
-  async addTodo(userId: string, content: string) {
+  public async addTodo(userId: string, content: string) {
     const todo = new todoModel({
       userId,
       content,
@@ -13,14 +14,14 @@ export default class TodoService {
       throw new Error('新增失败 (￣o￣).zZ');
     }
   }
-  async deleteTodo(todoId: string) {
+  public async deleteTodo(todoId: string) {
     try {
       return await todoModel.findByIdAndDelete(todoId);
     } catch (error) {
       throw new Error('删除失败 (￣o￣).zZ');
     }
   }
-  async getAllTodos(userId: string) {
+  public async getAllTodos(userId: string) {
     try {
       return todoModel.find({
         userId
@@ -29,12 +30,12 @@ export default class TodoService {
       throw new Error('获取失败 (￣o￣).zZ');
     }
   }
-  async updateTodoStatus(todoId: string) {
+  public async updateTodoStatus(todoId: string) {
     try {
-      let _record = await todoModel.findById(todoId);
+      const oldRecord = (await todoModel.findById(todoId)) as ITodo;
       const record = await todoModel.updateOne(
         { _id: todoId },
-        { status: !_record.status }
+        { status: !oldRecord.status }
       );
       // mongodb 修改标志位
       if (record.nModified) {
@@ -44,7 +45,7 @@ export default class TodoService {
       throw new Error('更新状态失败 (￣o￣).zZ');
     }
   }
-  async updateTodoContent(todoId: string, content: string) {
+  public async updateTodoContent(todoId: string, content: string) {
     try {
       const record = await todoModel.updateOne({ _id: todoId }, { content });
       if (record.nModified) {
@@ -54,9 +55,9 @@ export default class TodoService {
       throw new Error('更新内容失败 (￣o￣).zZ');
     }
   }
-  async searchTodo(userId: string, q: string) {
+  public async searchTodo(userId: string, q: string) {
     try {
-      let record = await todoModel.find({ userId });
+      const record = (await todoModel.find({ userId })) as ITodo[];
       return record.filter((v) => v.content.includes(q));
     } catch (error) {
       throw new Error('查询失败 (￣o￣).zZ');

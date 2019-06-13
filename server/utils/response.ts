@@ -1,5 +1,16 @@
-const handleRes = (params) => {
-  const _params = Object.assign(
+import { Context } from 'koa';
+
+interface IRes {
+  ctx: Context;
+  status_code?: number;
+  data?: any;
+  error_code?: number;
+  msg?: string;
+  request?: string;
+}
+
+const handleRes = (params: IRes) => {
+  const handleParams = Object.assign(
     {
       ctx: null,
       status_code: 200,
@@ -10,20 +21,20 @@ const handleRes = (params) => {
     },
     params
   );
-  if (`${_params.status_code}`.startsWith('2')) {
-    _params.ctx.response.status = _params.status_code;
-    _params.ctx.body = {
-      error_code: _params.error_code,
-      data: _params.data,
-      msg: _params.msg,
-      request: _params.request
+  if (`${handleParams.status_code}`.startsWith('2')) {
+    handleParams.ctx.response.status = handleParams.status_code;
+    handleParams.ctx.body = {
+      error_code: handleParams.error_code,
+      data: handleParams.data,
+      msg: handleParams.msg,
+      request: handleParams.request
     };
   } else {
-    _params.ctx.response.status = _params.status_code;
-    _params.ctx.body = {
-      error_code: _params.error_code,
-      msg: _params.msg,
-      request: _params.request
+    handleParams.ctx.response.status = handleParams.status_code;
+    handleParams.ctx.body = {
+      error_code: handleParams.error_code,
+      msg: handleParams.msg,
+      request: handleParams.request
     };
   }
 };

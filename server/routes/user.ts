@@ -10,14 +10,14 @@ const userRouter = new Router({
 });
 
 interface IPayload extends Request {
-  username?: string;
-  password?: string;
+  username: string;
+  password: string;
 }
 
 userRouter
   .post('/login', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { username, password } = body;
+    const payload = ctx.request.body as IPayload;
+    const { username, password } = payload;
     try {
       const data = await userService.validUser(username, password);
       handleRes({
@@ -36,8 +36,8 @@ userRouter
     }
   })
   .post('/', async (ctx, next) => {
-    const body: IPayload = ctx.request;
-    const { username, password } = body;
+    const payload = ctx.request.body as IPayload;
+    const { username, password } = payload;
     try {
       const data = await userService.addUser(username, password);
       if (data) {

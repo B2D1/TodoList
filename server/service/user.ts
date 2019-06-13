@@ -1,7 +1,8 @@
 import userModel from '../db/models/user';
+import { IUser } from '../interface';
 
 export default class UserService {
-  async addUser(usr: string, psd: string) {
+  public async addUser(usr: string, psd: string) {
     try {
       const user = new userModel({
         usr,
@@ -13,11 +14,11 @@ export default class UserService {
       throw new Error('用户名已存在 (￣o￣).zZ');
     }
   }
-  async validUser(usr: string, psd: string) {
+  public async validUser(usr: string, psd: string) {
     try {
-      const user = await userModel.findOne({
+      const user = (await userModel.findOne({
         usr
-      });
+      })) as IUser;
       // 查询用户
       if (!user) {
         throw new Error('用户不存在 (￣o￣).zZ');
