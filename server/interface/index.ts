@@ -7,6 +7,7 @@ export interface ITodo extends Document {
 }
 
 export interface IUser extends Document {
+  _id: string;
   usr: string;
   psd: string;
 }

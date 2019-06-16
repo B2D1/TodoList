@@ -14,17 +14,12 @@ interface IPayload extends Request {
   password: string;
 }
 
-interface IData {
-  _id: string;
-  usr: string;
-}
-
 userRouter
   .post('/login', async (ctx, next) => {
     const payload = ctx.request.body as IPayload;
     const { username, password } = payload;
     try {
-      const data: IData = await userService.validUser(username, password);
+      const data = await userService.validUser(username, password);
       handleRes({
         ctx,
         data: {
