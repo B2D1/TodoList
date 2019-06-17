@@ -16,11 +16,7 @@ app
   .use(todoRouter.routes());
 
 app.listen(Config.PORT, () => {
-  console.log(
-    `${new Date().toLocaleString()}: Server is running on: http://localhost:${
-      Config.PORT
-    }`
-  );
+  console.log(`Server is running on: http://localhost:${Config.PORT}`);
 });
 
 initDB(Config.DB_URL);

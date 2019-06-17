@@ -1,4 +1,4 @@
-import { Request } from 'koa';
+import { Context, Request } from 'koa';
 import * as Router from 'koa-router';
 
 import UserService from '../service/user';
@@ -15,27 +15,29 @@ interface IPayload extends Request {
 }
 
 userRouter
-  .post('/login', async (ctx, next) => {
+  .post('/login', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { username, password } = payload;
     try {
-      const data = await userService.validUser(username, password);
+      const user = await userService.validUser(username, password);
       handleRes({
         ctx,
         data: {
-          userId: data._id,
-          username: data.usr
+          userId: user._id,
+          username: user.usr
         }
       });
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .post('/', async (ctx, next) => {
+  .post('/', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { username, password } = payload;
     try {
@@ -46,12 +48,14 @@ userRouter
           status_code: 201
         });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   });
 

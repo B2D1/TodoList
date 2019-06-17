@@ -1,4 +1,4 @@
-import { Request } from 'koa';
+import { Context, Request } from 'koa';
 import * as Router from 'koa-router';
 
 import TodoService from '../service/todo';
@@ -19,7 +19,7 @@ interface IPayload extends Request {
 }
 
 todoRouter
-  .get('/:userId/all', async (ctx, next) => {
+  .get('/:userId/all', async (ctx: Context) => {
     const userId = ctx.params.userId;
     try {
       const data = await todoService.getAllTodos(userId);
@@ -29,15 +29,17 @@ todoRouter
           data
         });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .post('/search', async (ctx, next) => {
+  .post('/search', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { userId, q } = payload;
     try {
@@ -48,15 +50,17 @@ todoRouter
           data
         });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .put('/status', async (ctx, next) => {
+  .put('/status', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { todoId } = payload;
     try {
@@ -64,15 +68,17 @@ todoRouter
       if (data) {
         handleRes({ ctx, status_code: 202 });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .put('/content', async (ctx, next) => {
+  .put('/content', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { todoId, content } = payload;
     try {
@@ -80,15 +86,17 @@ todoRouter
       if (data) {
         handleRes({ ctx, status_code: 202 });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .post('/', async (ctx, next) => {
+  .post('/', async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
     const { userId, content } = payload;
     try {
@@ -100,27 +108,31 @@ todoRouter
           data
         });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   })
-  .delete('/:todoId', async (ctx, next) => {
+  .delete('/:todoId', async (ctx: Context) => {
     const todoId = ctx.params.todoId;
     try {
       const data = await todoService.deleteTodo(todoId);
       if (data) {
         handleRes({ ctx, status_code: 204 });
       }
+      return false;
     } catch (error) {
       handleRes({
         ctx,
         error_code: 1,
         msg: error.message
       });
+      return false;
     }
   });
 

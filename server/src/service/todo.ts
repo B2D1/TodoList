@@ -1,5 +1,6 @@
+import { Error } from 'mongoose';
+
 import todoModel from '../db/models/todo';
-import { ITodo } from '../interface';
 
 export default class TodoService {
   public async addTodo(userId: string, content: string) {
@@ -32,32 +33,27 @@ export default class TodoService {
   }
   public async updateTodoStatus(todoId: string) {
     try {
-      const oldRecord = (await todoModel.findById(todoId)) as ITodo;
+      const oldRecord = await todoModel.findById(todoId).exec();
       const record = await todoModel.updateOne(
         { _id: todoId },
-        { status: !oldRecord.status }
+        { status: !oldRecord!.status }
       );
       // mongodb 修改标志位
-      if (record.nModified) {
-        return record;
-      }
+      return record.nModified && record;
     } catch (error) {
       throw new Error('更新状态失败 (￣o￣).zZ');
     }
   }
   public async updateTodoContent(todoId: string, content: string) {
     try {
-      const record = await todoModel.updateOne({ _id: todoId }, { content });
-      if (record.nModified) {
-        return record;
-      }
+      return await todoModel.findByIdAndUpdate(todoId, { content });
     } catch (error) {
       throw new Error('更新内容失败 (￣o￣).zZ');
     }
   }
   public async searchTodo(userId: string, q: string) {
     try {
-      const record = (await todoModel.find({ userId })) as ITodo[];
+      const record = await todoModel.find({ userId });
       return record.filter((v) => v.content.includes(q));
     } catch (error) {
       throw new Error('查询失败 (￣o￣).zZ');

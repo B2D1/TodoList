@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && node dist/app.js",
-    "dev": "nodemon --watch './**/*' -e ts,tsx --exec 'ts-node' app.ts"
+    "dev": "nodemon --watch './src/**/*' -e ts,tsx --exec 'ts-node' src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,13 +16,14 @@
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.4.12",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.40",
     "@types/koa2-cors": "^2.0.1",
-    "@types/mongoose": "^5.5.6"
+    "@types/mongoose": "^5.5.6",
+    "@types/node": "^12.0.8"
   }
 }
