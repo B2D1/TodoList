@@ -30,7 +30,7 @@ export default class UserService {
       }
       throw new Error('密码错误 (￣o￣).zZ');
     } catch (error) {
-      throw error.message;
+      throw new Error(error.message);
     }
   }
 }
