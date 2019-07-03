@@ -56,6 +56,11 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
     ]
   },
+  "browserslist": [
+    "last 2 versions",
+    "android 4",
+    "opera 12"
+  ],
   "dependencies": {
     "antd": "^3.14.1",
     "autoprefixer": "7.1.6",
