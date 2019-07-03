@@ -4,7 +4,7 @@ import * as React from 'react';
 
 const Footer: React.FunctionComponent = () => (
   <div className='footer'>
-    <a target='_blank' href='https://b2d1.top/'>
+    <a target='_blank' href='https://www.baobangdong.cn/'>
       <span>Copyright © 2019 B2D1</span>
     </a>
     <div className='by_farbox'>
