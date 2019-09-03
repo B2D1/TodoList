@@ -4,7 +4,7 @@
 
 ### 线上访问地址
 
-[http://baobangdong.cn:4000/](http://baobangdong.cn:4000/)
+[https://baobangdong.cn:4000/](https://baobangdong.cn:4000/)
 
 ### 应用成果
 
