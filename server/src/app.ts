@@ -11,7 +11,7 @@ import userRouter from './routes/user';
 var config = {
     domain: 'baobangdong.cn',
     https: {
-        port: 4000,
+        port: 5000,
         options: {
             key: fs
                 .readFileSync(
