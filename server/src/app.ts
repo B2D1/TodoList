@@ -15,13 +15,19 @@ var config = {
         options: {
             key: fs
                 .readFileSync(
-                    path.resolve('../certificate/2265242_baobangdong.cn.key'),
+                    path.resolve(
+                        __dirname,
+                        './certificate/2265242_baobangdong.cn.key'
+                    ),
                     'utf8'
                 )
                 .toString(),
             cert: fs
                 .readFileSync(
-                    path.resolve('../certificate2265242_baobangdong.cn.pem'),
+                    path.resolve(
+                        __dirname,
+                        './certificate/2265242_baobangdong.cn.pem'
+                    ),
                     'utf8'
                 )
                 .toString(),
