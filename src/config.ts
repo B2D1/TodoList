@@ -2,7 +2,7 @@ enum Config {
     /**
      * 生产环境
      */
-    PROD_BASE_URL = 'https://47.106.87.3:5000/api/',
+    PROD_BASE_URL = 'https://baobangdong.cn:5000/api/',
     /**
      * 开发环境
      */
