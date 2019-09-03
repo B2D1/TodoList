@@ -46,7 +46,7 @@ const serverCallback = server.callback();
 var httpsServer = https.createServer(config.https.options, serverCallback);
 httpsServer.listen(config.https.port, () => {
     console.log(
-        `HTTPS server OK: http://${config.domain}:${config.https.port}`
+        `HTTPS server OK: https://${config.domain}:${config.https.port}`
     );
 });
 initDB(Config.__MONGO_URI__);
