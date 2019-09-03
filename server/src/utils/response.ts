@@ -1,42 +1,21 @@
 import { Context } from 'koa';
+import { StatusCode } from './enum';
 
 interface IRes {
-  ctx: Context;
-  status_code?: number;
-  data?: any;
-  error_code?: number;
-  msg?: string;
-  request?: string;
+    ctx: Context;
+    statusCode?: number;
+    data?: any;
+    errorCode?: number;
+    msg?: string;
 }
 
-const handleRes = (params: IRes) => {
-  const handleParams = Object.assign(
-    {
-      ctx: null,
-      status_code: 200,
-      data: {},
-      error_code: 0,
-      msg: '',
-      request: `${params.ctx.method} ${params.ctx.url}`
-    },
-    params
-  );
-  if (`${handleParams.status_code}`.startsWith('2')) {
-    handleParams.ctx.response.status = handleParams.status_code;
-    handleParams.ctx.body = {
-      error_code: handleParams.error_code,
-      data: handleParams.data,
-      msg: handleParams.msg,
-      request: handleParams.request
+const createRes = (params: IRes) => {
+    params.ctx.status = params.statusCode! || StatusCode.OK;
+    params.ctx.body = {
+        error_code: params.errorCode || 0,
+        data: params.data || null,
+        msg: params.msg || '',
     };
-  } else {
-    handleParams.ctx.response.status = handleParams.status_code;
-    handleParams.ctx.body = {
-      error_code: handleParams.error_code,
-      msg: handleParams.msg,
-      request: handleParams.request
-    };
-  }
 };
 
-export default handleRes;
+export default createRes;

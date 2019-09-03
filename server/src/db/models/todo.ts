@@ -1,6 +1,5 @@
-import { Model, model } from 'mongoose';
+import { model } from 'mongoose';
 
-import { ITodoModel, todoSchema } from '../schemas/todo';
+import { ITodoModel, TodoSchema } from '../schemas/todo';
 
-const todoModel: Model<ITodoModel> = model<ITodoModel>('Todo', todoSchema);
-export default todoModel;
+export default model<ITodoModel>('Todo', TodoSchema);
