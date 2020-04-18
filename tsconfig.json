@@ -23,6 +23,7 @@
   "exclude": [
     "node_modules",
     "server",
+    "config",
     "build",
     "scripts",
     "acceptance-tests",

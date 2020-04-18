@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "TodoList",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
