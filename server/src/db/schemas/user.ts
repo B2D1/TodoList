@@ -1,14 +1,14 @@
-import { Document, Schema, SchemaTypes } from 'mongoose';
+import { Document, Schema, SchemaTypes } from "mongoose";
 
-import { IUser } from '../../interface';
+import { IUser } from "../../interface";
 
 export const UserSchema: Schema = new Schema({
-    usr: {
-        type: SchemaTypes.String,
-        required: true,
-        unique: true,
-    },
-    psd: SchemaTypes.String,
+  usr: {
+    type: SchemaTypes.String,
+    required: true,
+    unique: true,
+  },
+  psd: SchemaTypes.String,
 });
 
 export interface IUserModel extends IUser, Document {}

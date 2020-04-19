@@ -1,52 +1,22 @@
-import * as Koa from 'koa';
-import * as bodyParser from 'koa-bodyparser';
-import * as cors from 'koa2-cors';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as https from 'https';
-import Config from './config';
-import initDB from './db';
-import todoRouter from './routes/todo';
-import userRouter from './routes/user';
-var config = {
-    domain: 'baobangdong.cn',
-    https: {
-        port: 5000,
-        options: {
-            key: fs
-                .readFileSync(
-                    path.resolve(
-                        __dirname,
-                        './certificate/2265242_baobangdong.cn.key'
-                    ),
-                    'utf8'
-                )
-                .toString(),
-            cert: fs
-                .readFileSync(
-                    path.resolve(
-                        __dirname,
-                        './certificate/2265242_baobangdong.cn.pem'
-                    ),
-                    'utf8'
-                )
-                .toString(),
-        },
-    },
-};
+import * as Koa from "koa";
+import * as bodyParser from "koa-bodyparser";
+import * as cors from "koa2-cors";
+
+import Config from "./config";
+import initDB from "./db";
+import todoRouter from "./routes/todo";
+import userRouter from "./routes/user";
+
 const server = new Koa();
+
+initDB(Config.MONGODB_URI);
+
 server
-    .use(cors())
-    .use(bodyParser())
-    .use(userRouter.routes())
-    .use(todoRouter.routes());
+  .use(cors())
+  .use(bodyParser())
+  .use(userRouter.routes())
+  .use(todoRouter.routes());
 
-const serverCallback = server.callback();
-
-var httpsServer = https.createServer(config.https.options, serverCallback);
-httpsServer.listen(config.https.port, () => {
-    console.log(
-        `HTTPS server OK: https://${config.domain}:${config.https.port}`
-    );
+server.listen(Config.PORT, () => {
+  console.log(`server starts successful: http://localhost:${Config.PORT}`);
 });
-initDB(Config.__MONGO_URI__);
