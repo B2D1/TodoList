@@ -45,14 +45,14 @@ cnpm i typescript -g
 ```
 
 ```bash
-# 进入server文件夹，运行服务端
+# 进入 server 文件夹，运行服务端
 cd /TodoList/server
 
 # 安装后端所需要的依赖包
 cnpm i
 
 # 启动后端服务，监听本地5000端口，请自行下载MongoDB，并开启数据库服务
-npm run dev
+npm run develop
 ```
 
 ```bash
