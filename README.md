@@ -8,7 +8,7 @@
 
 ### 应用成果
 
-> [掘金文章传送门](https://juejin.im/post/5c6cda0ae51d457139114898)
+> [项目概述](https://www.baobangdong.cn/todolist-full-stack-application/)
 
 ![](https://user-gold-cdn.xitu.io/2019/2/19/169053e1533bad8a?imageslim)
 
