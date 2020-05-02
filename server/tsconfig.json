@@ -1,0 +1,39 @@
+{
+  // tsconfig 所在的根目录, 则是一个project
+  "compilerOptions": {
+    "module": "commonjs", // 模块系统
+    "target": "es2017", // 生成目标, 一般选择ES6，因为不是客户端环境，没必要还编译成  ES5
+
+    // 一组严苛的编译选项
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "sourceMap": false,
+    "outDir": "dist", // TS文件编译后会放入到此文件夹内
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "pretty": true,
+
+    "listFiles": true, // 包含了哪些库，这个必要的时候还是很有用的
+    "listEmittedFiles": true,
+    "lib": [
+      // 要那些 lib，按需选择即可
+      "es2016",
+      "dom"
+    ],
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // 指定库的搜索路径，这个比较有用，一般会指定 @types，还可以按需添加
+    "typeRoots": ["./node_modules/@types"]
+    // 库搜索路径下, 仅使用哪些库, 一般没啥用
+    // "types": [
+
+    // ]
+  },
+  // file include会算出一个交集, 指明哪些是项目的 ts 文件
+  "include": ["./src/**/*"],
+  // 排除项目下面不符合要求的文件，这个按需设定即可，可以放心排除乱七八糟的文件
+  "exclude": ["node_modules", "**/*.spec.ts", "*.js"]
+}

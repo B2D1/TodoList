@@ -1,26 +1,24 @@
+import { message } from 'antd';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import Index from './views/Index';
+import Todo from './views/Todo';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// 配置全局 message
+message.config({
+  duration: 1,
+  maxCount: 3,
+});
+
+const App = () => (
+  <React.Fragment>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={Index} exact={true} />
+        <Route path="/todo" component={Todo} />
+      </Switch>
+    </BrowserRouter>
+  </React.Fragment>
+);
 
 export default App;
