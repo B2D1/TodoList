@@ -5,15 +5,39 @@ import LoginForm from '../../components/LoginForm';
 import RegForm from '../../components/RegForm';
 import { LocalStorage } from '../../utils';
 import styles from './index.module.scss';
+import { connect, ConnectedProps } from 'react-redux';
+import { AppStore } from '../../store';
+import { keepLogin } from '../../store/user/actions';
 
-const Home: FC<RouteComponentProps> = ({ history }) => {
+const mapState = ({ user }: AppStore) => ({
+  user,
+});
+
+const mapDispatch = {
+  keepLogin,
+};
+
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Home: FC<RouteComponentProps & PropsFromRedux> = ({
+  history,
+  user,
+  keepLogin,
+}) => {
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
-    if (LocalStorage.get('userId')) {
-      history.push('/todo');
-    }
-  }, []);
+    const userId = LocalStorage.get('userId');
+    const username = LocalStorage.get('username');
+    if (userId && username) {
+      if (!user.userId) {
+        keepLogin({ userId, username, errMsg: '' });
+      } else {
+        history.push('/todo');
+      }
+    } 
+  }, [user]);
 
   const toggleForm = () => {
     setShowLogin(!showLogin);
@@ -35,4 +59,4 @@ const Home: FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default withRouter(Home);
+export default connector(withRouter(Home));

@@ -41,7 +41,6 @@ export function* addTodo(action: IAddAction) {
 
 export function* deleteTodo(action: IDeleteAction) {
   const { todoId } = action.payload;
-  console.log(action);
   yield call(todoAPI.deleteTodo, todoId);
   yield put({
     type: DELETE_TODO_SUC,

@@ -16,11 +16,12 @@ import {
   UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from './store/todo/types';
-import { login, register } from './store/user/saga';
-import { LOGIN, REGISTER } from './store/user/types';
+import { login, register, logout } from './store/user/saga';
+import { LOGIN, REGISTER, LOGOUT } from './store/user/types';
 
 function* rootSaga() {
   yield takeEvery(LOGIN, login);
+  yield takeEvery(LOGOUT, logout);
   yield takeEvery(REGISTER, register);
   yield takeEvery(FETCH_TODO, fetchTodo);
   yield takeEvery(SEARCH_TODO, searchTodo);

@@ -6,11 +6,12 @@ import { LocalStorage } from '../../utils';
 import {
   ILoginAction,
   IRegisterAction,
-  LOGIN_FAIL,
   LOGIN_SUC,
-  REGISTER_FAIL,
   REGISTER_SUC,
+  ILogoutAction,
+  LOGOUT_SUC,
 } from './types';
+import { message } from 'antd';
 
 const userAPI = new UserAPI();
 
@@ -25,16 +26,17 @@ export function* login(action: ILoginAction) {
       type: LOGIN_SUC,
       payload: { ...res.data, errMsg: res.msg },
     });
-    action.payload.callback();
-  } catch (error) {
+  } catch {}
+}
+
+export function* logout(action: ILogoutAction) {
+  try {
     yield call(LocalStorage.remove, 'userId');
     yield call(LocalStorage.remove, 'username');
-
     yield put({
-      type: LOGIN_FAIL,
-      payload: { errMsg: error.message },
+      type: LOGOUT_SUC,
     });
-  }
+  } catch {}
 }
 
 export function* register(action: IRegisterAction) {
@@ -45,11 +47,6 @@ export function* register(action: IRegisterAction) {
     yield put({
       type: REGISTER_SUC,
     });
-    action.payload.callback();
-  } catch (error) {
-    yield put({
-      type: REGISTER_FAIL,
-      payload: { errMsg: error.message },
-    });
-  }
+    message.success('注册成功');
+  } catch {}
 }

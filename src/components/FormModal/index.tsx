@@ -1,9 +1,9 @@
 import { Form, Input, Modal } from 'antd';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
+
 import { ModalType } from '../../common/enum';
 
 interface IModalFormProps {
-  userId: string;
   todoId: string;
   modalType: string;
   visible: boolean;
@@ -24,14 +24,18 @@ const ModalForm: FC<IModalFormProps> = ({
   modalType,
   todoId,
 }) => {
-  const [text, setText] = useState('');
+  const [form] = Form.useForm();
 
+  useEffect(() => {
+    form.setFieldsValue({ content });
+  });
+  
   const onSubmit = () => {
     if (modalType === ModalType.Add) {
-      onAdd(text);
+      onAdd(form.getFieldValue('content'));
     }
     if (modalType === ModalType.Edit) {
-      onUpdateContent(todoId, text);
+      onUpdateContent(todoId, form.getFieldValue('content'));
     }
     onClose();
   };
@@ -46,17 +50,15 @@ const ModalForm: FC<IModalFormProps> = ({
       cancelText="取消"
       destroyOnClose={true}
     >
-      <Form layout="horizontal">
+      <Form layout="horizontal" form={form}>
         <Form.Item
           label="内容"
           name="content"
-          initialValue={content}
           rules={[{ required: true, message: '请输入内容' }]}
         >
           <Input
             placeholder="请输入内容"
             autoComplete="off"
-            onChange={(evt) => setText(evt.target.value)}
           />
         </Form.Item>
       </Form>

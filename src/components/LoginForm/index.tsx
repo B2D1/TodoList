@@ -5,7 +5,6 @@ import React, { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { login } from '../../store/user/actions';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 const mapDispatch = {
   login,
@@ -14,20 +13,15 @@ const mapDispatch = {
 const connector = connect(() => ({}), mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface ILoginForm extends RouteComponentProps, PropsFromRedux {}
+interface ILoginForm extends PropsFromRedux {}
 
-const LoginForm: FC<ILoginForm> = ({ history, login }) => {
-  const onLogin = () => {
-    history.push('/todo');
-  };
-
+const LoginForm: FC<ILoginForm> = ({ login }) => {
   const onFinish = (values: Store) => {
     const { username, password } = values;
 
     login({
       username,
       password,
-      callback: onLogin,
     });
   };
 
@@ -58,4 +52,4 @@ const LoginForm: FC<ILoginForm> = ({ history, login }) => {
   );
 };
 
-export default connector(withRouter(LoginForm));
+export default connector(LoginForm);

@@ -1,5 +1,3 @@
-import styles from './index.module.scss';
-
 import { Button, Empty, Input } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
@@ -17,7 +15,9 @@ import {
   updateTodoContent,
   updateTodoStatus,
 } from '../../store/todo/actions';
+import { keepLogin, logout } from '../../store/user/actions';
 import { LocalStorage } from '../../utils';
+import styles from './index.module.scss';
 
 const mapState = ({ todo, user }: AppStore) => ({
   todo,
@@ -25,6 +25,8 @@ const mapState = ({ todo, user }: AppStore) => ({
 });
 
 const mapDispatch = {
+  logout,
+  keepLogin,
   addTodo,
   deleteTodo,
   fetchTodo,
@@ -42,14 +44,16 @@ const Search = Input.Search;
 const Todo: FC<ITodoProps> = ({
   history,
   todo,
+  user,
+  logout,
+  keepLogin,
   deleteTodo,
   updateTodoContent,
   updateTodoStatus,
   fetchTodo,
   addTodo,
+  searchTodo,
 }) => {
-  const [userId, setUserId] = useState('');
-  const [username, setUsername] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [status, setStatus] = useState(false);
@@ -58,28 +62,24 @@ const Todo: FC<ITodoProps> = ({
   const [todoId, setTodoId] = useState('');
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId')!;
-    const username = localStorage.getItem('username')!;
+    const userId = LocalStorage.get('userId');
+    const username = LocalStorage.get('username');
     if (userId && username) {
-      setUserId(userId);
-      setUsername(username);
-      fetchTodo(userId);
+      if (user.userId) {
+        fetchTodo(user.userId);
+      } else {
+        keepLogin({ userId, username, errMsg: '' });
+      }
     } else {
       history.push('/');
     }
-  }, []);
-
-  const logout = () => {
-    LocalStorage.remove('userId');
-    LocalStorage.remove('username');
-    history.push('/');
-  };
+  }, [user]);
 
   const onToggleStatus = (flag: boolean) => {
     setStatus(flag);
   };
   const onAdd = (content: string) => {
-    addTodo(userId, content);
+    addTodo(user.userId, content);
     setStatus(false);
   };
   const onUpdateContent = (todoId: string, content: string) => {
@@ -92,7 +92,7 @@ const Todo: FC<ITodoProps> = ({
     updateTodoStatus(todoId);
   };
   const onSearch = (query: string) => {
-    searchTodo(userId, query);
+    searchTodo(user.userId, query);
   };
   const onClose = () => {
     setShowModal(false);
@@ -114,7 +114,7 @@ const Todo: FC<ITodoProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.user}>
-        <span>Hello，{username}</span>
+        <span>Hello，{user.username}</span>
         <Button type="ghost" size="small" onClick={logout}>
           退出
         </Button>
@@ -172,7 +172,6 @@ const Todo: FC<ITodoProps> = ({
         </ul>
       </div>
       <ModalForm
-        userId={userId}
         todoId={todoId}
         modalType={modalType}
         content={content}
