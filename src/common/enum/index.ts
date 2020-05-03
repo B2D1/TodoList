@@ -1,4 +1,4 @@
-export enum FormAction {
+export enum ModalType {
   Edit = 'EDIT',
-  Add = 'add'
+  Add = 'ADD',
 }

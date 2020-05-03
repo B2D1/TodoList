@@ -1,6 +1,6 @@
 // Constant
-export const FETCH_TODOS = 'FETCH_TODOS';
-export const FETCH_TODOS_SUC = 'FETCH_TODOS_SUC';
+export const FETCH_TODO = 'FETCH_TODO';
+export const FETCH_TODO_SUC = 'FETCH_TODO_SUC';
 export const ADD_TODO = 'ADD_TODO';
 export const ADD_TODO_SUC = 'ADD_TODO_SUC';
 export const SEARCH_TODO = 'SEARCH_TODO';
@@ -21,66 +21,66 @@ export interface ITodoState {
 }
 
 // Action
-export interface IFetchTodos {
-  type: typeof FETCH_TODOS;
+export interface IFetchAction {
+  type: typeof FETCH_TODO;
   payload: { userId: string };
 }
-export interface IFetchTodosSuc {
-  type: typeof FETCH_TODOS_SUC;
+export interface IFetchSucAction {
+  type: typeof FETCH_TODO_SUC;
   payload: ITodoState[];
 }
-export interface IAddTodo {
+export interface IAddAction {
   type: typeof ADD_TODO;
   payload: {
     userId: string;
     content: string;
   };
 }
-export interface IAddTodoSuc {
+export interface IAddSucAction {
   type: typeof ADD_TODO_SUC;
   payload: ITodoState;
 }
-export interface ISearchTodo {
+export interface ISearchAction {
   type: typeof SEARCH_TODO;
   payload: { userId: string; query: string };
 }
-export interface ISearchTodoSuc {
+export interface ISearchSucAction {
   type: typeof SEARCH_TODO_SUC;
   payload: ITodoState[];
 }
-export interface IDeleteTodo {
+export interface IDeleteAction {
   type: typeof DELETE_TODO;
   payload: {
     todoId: string;
   };
 }
-export interface IDeleteTodoSuc {
+export interface IDeleteSucAction {
   type: typeof DELETE_TODO_SUC;
   payload: {
     todoId: string;
   };
 }
-export interface IUpdateTodoContent {
+export interface IUpdateContentAction {
   type: typeof UPDATE_TODO_CONTENT;
   payload: {
     todoId: string;
     content: string;
   };
 }
-export interface IUpdateTodoContentSuc {
+export interface IUpdateContentSucAction {
   type: typeof UPDATE_TODO_CONTENT_SUC;
   payload: {
     todoId: string;
     content: string;
   };
 }
-export interface IUpdateTodoStatus {
+export interface IUpdateStatusAction {
   type: typeof UPDATE_TODO_STATUS;
   payload: {
     todoId: string;
   };
 }
-export interface IUpdateTodoStatusSuc {
+export interface IUpdateStatusSucAction {
   type: typeof UPDATE_TODO_STATUS_SUC;
   payload: {
     todoId: string;
@@ -88,15 +88,15 @@ export interface IUpdateTodoStatusSuc {
 }
 
 export type TodoActionTypes =
-  | IFetchTodos
-  | IFetchTodosSuc
-  | IAddTodo
-  | IAddTodoSuc
-  | IUpdateTodoContent
-  | IUpdateTodoContentSuc
-  | IUpdateTodoStatus
-  | IUpdateTodoStatusSuc
-  | ISearchTodo
-  | ISearchTodoSuc
-  | IDeleteTodo
-  | IDeleteTodoSuc;
+  | IFetchAction
+  | IFetchSucAction
+  | IAddAction
+  | IAddSucAction
+  | IUpdateContentAction
+  | IUpdateContentSucAction
+  | IUpdateStatusAction
+  | IUpdateStatusSucAction
+  | ISearchAction
+  | ISearchSucAction
+  | IDeleteAction
+  | IDeleteSucAction;

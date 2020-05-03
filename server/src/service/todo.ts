@@ -1,4 +1,4 @@
-import Todo from "../db/models/todo";
+import Todo from '../db/models/todo';
 
 export default class TodoService {
   public async addTodo(userId: string, content: string) {
@@ -7,17 +7,18 @@ export default class TodoService {
       content,
       status: false,
     });
+    console.log(userId, content);
     try {
       return await todo.save();
     } catch (error) {
-      throw new Error("新增失败 (￣o￣).zZ");
+      throw new Error('新增失败 (￣o￣).zZ');
     }
   }
   public async deleteTodo(todoId: string) {
     try {
       return await Todo.findByIdAndDelete(todoId);
     } catch (error) {
-      throw new Error("删除失败 (￣o￣).zZ");
+      throw new Error('删除失败 (￣o￣).zZ');
     }
   }
   public async getAllTodos(userId: string) {
@@ -26,7 +27,7 @@ export default class TodoService {
         userId,
       });
     } catch (error) {
-      throw new Error("获取失败 (￣o￣).zZ");
+      throw new Error('获取失败 (￣o￣).zZ');
     }
   }
   public async updateTodoStatus(todoId: string) {
@@ -39,14 +40,14 @@ export default class TodoService {
       // mongodb 修改标志位
       return record.nModified && record;
     } catch (error) {
-      throw new Error("更新状态失败 (￣o￣).zZ");
+      throw new Error('更新状态失败 (￣o￣).zZ');
     }
   }
   public async updateTodoContent(todoId: string, content: string) {
     try {
       return await Todo.findByIdAndUpdate(todoId, { content });
     } catch (error) {
-      throw new Error("更新内容失败 (￣o￣).zZ");
+      throw new Error('更新内容失败 (￣o￣).zZ');
     }
   }
   public async searchTodo(userId: string, q: string) {
@@ -54,7 +55,7 @@ export default class TodoService {
       const record = await Todo.find({ userId });
       return record.filter((v) => v.content.includes(q));
     } catch (error) {
-      throw new Error("查询失败 (￣o￣).zZ");
+      throw new Error('查询失败 (￣o￣).zZ');
     }
   }
 }

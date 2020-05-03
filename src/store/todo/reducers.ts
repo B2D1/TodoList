@@ -1,7 +1,7 @@
 import {
   ADD_TODO_SUC,
   DELETE_TODO_SUC,
-  FETCH_TODOS_SUC,
+  FETCH_TODO_SUC,
   SEARCH_TODO_SUC,
   UPDATE_TODO_CONTENT_SUC,
   UPDATE_TODO_STATUS_SUC,
@@ -18,7 +18,7 @@ export default function todoReducer(
   switch (action.type) {
     case ADD_TODO_SUC:
       return [...state, action.payload];
-    case FETCH_TODOS_SUC:
+    case FETCH_TODO_SUC:
       return [...action.payload];
     case DELETE_TODO_SUC:
       return state.filter((v) => v._id !== action.payload.todoId);
@@ -30,7 +30,7 @@ export default function todoReducer(
       return [...initialState, ...action.payload];
     case UPDATE_TODO_CONTENT_SUC:
       return state.map((v) =>
-        v._id === action.payload.content
+        v._id === action.payload.todoId
           ? { ...v, content: action.payload.content }
           : v
       );

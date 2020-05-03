@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "nodemon --watch './src/**/*' -e ts,tsx --exec ts-node src/app.ts",
+    "develop": "nodemon --watch '/src/**/*' -e ts,tsx --exec ts-node src/app.ts",
     "build": "tsc",
     "serve": "node dist/app.js",
     "format": "prettier --write \"./src/**/*.ts\""

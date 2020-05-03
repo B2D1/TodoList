@@ -3,7 +3,7 @@ import { takeEvery } from 'redux-saga/effects';
 import {
   addTodo,
   deleteTodo,
-  fetchTodos,
+  fetchTodo,
   searchTodo,
   updateTodoContent,
   updateTodoStatus,
@@ -11,7 +11,7 @@ import {
 import {
   ADD_TODO,
   DELETE_TODO,
-  FETCH_TODOS,
+  FETCH_TODO,
   SEARCH_TODO,
   UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
@@ -22,7 +22,7 @@ import { LOGIN, REGISTER } from './store/user/types';
 function* rootSaga() {
   yield takeEvery(LOGIN, login);
   yield takeEvery(REGISTER, register);
-  yield takeEvery(FETCH_TODOS, fetchTodos);
+  yield takeEvery(FETCH_TODO, fetchTodo);
   yield takeEvery(SEARCH_TODO, searchTodo);
   yield takeEvery(ADD_TODO, addTodo);
   yield takeEvery(DELETE_TODO, deleteTodo);

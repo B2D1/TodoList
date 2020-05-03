@@ -1,20 +1,20 @@
 import {
   ADD_TODO,
   DELETE_TODO,
-  FETCH_TODOS,
+  FETCH_TODO,
   SEARCH_TODO,
   UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from './types';
 
-export const addTodo = (content: string, userId: string) => ({
+export const addTodo = (userId: string, content: string) => ({
   type: ADD_TODO,
   payload: { userId, content },
 });
-  
-export const fetchTodos = (userId: string) => ({
-  type: FETCH_TODOS,
-  payload: userId,
+
+export const fetchTodo = (userId: string) => ({
+  type: FETCH_TODO,
+  payload: { userId },
 });
 export const searchTodo = (userId: string, query: string) => ({
   type: SEARCH_TODO,
@@ -23,11 +23,11 @@ export const searchTodo = (userId: string, query: string) => ({
 
 export const deleteTodo = (todoId: string) => ({
   type: DELETE_TODO,
-  payload: todoId,
+  payload: { todoId },
 });
 export const updateTodoStatus = (todoId: string) => ({
   type: UPDATE_TODO_STATUS,
-  payload: todoId,
+  payload: { todoId },
 });
 
 export const updateTodoContent = (todoId: string, content: string) => ({

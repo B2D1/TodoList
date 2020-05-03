@@ -1,24 +1,22 @@
-import './index.scss';
+import styles from './index.module.scss';
 
-import { Button, Empty, Input, message } from 'antd';
+import { Button, Empty, Input } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { FormAction } from '../../common/enum';
+import { ModalType } from '../../common/enum';
 import ModalForm from '../../components/FormModal';
 import TodoItem from '../../components/TodoItem';
 import { AppStore } from '../../store';
 import {
   addTodo,
   deleteTodo,
-  fetchTodos,
+  fetchTodo,
   searchTodo,
   updateTodoContent,
   updateTodoStatus,
 } from '../../store/todo/actions';
-import { ITodoState } from '../../store/todo/types';
-import { IUserState } from '../../store/user/types';
 import { LocalStorage } from '../../utils';
 
 const mapState = ({ todo, user }: AppStore) => ({
@@ -29,7 +27,7 @@ const mapState = ({ todo, user }: AppStore) => ({
 const mapDispatch = {
   addTodo,
   deleteTodo,
-  fetchTodos,
+  fetchTodo,
   searchTodo,
   updateTodoContent,
   updateTodoStatus,
@@ -38,21 +36,17 @@ const mapDispatch = {
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface ITodoProps extends PropsFromRedux {
-  todo: ITodoState[];
-  user: IUserState;
-}
+interface ITodoProps extends PropsFromRedux, RouteComponentProps {}
 const Search = Input.Search;
 
-const Todo: FC<ITodoProps & RouteComponentProps> = ({
-  todo,
+const Todo: FC<ITodoProps> = ({
   history,
+  todo,
   deleteTodo,
-  addTodo,
-  fetchTodos,
-  searchTodo,
   updateTodoContent,
   updateTodoStatus,
+  fetchTodo,
+  addTodo,
 }) => {
   const [userId, setUserId] = useState('');
   const [username, setUsername] = useState('');
@@ -66,133 +60,130 @@ const Todo: FC<ITodoProps & RouteComponentProps> = ({
   useEffect(() => {
     const userId = localStorage.getItem('userId')!;
     const username = localStorage.getItem('username')!;
-    setUserId(userId);
-    setUsername(username);
-
-    if (!userId) {
-      history.push('/');
+    if (userId && username) {
+      setUserId(userId);
+      setUsername(username);
+      fetchTodo(userId);
     } else {
-      fetchTodos(userId);
+      history.push('/');
     }
   }, []);
 
   const logout = () => {
     LocalStorage.remove('userId');
-    window.localStorage.removeItem('username');
+    LocalStorage.remove('username');
     history.push('/');
   };
-  const handleShowResolved = (flag: boolean) => {
+
+  const onToggleStatus = (flag: boolean) => {
     setStatus(flag);
   };
-  const handleAddTodo = (content: string) => {
+  const onAdd = (content: string) => {
     addTodo(userId, content);
     setStatus(false);
-    message.success('新增成功');
   };
-  const handleUpdateTodoContent = (todoId: string, content: string) => {
+  const onUpdateContent = (todoId: string, content: string) => {
     updateTodoContent(todoId, content);
-    message.success('编辑成功');
   };
-  const handleDeleteTodo = (todoId: string) => {
+  const onDelete = (todoId: string) => {
     deleteTodo(todoId);
-    message.success('删除成功');
   };
-  const handleUpdateTodoStatus = (todoId: string) => {
+  const onUpdateStatus = (todoId: string) => {
     updateTodoStatus(todoId);
   };
-  const handleSearch = (val: string) => {
-    searchTodo(userId, val);
+  const onSearch = (query: string) => {
+    searchTodo(userId, query);
   };
-  const handleToggleModal = (isShow: boolean) => {
-    setShowModal(isShow);
+  const onClose = () => {
+    setShowModal(false);
   };
-  const handleShowModal = (action: string) => {
-    handleToggleModal(true);
-    if (action === FormAction.Add) {
-      setModalTitle('新增Todo');
+  const onShowModal = (type: ModalType, todoId?: string, content?: string) => {
+    setShowModal(true);
+    if (type === ModalType.Add) {
+      setModalTitle('新增待办事项');
       setContent('');
-      setModalType(FormAction.Add);
+      setModalType(ModalType.Add);
     }
-    if (action === FormAction.Edit) {
-      setModalTitle('编辑Todo');
-      setModalType(FormAction.Edit);
-      setContent(content);
-      setTodoId(todoId);
+    if (type === ModalType.Edit) {
+      setModalTitle('编辑待办事项');
+      setModalType(ModalType.Edit);
+      setContent(content!);
+      setTodoId(todoId!);
     }
   };
-
-  const filterTodo = todo.filter((v) => v.status === status);
-
   return (
-    <div className="todo-wrapper">
-      <div className="user">
+    <div className={styles.wrapper}>
+      <div className={styles.user}>
         <span>Hello，{username}</span>
         <Button type="ghost" size="small" onClick={logout}>
           退出
         </Button>
       </div>
-      <div className="todo-bar">
+      <div className={styles.queryBar}>
         <Search
           placeholder="输入要查询的内容"
-          onSearch={(value) => handleSearch(value)}
-          className="todo-bar-input"
+          onSearch={(value) => onSearch(value)}
         />
         <Button
           type="primary"
-          onClick={() => handleShowModal(FormAction.Add)}
-          className="open-todo"
+          onClick={() => onShowModal(ModalType.Add)}
+          className={styles.newTodo}
         >
           新增
         </Button>
       </div>
-      <div className="todo-main">
-        <ul className="todo-nav">
+      <div className={styles.main}>
+        <ul className={styles.nav}>
           <li
-            className={status ? '' : 'active'}
-            onClick={() => handleShowResolved(false)}
+            className={status ? '' : styles.active}
+            onClick={() => onToggleStatus(false)}
           >
-            <i className="color pending" />
+            <i className={`${styles.dot} ${styles.pending}`} />
             未完成
           </li>
           <li
-            className={status ? 'active' : ''}
-            onClick={(evt) => handleShowResolved(true)}
+            className={status ? styles.active : ''}
+            onClick={(evt) => onToggleStatus(true)}
           >
-            <i className="color resolved" />
+            <i className={`${styles.dot} ${styles.resolved}`} />
             已完成
           </li>
         </ul>
 
-        <ul className="todo-list">
-          {filterTodo.length ? (
-            filterTodo.map((v: ITodoState) => (
-              <TodoItem
-                {...v}
-                key={v._id}
-                resolved={status}
-                onShowModal={handleShowModal}
-                onDelete={handleDeleteTodo}
-                onUpdateStatus={handleUpdateTodoStatus}
-              />
-            ))
+        <ul className={styles.list}>
+          {todo.length ? (
+            todo
+              .filter((v) => v.status === status)
+              .map((v) => (
+                <TodoItem
+                  key={v._id}
+                  content={v.content}
+                  _id={v._id}
+                  type={modalType}
+                  finished={status}
+                  onShowModal={onShowModal}
+                  onDelete={onDelete}
+                  onUpdateStatus={onUpdateStatus}
+                />
+              ))
           ) : (
-            <Empty className="no-data" />
+            <Empty className={styles.noData} />
           )}
         </ul>
       </div>
       <ModalForm
         userId={userId}
         todoId={todoId}
-        formAction={modalType}
-        oldContent={content}
+        modalType={modalType}
+        content={content}
         visible={showModal}
         title={modalTitle}
-        onClose={handleToggleModal}
-        onAddTodo={handleAddTodo}
-        onUpdateTodoContent={handleUpdateTodoContent}
+        onClose={onClose}
+        onAdd={onAdd}
+        onUpdateContent={onUpdateContent}
       />
     </div>
   );
 };
 
-export default Todo;
+export default connector(Todo);

@@ -1,51 +1,47 @@
 import { Form, Input, Modal } from 'antd';
-import React from 'react';
-import { FormAction } from '../../common/enum';
-import { Store } from 'antd/lib/form/interface';
+import React, { FC, useState } from 'react';
+import { ModalType } from '../../common/enum';
 
 interface IModalFormProps {
-  onClose: (isShow: boolean) => void;
   userId: string;
   todoId: string;
-  formAction: string;
+  modalType: string;
   visible: boolean;
   title: string;
-  oldContent: string;
-  onAddTodo: (content: string) => void;
-  onUpdateTodoContent: (todoId: string, content: string) => void;
+  content: string;
+  onClose: () => void;
+  onAdd: (content: string) => void;
+  onUpdateContent: (todoId: string, content: string) => void;
 }
 
-const ModalForm: React.FC<IModalFormProps> = ({
-  oldContent,
+const ModalForm: FC<IModalFormProps> = ({
+  content,
   onClose,
-  onAddTodo,
-  onUpdateTodoContent,
+  onAdd,
+  onUpdateContent,
   visible,
   title,
-  formAction,
+  modalType,
   todoId,
 }) => {
-  const [form] = Form.useForm();
-  const handleCancel = () => {
-    onClose(false);
-  };
-  const handleSubmit = (values: Store) => {
-    const { content } = values;
-    if (formAction === FormAction.Add) {
-      onAddTodo(content);
+  const [text, setText] = useState('');
+
+  const onSubmit = () => {
+    if (modalType === ModalType.Add) {
+      onAdd(text);
     }
-    if (formAction === FormAction.Edit) {
-      onUpdateTodoContent(todoId, content);
+    if (modalType === ModalType.Edit) {
+      onUpdateContent(todoId, text);
     }
-    onClose(false);
+    onClose();
   };
 
   return (
     <Modal
       title={title}
       visible={visible}
-      onOk={handleSubmit}
-      onCancel={handleCancel}
+      onOk={onSubmit}
+      onCancel={onClose}
       okText="提交"
       cancelText="取消"
       destroyOnClose={true}
@@ -53,10 +49,15 @@ const ModalForm: React.FC<IModalFormProps> = ({
       <Form layout="horizontal">
         <Form.Item
           label="内容"
-          initialValue={oldContent}
+          name="content"
+          initialValue={content}
           rules={[{ required: true, message: '请输入内容' }]}
         >
-          <Input placeholder="请输入内容" autoComplete="off" />
+          <Input
+            placeholder="请输入内容"
+            autoComplete="off"
+            onChange={(evt) => setText(evt.target.value)}
+          />
         </Form.Item>
       </Form>
     </Modal>

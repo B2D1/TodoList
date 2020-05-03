@@ -2,14 +2,22 @@
   width: 100vw;
   height: 100vh;
   background: #f6f6f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  // .form-body {
-  //   min-width: 300px;
-  // }
-
+  .container {
+    position: relative;
+    top: 200px;
+    width: 300px;
+    margin: auto;
+  }
+  .tip {
+    span:nth-child(2) {
+      color: #096dd9;
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px solid currentColor;
+      }
+    }
+  }
   // .form-tip {
   //   min-width: 300px;
   // }

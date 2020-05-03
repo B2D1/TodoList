@@ -2,8 +2,8 @@ import request from './request';
 
 class TodoAPI {
   public static PREFIX = '/todos';
-  public fetchTodos(userId: string) {
-    return request.get(`${TodoAPI.PREFIX}/${userId}/all`);
+  public fetchTodo(userId: string) {
+    return request.get(`${TodoAPI.PREFIX}/${userId}`);
   }
   public addTodo(userId: string, content: string) {
     return request.post(`${TodoAPI.PREFIX}`, {

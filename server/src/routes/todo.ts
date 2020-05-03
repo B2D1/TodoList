@@ -20,7 +20,7 @@ interface IPayload extends Request {
 }
 
 todoRouter
-  .get("/:userId/all", async (ctx: Context) => {
+  .get("/:userId", async (ctx: Context) => {
     const userId = ctx.params.userId;
     try {
       const data = await todoService.getAllTodos(userId);

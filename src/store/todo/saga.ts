@@ -4,52 +4,53 @@ import TodoAPI from '../../api/todo';
 import {
   ADD_TODO_SUC,
   DELETE_TODO_SUC,
-  FETCH_TODOS_SUC,
-  IAddTodo,
-  IDeleteTodo,
-  IFetchTodos,
-  ISearchTodo,
-  IUpdateTodoContent,
-  IUpdateTodoStatus,
+  FETCH_TODO_SUC,
+  IAddAction,
+  IDeleteAction,
+  IFetchAction,
+  ISearchAction,
+  IUpdateContentAction,
+  IUpdateStatusAction,
   SEARCH_TODO_SUC,
   UPDATE_TODO_CONTENT_SUC,
   UPDATE_TODO_STATUS_SUC,
 } from './types';
 import { IRes } from '../../common/interface';
+import { message } from 'antd';
 
 const todoAPI = new TodoAPI();
 
-export function* fetchTodos(action: IFetchTodos) {
+export function* fetchTodo(action: IFetchAction) {
   const { userId } = action.payload;
-
-  const res: IRes = yield call(todoAPI.fetchTodos, userId!);
+  const res: IRes = yield call(todoAPI.fetchTodo, userId);
   yield put({
-    type: FETCH_TODOS_SUC,
+    type: FETCH_TODO_SUC,
     payload: res.data,
   });
 }
 
-export function* addTodo(action: IAddTodo) {
+export function* addTodo(action: IAddAction) {
   const { userId, content } = action.payload;
-
-  const res: IRes = yield call(todoAPI.addTodo, userId!, content!);
+  const res: IRes = yield call(todoAPI.addTodo, userId, content);
   yield put({
     type: ADD_TODO_SUC,
     payload: res.data,
   });
+  message.success('新增成功');
 }
 
-export function* deleteTodo(action: IDeleteTodo) {
+export function* deleteTodo(action: IDeleteAction) {
   const { todoId } = action.payload;
-
+  console.log(action);
   yield call(todoAPI.deleteTodo, todoId);
   yield put({
     type: DELETE_TODO_SUC,
     payload: { todoId },
   });
+  message.success('删除成功');
 }
 
-export function* searchTodo(action: ISearchTodo) {
+export function* searchTodo(action: ISearchAction) {
   const { userId, query } = action.payload;
 
   const res: IRes = yield call(todoAPI.searchTodo, userId, query);
@@ -59,7 +60,7 @@ export function* searchTodo(action: ISearchTodo) {
   });
 }
 
-export function* updateTodoStatus(action: IUpdateTodoStatus) {
+export function* updateTodoStatus(action: IUpdateStatusAction) {
   const { todoId } = action.payload;
 
   yield call(todoAPI.updateTodoStatus, todoId);
@@ -69,7 +70,7 @@ export function* updateTodoStatus(action: IUpdateTodoStatus) {
   });
 }
 
-export function* updateTodoContent(action: IUpdateTodoContent) {
+export function* updateTodoContent(action: IUpdateContentAction) {
   const { todoId, content } = action.payload;
 
   yield call(todoAPI.updateTodoContent, todoId, content);
@@ -77,4 +78,5 @@ export function* updateTodoContent(action: IUpdateTodoContent) {
     type: UPDATE_TODO_CONTENT_SUC,
     payload: { todoId, content },
   });
+  message.success('编辑成功');
 }
