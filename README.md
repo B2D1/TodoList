@@ -35,8 +35,8 @@
 # clone
 git clone https://github.com/B2D1/TodoList.git
 
-# 全局安装 TypeScript
-yarn global add typescript
+# 全局安装 TypeScript nodemon
+yarn global add typescript nodemon
 ```
 
 ```bash

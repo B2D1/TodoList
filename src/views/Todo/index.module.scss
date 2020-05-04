@@ -26,16 +26,15 @@
 
 .queryBar {
   display: flex;
-  max-width: 300px;
+
   margin: 0 auto;
   margin-bottom: 30px;
 
+  @media screen and (max-width: 700px) {
+    max-width: 300px;
+  }
   input {
     width: 300px;
-
-    @media screen and (max-width: 700px) {
-      width: 200px;
-    }
   }
 }
 
