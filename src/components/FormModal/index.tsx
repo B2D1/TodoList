@@ -28,8 +28,8 @@ const ModalForm: FC<IModalFormProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({ content });
-  });
-  
+  },[content]);
+
   const onSubmit = () => {
     if (modalType === ModalType.Add) {
       onAdd(form.getFieldValue('content'));
@@ -49,6 +49,7 @@ const ModalForm: FC<IModalFormProps> = ({
       okText="提交"
       cancelText="取消"
       destroyOnClose={true}
+      forceRender={true}
     >
       <Form layout="horizontal" form={form}>
         <Form.Item
@@ -56,10 +57,7 @@ const ModalForm: FC<IModalFormProps> = ({
           name="content"
           rules={[{ required: true, message: '请输入内容' }]}
         >
-          <Input
-            placeholder="请输入内容"
-            autoComplete="off"
-          />
+          <Input placeholder="请输入内容" autoComplete="off" />
         </Form.Item>
       </Form>
     </Modal>

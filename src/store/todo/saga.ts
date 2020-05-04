@@ -22,6 +22,7 @@ const todoAPI = new TodoAPI();
 
 export function* fetchTodo(action: IFetchAction) {
   const { userId } = action.payload;
+
   const res: IRes = yield call(todoAPI.fetchTodo, userId);
   yield put({
     type: FETCH_TODO_SUC,
@@ -31,6 +32,7 @@ export function* fetchTodo(action: IFetchAction) {
 
 export function* addTodo(action: IAddAction) {
   const { userId, content } = action.payload;
+  
   const res: IRes = yield call(todoAPI.addTodo, userId, content);
   yield put({
     type: ADD_TODO_SUC,

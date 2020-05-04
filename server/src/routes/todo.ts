@@ -1,4 +1,4 @@
-import { Context, Request } from 'koa';
+import { Context } from 'koa';
 import Router from 'koa-router';
 
 import TodoService from '../services/todo';
@@ -11,6 +11,24 @@ const todoRouter = new Router({
 });
 
 todoRouter
+  .get('/search', async (ctx: Context) => {
+    const { userId, query } = ctx.query;
+    try {
+      const data = await todoService.searchTodo(userId, query);
+      if (data) {
+        createRes({
+          ctx,
+          data,
+        });
+      }
+    } catch (error) {
+      createRes({
+        ctx,
+        errorCode: 1,
+        msg: error.message,
+      });
+    }
+  })
   .get('/:userId', async (ctx: Context) => {
     const userId = ctx.params.userId;
     try {
@@ -29,25 +47,7 @@ todoRouter
       });
     }
   })
-  .post('/search', async (ctx: Context) => {
-    const payload = ctx.request.body;
-    const { userId, q } = payload;
-    try {
-      const data = await todoService.searchTodo(userId, q);
-      if (data) {
-        createRes({
-          ctx,
-          data,
-        });
-      }
-    } catch (error) {
-      createRes({
-        ctx,
-        errorCode: 1,
-        msg: error.message,
-      });
-    }
-  })
+
   .put('/status', async (ctx: Context) => {
     const payload = ctx.request.body;
     const { todoId } = payload;

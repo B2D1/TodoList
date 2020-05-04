@@ -11,11 +11,10 @@ class TodoAPI {
       content,
     });
   }
-  public searchTodo(userId: string, q: string) {
-    return request.post(`${TodoAPI.PREFIX}/search`, {
-      userId,
-      q,
-    });
+  public searchTodo(userId: string, query: string) {
+    return request.get(
+      `${TodoAPI.PREFIX}/search?userId=${userId}&query=${query}`
+    );
   }
   public deleteTodo(todoId: string) {
     return request.delete(`${TodoAPI.PREFIX}/${todoId}`);

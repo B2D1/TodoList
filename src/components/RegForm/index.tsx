@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
