@@ -4,11 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "develop": "nodemon --watch './src/**/*' -e ts,tsx --exec ts-node src/app.ts",
+=======
+    "start": "ts-node ./src/app.ts",
+    "watch": "nodemon",
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
     "build": "tsc",
     "serve": "node dist/app.js",
     "format": "prettier --write \"./src/**/*.ts\""
   },
+<<<<<<< HEAD
+=======
+  "nodemonConfig": {
+    "ignore": ["node_modules"],
+    "watch": ["src"],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 # See https://help.github.com/ignore-files/ for more about ignoring files.
+=======
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
 
 # dependencies
 /node_modules
 /server/node_modules
+<<<<<<< HEAD
+=======
+/.pnp
+.pnp.js
+
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
 # testing
 /coverage
 
@@ -20,4 +30,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 
+=======
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb

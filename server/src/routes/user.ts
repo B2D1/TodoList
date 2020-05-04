@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Context, Request } from "koa";
 import * as Router from "koa-router";
 
@@ -17,6 +18,22 @@ interface IPayload extends Request {
 
 userRouter
   .post("/login", async (ctx: Context) => {
+=======
+import { Context, Request } from 'koa';
+import Router from 'koa-router';
+
+import UserService from '../services/user';
+import { StatusCode } from '../utils/enum';
+import createRes from '../utils/response';
+
+const userService = new UserService();
+const userRouter = new Router({
+  prefix: '/api/users',
+});
+
+userRouter
+  .post('/login', async (ctx: Context) => {
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
     const payload = ctx.request.body;
     const { username, password } = payload;
     try {
@@ -36,8 +53,13 @@ userRouter
       });
     }
   })
+<<<<<<< HEAD
   .post("/", async (ctx: Context) => {
     const payload = ctx.request.body as IPayload;
+=======
+  .post('/', async (ctx: Context) => {
+    const payload = ctx.request.body;
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
     const { username, password } = payload;
     try {
       const data = await userService.addUser(username, password);

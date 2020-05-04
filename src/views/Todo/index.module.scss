@@ -1,0 +1,93 @@
+.wrapper {
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  > span {
+    margin-right: 10px;
+  }
+}
+
+.newTodo {
+  margin-left: 50px;
+
+  @media screen and (max-width: 700px) {
+    margin-left: 20px;
+  }
+}
+
+.queryBar {
+  display: flex;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
+  input {
+    width: 300px;
+
+    @media screen and (max-width: 700px) {
+      width: 200px;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    cursor: pointer;
+    width: 300px;
+    display: flex;
+    padding: 1rem;
+
+    &.active {
+      border-bottom: 2px solid rgba(114, 111, 112, 0.5);
+    }
+    @media screen and (max-width: 700px) {
+      width: 150px;
+    }
+  }
+}
+
+.list {
+  width: 600px;
+
+  @media screen and (max-width: 700px) {
+    width: 300px;
+  }
+}
+
+.dot {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100%;
+  margin-right: 1rem;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.noData {
+  margin-top: 3rem;
+}
+
+.pending {
+  background-color: #726f70;
+}
+
+.resolved {
+  background-color: #f25f66;
+}

@@ -1,4 +1,5 @@
 import { Form, Input, Modal } from 'antd';
+<<<<<<< HEAD
 import { FormComponentProps } from 'antd/lib/form';
 import * as React from 'react';
 import { FormAction } from 'src/common/enum';
@@ -62,3 +63,73 @@ class ModalForm extends React.Component<IModalFormProps> {
 const WrapperModalForm = Form.create<IModalFormProps>()(ModalForm);
 
 export default WrapperModalForm;
+=======
+import React, { FC, useEffect } from 'react';
+
+import { ModalType } from '../../common/enum';
+
+interface IModalFormProps {
+  todoId: string;
+  modalType: string;
+  visible: boolean;
+  title: string;
+  content: string;
+  onClose: () => void;
+  onAdd: (content: string) => void;
+  onUpdateContent: (todoId: string, content: string) => void;
+}
+
+const ModalForm: FC<IModalFormProps> = ({
+  content,
+  onClose,
+  onAdd,
+  onUpdateContent,
+  visible,
+  title,
+  modalType,
+  todoId,
+}) => {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ content });
+  });
+  
+  const onSubmit = () => {
+    if (modalType === ModalType.Add) {
+      onAdd(form.getFieldValue('content'));
+    }
+    if (modalType === ModalType.Edit) {
+      onUpdateContent(todoId, form.getFieldValue('content'));
+    }
+    onClose();
+  };
+
+  return (
+    <Modal
+      title={title}
+      visible={visible}
+      onOk={onSubmit}
+      onCancel={onClose}
+      okText="提交"
+      cancelText="取消"
+      destroyOnClose={true}
+    >
+      <Form layout="horizontal" form={form}>
+        <Form.Item
+          label="内容"
+          name="content"
+          rules={[{ required: true, message: '请输入内容' }]}
+        >
+          <Input
+            placeholder="请输入内容"
+            autoComplete="off"
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+export default ModalForm;
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb

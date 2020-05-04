@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Icon } from 'antd';
 import * as React from 'react';
 import { FormAction } from 'src/common/enum';
@@ -7,10 +8,29 @@ interface ITodoItem {
   content: string;
   resolved: boolean;
   onShowModal: (action: string, todoId?: string, oldContent?: string) => void;
+=======
+import {
+  CheckOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  UndoOutlined,
+} from '@ant-design/icons';
+import React, { FC } from 'react';
+import styles from './index.module.scss';
+import { ModalType } from '../../common/enum';
+
+interface ITodoItem {
+  id: string;
+  type: string;
+  content: string;
+  finished: boolean;
+  onShowModal: (type: ModalType, todoId: string, content: string) => void;
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
   onUpdateStatus: (todoId: string) => void;
   onDelete: (todoId: string) => void;
 }
 
+<<<<<<< HEAD
 const TodoItem: React.FunctionComponent<ITodoItem> = ({
   _id,
   content,
@@ -46,6 +66,36 @@ const TodoItem: React.FunctionComponent<ITodoItem> = ({
           className='todo-icon icon-delete'
           onClick={() => onDelete(_id)}
         />
+=======
+const TodoItem: FC<ITodoItem> = ({
+  id,
+  content,
+  onUpdateStatus,
+  finished,
+  onDelete,
+  onShowModal,
+}) => (
+  <li>
+    <div className={styles.item}>
+      <span className={styles.content}>{content}</span>
+      <div>
+        <EditOutlined
+          className={styles.icon}
+          onClick={() => onShowModal(ModalType.Edit, id, content)}
+        />
+        {finished ? (
+          <UndoOutlined
+            className={styles.icon}
+            onClick={() => onUpdateStatus(id)}
+          />
+        ) : (
+          <CheckOutlined
+            className={styles.icon}
+            onClick={() => onUpdateStatus(id)}
+          />
+        )}
+        <DeleteOutlined className={styles.icon} onClick={() => onDelete(id)} />
+>>>>>>> dfd11b333641af3fca46d4ad213466fb24de52cb
       </div>
     </div>
   </li>

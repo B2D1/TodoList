@@ -1,12 +1,14 @@
 import { message } from 'antd';
 import axios from 'axios';
-import Config from 'src/config';
+
+import { IRes } from '../common/interface';
+import Config from '../common/config';
 
 const request = axios.create({
   baseURL: Config.API_URI,
   headers: {
-    'Content-Type': 'application/json; charset=UTF-8'
-  }
+    'Content-Type': 'application/json; charset=UTF-8',
+  },
 });
 
 request.interceptors.response.use((response) => {
