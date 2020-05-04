@@ -1,0 +1,41 @@
+.item {
+  display: flex;
+  min-height: 3rem;
+  line-height: 3rem;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  align-items: center;
+
+  .content {
+    width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    @media screen and (max-width: 700px) {
+      width: 150px;
+      font-size: 1rem;
+    }
+  }
+}
+
+.icon {
+  display: inline-block;
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+  & + .icon {
+    margin-left: 1rem;
+  }
+  @media screen and (max-width: 700px) {
+    font-size: 1.2rem;
+  }
+}
