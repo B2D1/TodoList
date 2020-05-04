@@ -6,6 +6,7 @@ export default class UserService {
       const user = new User({
         usr,
         psd,
+        todos:[]
       });
       // 如果 usr 重复，mongodb 抛出 duplicate key 异常
       return await user.save();

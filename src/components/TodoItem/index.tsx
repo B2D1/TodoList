@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 import { ModalType } from '../../common/enum';
 
 interface ITodoItem {
-  _id: string;
+  id: string;
   type: string;
   content: string;
   finished: boolean;
@@ -19,7 +19,7 @@ interface ITodoItem {
 }
 
 const TodoItem: FC<ITodoItem> = ({
-  _id,
+  id,
   content,
   onUpdateStatus,
   finished,
@@ -32,20 +32,20 @@ const TodoItem: FC<ITodoItem> = ({
       <div>
         <EditOutlined
           className={styles.icon}
-          onClick={() => onShowModal(ModalType.Edit, _id, content)}
+          onClick={() => onShowModal(ModalType.Edit, id, content)}
         />
         {finished ? (
           <UndoOutlined
             className={styles.icon}
-            onClick={() => onUpdateStatus(_id)}
+            onClick={() => onUpdateStatus(id)}
           />
         ) : (
           <CheckOutlined
             className={styles.icon}
-            onClick={() => onUpdateStatus(_id)}
+            onClick={() => onUpdateStatus(id)}
           />
         )}
-        <DeleteOutlined className={styles.icon} onClick={() => onDelete(_id)} />
+        <DeleteOutlined className={styles.icon} onClick={() => onDelete(id)} />
       </div>
     </div>
   </li>

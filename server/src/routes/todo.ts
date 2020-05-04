@@ -1,26 +1,17 @@
-import { Context, Request } from "koa";
-import * as Router from "koa-router";
+import { Context, Request } from 'koa';
+import Router from 'koa-router';
 
-import TodoService from "../service/todo";
-import { StatusCode } from "../utils/enum";
-import createRes from "../utils/response";
+import TodoService from '../services/todo';
+import { StatusCode } from '../utils/enum';
+import createRes from '../utils/response';
 
 const todoService = new TodoService();
 const todoRouter = new Router({
-  prefix: "/api/todos",
+  prefix: '/api/todos',
 });
 
-interface IPayload extends Request {
-  username: string;
-  password: string;
-  todoId: string;
-  content: string;
-  q: string;
-  userId: string;
-}
-
 todoRouter
-  .get("/:userId", async (ctx: Context) => {
+  .get('/:userId', async (ctx: Context) => {
     const userId = ctx.params.userId;
     try {
       const data = await todoService.getAllTodos(userId);
@@ -38,8 +29,8 @@ todoRouter
       });
     }
   })
-  .post("/search", async (ctx: Context) => {
-    const payload = ctx.request.body as IPayload;
+  .post('/search', async (ctx: Context) => {
+    const payload = ctx.request.body;
     const { userId, q } = payload;
     try {
       const data = await todoService.searchTodo(userId, q);
@@ -57,8 +48,8 @@ todoRouter
       });
     }
   })
-  .put("/status", async (ctx: Context) => {
-    const payload = ctx.request.body as IPayload;
+  .put('/status', async (ctx: Context) => {
+    const payload = ctx.request.body;
     const { todoId } = payload;
     try {
       const data = await todoService.updateTodoStatus(todoId);
@@ -73,8 +64,8 @@ todoRouter
       });
     }
   })
-  .put("/content", async (ctx: Context) => {
-    const payload = ctx.request.body as IPayload;
+  .put('/content', async (ctx: Context) => {
+    const payload = ctx.request.body;
     const { todoId, content } = payload;
     try {
       const data = await todoService.updateTodoContent(todoId, content);
@@ -89,8 +80,8 @@ todoRouter
       });
     }
   })
-  .post("/", async (ctx: Context) => {
-    const payload = ctx.request.body as IPayload;
+  .post('/', async (ctx: Context) => {
+    const payload = ctx.request.body;
     const { userId, content } = payload;
     try {
       const data = await todoService.addTodo(userId, content);
@@ -109,7 +100,7 @@ todoRouter
       });
     }
   })
-  .delete("/:todoId", async (ctx: Context) => {
+  .delete('/:todoId', async (ctx: Context) => {
     const todoId = ctx.params.todoId;
     try {
       const data = await todoService.deleteTodo(todoId);

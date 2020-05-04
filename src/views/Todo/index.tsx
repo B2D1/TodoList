@@ -158,7 +158,7 @@ const Todo: FC<ITodoProps> = ({
                 <TodoItem
                   key={v._id}
                   content={v.content}
-                  _id={v._id}
+                  id={v._id}
                   type={modalType}
                   finished={status}
                   onShowModal={onShowModal}

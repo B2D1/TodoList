@@ -1,14 +1,11 @@
-import { Document, Schema, SchemaTypes } from "mongoose";
+import { Document, Schema } from 'mongoose';
 
-import { ITodo } from "../../interface";
+export interface ITodo extends Document {
+  content: string;
+  status: boolean;
+}
 
 export const TodoSchema: Schema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "todo",
-  },
-  content: SchemaTypes.String,
-  status: SchemaTypes.Boolean,
+  content: String,
+  status: Boolean,
 });
-
-export interface ITodoModel extends ITodo, Document {}

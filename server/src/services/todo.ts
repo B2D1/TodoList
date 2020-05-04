@@ -1,15 +1,18 @@
 import Todo from '../db/models/todo';
+import User from '../db/models/user';
 
 export default class TodoService {
   public async addTodo(userId: string, content: string) {
     const todo = new Todo({
-      userId,
       content,
       status: false,
     });
-    console.log(userId, content);
     try {
-      return await todo.save();
+      const res = await todo.save();
+      const user = await User.findById(userId);
+      user?.todos.push(res.id);
+      await user?.save();
+      return res;
     } catch (error) {
       throw new Error('新增失败 (￣o￣).zZ');
     }
@@ -23,22 +26,19 @@ export default class TodoService {
   }
   public async getAllTodos(userId: string) {
     try {
-      return Todo.find({
-        userId,
-      });
+      const res = await User.findById(userId).populate('todos');
+      return res?.todos;
     } catch (error) {
       throw new Error('获取失败 (￣o￣).zZ');
     }
   }
   public async updateTodoStatus(todoId: string) {
     try {
-      const oldRecord = await Todo.findById(todoId).exec();
-      const record = await Todo.updateOne(
-        { _id: todoId },
-        { status: !oldRecord!.status }
-      );
-      // mongodb 修改标志位
-      return record.nModified && record;
+      const oldRecord = await Todo.findById(todoId);
+      const record = await Todo.findByIdAndUpdate(todoId, {
+        status: !oldRecord?.status,
+      });
+      return record;
     } catch (error) {
       throw new Error('更新状态失败 (￣o￣).zZ');
     }
@@ -50,10 +50,10 @@ export default class TodoService {
       throw new Error('更新内容失败 (￣o￣).zZ');
     }
   }
-  public async searchTodo(userId: string, q: string) {
+  public async searchTodo(userId: string, query: string) {
     try {
-      const record = await Todo.find({ userId });
-      return record.filter((v) => v.content.includes(q));
+      const res = await User.findById(userId).populate('todos');
+      return res?.todos.filter((v) => v.content.includes(query));
     } catch (error) {
       throw new Error('查询失败 (￣o￣).zZ');
     }

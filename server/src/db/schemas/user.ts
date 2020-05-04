@@ -1,14 +1,23 @@
-import { Document, Schema, SchemaTypes } from "mongoose";
+import { Document, Schema } from 'mongoose';
+import { ITodo } from './todo';
 
-import { IUser } from "../../interface";
+export interface IUser extends Document {
+  usr: string;
+  psd: string;
+  todos: ITodo[];
+}
 
 export const UserSchema: Schema = new Schema({
   usr: {
-    type: SchemaTypes.String,
+    type: String,
     required: true,
     unique: true,
   },
-  psd: SchemaTypes.String,
+  psd: String,
+  todos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Todo',
+    },
+  ],
 });
-
-export interface IUserModel extends IUser, Document {}
