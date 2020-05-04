@@ -47,7 +47,7 @@ cd /TodoList/server
 yarn
 
 # 启动后端服务，监听本地 5000 端口，请自行下载 MongoDB，并开启数据库服务
-npm run watch
+yarn run watch
 ```
 
 ```bash
