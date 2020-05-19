@@ -13,7 +13,10 @@ export const UserSchema: Schema = new Schema({
     required: true,
     unique: true,
   },
-  psd: String,
+  psd: {
+    type: String,
+    required: true,
+  },
   todos: [
     {
       type: Schema.Types.ObjectId,

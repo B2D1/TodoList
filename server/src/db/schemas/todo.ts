@@ -7,5 +7,10 @@ export interface ITodo extends Document {
 
 export const TodoSchema: Schema = new Schema({
   content: String,
-  status: Boolean,
+  status: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+TodoSchema.index({ content: 'text' });

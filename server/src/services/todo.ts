@@ -5,7 +5,6 @@ export default class TodoService {
   public async addTodo(userId: string, content: string) {
     const todo = new Todo({
       content,
-      status: false,
     });
     try {
       const res = await todo.save();
@@ -52,9 +51,16 @@ export default class TodoService {
   }
   public async searchTodo(userId: string, query: string) {
     try {
+      // MongoDB Text Search 对中文支持不佳
+      // e.g. 当 query 为“你好”，“你好张三"不匹配，”你好，张三“匹配
+      // return await User.findById(userId).populate({
+      //   path: 'todos',
+      //   match: { $text: { $search: query } },
+      // });
       const res = await User.findById(userId).populate('todos');
       return res?.todos.filter((v) => v.content.includes(query));
     } catch (error) {
+      console.log(error);
       throw new Error('查询失败 (￣o￣).zZ');
     }
   }

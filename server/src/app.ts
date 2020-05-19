@@ -18,5 +18,5 @@ app
   .use(todoRouter.routes());
 
 app.listen(Config.PORT, () => {
-  console.log(`server starts successful: http://localhost:${Config.PORT}`);
+  console.log(`Server ready at http://localhost:${Config.PORT}`);
 });
