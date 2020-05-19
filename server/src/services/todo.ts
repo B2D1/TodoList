@@ -57,8 +57,10 @@ export default class TodoService {
       //   path: 'todos',
       //   match: { $text: { $search: query } },
       // });
-      const res = await User.findById(userId).populate('todos');
-      return res?.todos.filter((v) => v.content.includes(query));
+      return await User.findById(userId).populate({
+        path: 'todos',
+        match: { content: { $regex: new RegExp(query), $options: 'i' } },
+      });
     } catch (error) {
       console.log(error);
       throw new Error('查询失败 (￣o￣).zZ');
