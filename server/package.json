@@ -11,8 +11,12 @@
     "format": "prettier --write \"./src/**/*.ts\""
   },
   "nodemonConfig": {
-    "ignore": ["node_modules"],
-    "watch": ["src"],
+    "ignore": [
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
     "exec": "npm start",
     "ext": "ts"
   },
@@ -25,7 +29,8 @@
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.4.12",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.9.2"
   },
   "devDependencies": {
     "@types/koa": "^2.0.48",
