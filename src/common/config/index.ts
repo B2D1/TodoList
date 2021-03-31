@@ -1,5 +1,5 @@
 enum Config {
-  API_URI = "http://localhost:5000/api/",
+  API_URI = "https://baobangdong.cn:5000/api/",
 }
 
 export default Config;
