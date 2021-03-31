@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import cors from 'koa2-cors';
+import cors from '@koa/cors';
 
 import fs from 'fs';
 import https from 'https';
