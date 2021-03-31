@@ -1,13 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
-import LoginForm from '../../components/LoginForm';
-import RegForm from '../../components/RegForm';
-import { LocalStorage } from '../../utils';
+import LoginForm from 'components/LoginForm';
+import RegForm from 'components/RegForm';
+import { LocalStorage } from 'utils';
 import styles from './index.module.scss';
 import { connect, ConnectedProps } from 'react-redux';
-import { AppStore } from '../../store';
-import { keepLogin } from '../../store/user/actions';
+import { AppStore } from 'store';
+import { keepLogin } from 'store/user/actions';
 
 const mapState = ({ user }: AppStore) => ({
   user,
@@ -36,7 +36,7 @@ const Home: FC<RouteComponentProps & PropsFromRedux> = ({
       } else {
         history.push('/todo');
       }
-    } 
+    }
   }, [user]);
 
   const toggleForm = () => {

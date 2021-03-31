@@ -1,5 +1,7 @@
+import { message } from 'antd';
+import TodoAPI from 'api/todo';
+import { IRes } from 'common/interface';
 import { call, put } from 'redux-saga/effects';
-import TodoAPI from '../../api/todo';
 
 import {
   ADD_TODO_SUC,
@@ -15,8 +17,6 @@ import {
   UPDATE_TODO_CONTENT_SUC,
   UPDATE_TODO_STATUS_SUC,
 } from './types';
-import { IRes } from '../../common/interface';
-import { message } from 'antd';
 
 const todoAPI = new TodoAPI();
 
@@ -32,7 +32,7 @@ export function* fetchTodo(action: IFetchAction) {
 
 export function* addTodo(action: IAddAction) {
   const { userId, content } = action.payload;
-  
+
   const res: IRes = yield call(todoAPI.addTodo, userId, content);
   yield put({
     type: ADD_TODO_SUC,

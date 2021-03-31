@@ -1,8 +1,7 @@
 import { message } from 'antd';
 import axios from 'axios';
-
-import { IRes } from '../common/interface';
-import Config from '../common/config';
+import Config from 'common/config';
+import { IRes } from 'common/interface';
 
 const request = axios.create({
   baseURL: Config.API_URI,

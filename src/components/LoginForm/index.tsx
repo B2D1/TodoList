@@ -1,10 +1,9 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { Store } from 'antd/lib/form/interface';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-
-import { login } from '../../store/user/actions';
+import { login } from 'store/user/actions';
 
 const mapDispatch = {
   login,

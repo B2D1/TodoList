@@ -1,7 +1,6 @@
 import { Form, Input, Modal } from 'antd';
-import React, { FC, useEffect } from 'react';
-
-import { ModalType } from '../../common/enum';
+import { ModalType } from 'common/enum';
+import { FC, useEffect } from 'react';
 
 interface IModalFormProps {
   todoId: string;
@@ -28,7 +27,7 @@ const ModalForm: FC<IModalFormProps> = ({
 
   useEffect(() => {
     form.setFieldsValue({ content });
-  },[content]);
+  }, [content]);
 
   const onSubmit = () => {
     if (modalType === ModalType.Add) {

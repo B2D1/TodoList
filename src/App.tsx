@@ -1,6 +1,8 @@
+import './App.css';
+
 import { message } from 'antd';
-import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Index from './views/Index';
 import Todo from './views/Todo';
 
@@ -11,14 +13,14 @@ message.config({
 });
 
 const App = () => (
-  <React.Fragment>
+  <>
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Index} exact={true} />
         <Route path="/todo" component={Todo} />
       </Switch>
     </BrowserRouter>
-  </React.Fragment>
+  </>
 );
 
 export default App;

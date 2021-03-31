@@ -1,12 +1,12 @@
 import { Button, Empty, Input } from 'antd';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { ModalType } from '../../common/enum';
-import ModalForm from '../../components/FormModal';
-import TodoItem from '../../components/TodoItem';
-import { AppStore } from '../../store';
+import { ModalType } from 'common/enum';
+import ModalForm from 'components/FormModal';
+import TodoItem from 'components/TodoItem';
+import { AppStore } from 'store';
 import {
   addTodo,
   deleteTodo,
@@ -14,9 +14,9 @@ import {
   searchTodo,
   updateTodoContent,
   updateTodoStatus,
-} from '../../store/todo/actions';
-import { keepLogin, logout } from '../../store/user/actions';
-import { LocalStorage } from '../../utils';
+} from 'store/todo/actions';
+import { keepLogin, logout } from 'store/user/actions';
+import { LocalStorage } from 'utils';
 import styles from './index.module.scss';
 
 const mapState = ({ todo, user }: AppStore) => ({

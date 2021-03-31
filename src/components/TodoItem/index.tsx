@@ -4,9 +4,10 @@ import {
   EditOutlined,
   UndoOutlined,
 } from '@ant-design/icons';
-import React, { FC } from 'react';
+import { ModalType } from 'common/enum';
+import { FC } from 'react';
+
 import styles from './index.module.scss';
-import { ModalType } from '../../common/enum';
 
 interface ITodoItem {
   id: string;

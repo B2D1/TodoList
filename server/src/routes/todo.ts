@@ -14,7 +14,10 @@ todoRouter
   .get('/search', async (ctx: Context) => {
     const { userId, query } = ctx.query;
     try {
-      const data = await todoService.searchTodo(userId, query);
+      const data = await todoService.searchTodo(
+        userId as string,
+        query as string
+      );
       if (data) {
         createRes({
           ctx,

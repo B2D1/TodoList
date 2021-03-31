@@ -3,8 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { Store } from 'antd/lib/form/interface';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-
-import { register } from '../../store/user/actions';
+import { register } from 'store/user/actions';
 
 const mapDispatch = {
   register,

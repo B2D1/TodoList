@@ -1,17 +1,17 @@
+import { message } from 'antd';
+import UserAPI from 'api/user';
+import { IRes } from 'common/interface';
 import { call, put } from 'redux-saga/effects';
+import { LocalStorage } from 'utils/index';
 
-import UserAPI from '../../api/user';
-import { IRes } from '../../common/interface';
-import { LocalStorage } from '../../utils';
 import {
   ILoginAction,
+  ILogoutAction,
   IRegisterAction,
   LOGIN_SUC,
-  REGISTER_SUC,
-  ILogoutAction,
   LOGOUT_SUC,
+  REGISTER_SUC,
 } from './types';
-import { message } from 'antd';
 
 const userAPI = new UserAPI();
 
