@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import cors from 'koa2-cors';
+import cors from '@koa/cors';
 
 import Config from './config';
 import connectDB from './db';
