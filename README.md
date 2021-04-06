@@ -1,8 +1,6 @@
 [![Build Status](https://travis-ci.org/B2D1/TodoList.svg?branch=master)](https://travis-ci.org/B2D1/TodoList)
 
-## 🚩 一款基于 TS React AntD Koa2 MongoDB 实现的 TodoList 全栈应用
-
-### [在线访问](https://baobangdong.cn:4000/)
+## 🚩 一款基于 TS React AntD Koa MongoDB 实现的 TodoList 全栈应用
 
 ### [项目概述](https://www.baobangdong.cn/todolist-full-stack-application/)
 
