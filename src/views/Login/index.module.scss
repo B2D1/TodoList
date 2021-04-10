@@ -5,12 +5,9 @@
 
   .container {
     position: relative;
-    top: 200px;
-    width: 300px;
+    top: 30%;
+    width: 320px;
     margin: auto;
-    @media screen and (max-width: 700px) {
-      top: 150px;
-    }
   }
   .tip {
     span:nth-child(2) {
@@ -21,11 +18,4 @@
       }
     }
   }
-  // .form-tip {
-  //   min-width: 300px;
-  // }
-
-  // .form-button {
-  //   width: 100%;
-  // }
 }

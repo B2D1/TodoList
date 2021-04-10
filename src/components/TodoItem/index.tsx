@@ -22,8 +22,8 @@ interface ITodoItem {
 const TodoItem: FC<ITodoItem> = ({
   id,
   content,
-  onUpdateStatus,
   finished,
+  onUpdateStatus,
   onDelete,
   onShowModal,
 }) => (

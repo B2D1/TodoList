@@ -27,7 +27,7 @@ export default function todoReducer(
         v._id === action.payload.todoId ? { ...v, status: !v.status } : v
       );
     case SEARCH_TODO_SUC:
-      return [...initialState, ...action.payload];
+      return [...action.payload];
     case UPDATE_TODO_CONTENT_SUC:
       return state.map((v) =>
         v._id === action.payload.todoId

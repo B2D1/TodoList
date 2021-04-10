@@ -1,12 +1,10 @@
 import { Button, Empty, Input } from 'antd';
-import { FC, useEffect, useState } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-
 import { ModalType } from 'common/enum';
-import ModalForm from 'components/FormModal';
 import TodoItem from 'components/TodoItem';
-import { AppStore } from 'store';
+import TodoModal from 'components/TodoModal';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { AppState } from 'store';
 import {
   addTodo,
   deleteTodo,
@@ -16,10 +14,10 @@ import {
   updateTodoStatus,
 } from 'store/todo/actions';
 import { keepLogin, logout } from 'store/user/actions';
-import { LocalStorage } from 'utils';
+
 import styles from './index.module.scss';
 
-const mapState = ({ todo, user }: AppStore) => ({
+const mapState = ({ todo, user }: AppState) => ({
   todo,
   user,
 });
@@ -38,67 +36,59 @@ const mapDispatch = {
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface ITodoProps extends PropsFromRedux, RouteComponentProps {}
-const Search = Input.Search;
+interface ITodoProps extends PropsFromRedux {}
 
 const Todo: FC<ITodoProps> = ({
-  history,
   todo,
-  user,
+  user: { userId, username },
   logout,
-  keepLogin,
   deleteTodo,
+  fetchTodo,
   updateTodoContent,
   updateTodoStatus,
-  fetchTodo,
   addTodo,
   searchTodo,
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [isFinished, setFinished] = useState(false);
+  const [modalType, setModalType] = useState<ModalType>(ModalType.Add);
   const [modalTitle, setModalTitle] = useState('');
-  const [status, setStatus] = useState(false);
   const [content, setContent] = useState('');
-  const [modalType, setModalType] = useState('');
   const [todoId, setTodoId] = useState('');
 
-  useEffect(() => {
-    const userId = LocalStorage.get('userId');
-    const username = LocalStorage.get('username');
-    if (userId && username) {
-      if (user.userId) {
-        fetchTodo(user.userId);
-      } else {
-        keepLogin({ userId, username, errMsg: '' });
-      }
-    } else {
-      history.push('/');
-    }
-  }, [user]);
+  const handleAdd = (content: string) => {
+    addTodo(userId, content);
+    setFinished(false);
+  };
 
-  const onToggleStatus = (flag: boolean) => {
-    setStatus(flag);
-  };
-  const onAdd = (content: string) => {
-    addTodo(user.userId, content);
-    setStatus(false);
-  };
-  const onUpdateContent = (todoId: string, content: string) => {
+  const handleUpdateContent = (todoId: string, content: string) => {
     updateTodoContent(todoId, content);
   };
-  const onDelete = (todoId: string) => {
+
+  const handleDelete = (todoId: string) => {
     deleteTodo(todoId);
   };
-  const onUpdateStatus = (todoId: string) => {
+
+  const handleUpdateStatus = (todoId: string) => {
     updateTodoStatus(todoId);
   };
-  const onSearch = (query: string) => {
-    searchTodo(user.userId, query);
+
+  const handleSearch = (ev: ChangeEvent<HTMLInputElement>) => {
+    searchTodo(userId, ev.target.value);
   };
-  const onClose = () => {
-    setShowModal(false);
+
+  const handleCloseModal = () => {
+    setVisible(false);
+    setContent('');
+    console.log('11');
   };
-  const onShowModal = (type: ModalType, todoId?: string, content?: string) => {
-    setShowModal(true);
+
+  const handleOpenModal = (
+    type: ModalType,
+    todoId?: string,
+    content?: string
+  ) => {
+    setVisible(true);
     if (type === ModalType.Add) {
       setModalTitle('新增待办事项');
       setContent('');
@@ -111,22 +101,28 @@ const Todo: FC<ITodoProps> = ({
       setTodoId(todoId!);
     }
   };
+
+  useEffect(() => {
+    userId && fetchTodo(userId);
+  }, [userId]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.user}>
-        <span>Hello，{user.username}</span>
+        <span>Hi，{username}</span>
         <Button type="ghost" size="small" onClick={logout}>
           退出
         </Button>
       </div>
       <div className={styles.queryBar}>
-        <Search
-          placeholder="输入要查询的内容"
-          onSearch={(value) => onSearch(value)}
+        <Input
+          allowClear
+          placeholder="请输入要查询的内容"
+          onChange={handleSearch}
         />
         <Button
           type="primary"
-          onClick={() => onShowModal(ModalType.Add)}
+          onClick={() => handleOpenModal(ModalType.Add)}
           className={styles.newTodo}
         >
           新增
@@ -135,35 +131,34 @@ const Todo: FC<ITodoProps> = ({
       <div className={styles.main}>
         <ul className={styles.nav}>
           <li
-            className={status ? '' : styles.active}
-            onClick={() => onToggleStatus(false)}
+            className={isFinished ? '' : styles.active}
+            onClick={() => setFinished(false)}
           >
             <i className={`${styles.dot} ${styles.pending}`} />
             未完成
           </li>
           <li
-            className={status ? styles.active : ''}
-            onClick={(evt) => onToggleStatus(true)}
+            className={isFinished ? styles.active : ''}
+            onClick={() => setFinished(true)}
           >
             <i className={`${styles.dot} ${styles.resolved}`} />
             已完成
           </li>
         </ul>
-
         <ul className={styles.list}>
           {todo.length ? (
             todo
-              .filter((v) => v.status === status)
+              .filter((v) => v.status === isFinished)
               .map((v) => (
                 <TodoItem
                   key={v._id}
                   content={v.content}
                   id={v._id}
                   type={modalType}
-                  finished={status}
-                  onShowModal={onShowModal}
-                  onDelete={onDelete}
-                  onUpdateStatus={onUpdateStatus}
+                  finished={isFinished}
+                  onShowModal={handleOpenModal}
+                  onDelete={handleDelete}
+                  onUpdateStatus={handleUpdateStatus}
                 />
               ))
           ) : (
@@ -171,15 +166,15 @@ const Todo: FC<ITodoProps> = ({
           )}
         </ul>
       </div>
-      <ModalForm
+      <TodoModal
         todoId={todoId}
         modalType={modalType}
         content={content}
-        visible={showModal}
+        visible={visible}
         title={modalTitle}
-        onClose={onClose}
-        onAdd={onAdd}
-        onUpdateContent={onUpdateContent}
+        onClose={handleCloseModal}
+        onAdd={handleAdd}
+        onUpdateContent={handleUpdateContent}
       />
     </div>
   );

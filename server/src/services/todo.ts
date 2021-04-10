@@ -62,7 +62,6 @@ export default class TodoService {
         match: { content: { $regex: new RegExp(query), $options: 'i' } },
       });
     } catch (error) {
-      console.log(error);
       throw new Error('查询失败 (￣o￣).zZ');
     }
   }

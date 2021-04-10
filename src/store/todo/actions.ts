@@ -16,6 +16,7 @@ export const fetchTodo = (userId: string) => ({
   type: FETCH_TODO,
   payload: { userId },
 });
+
 export const searchTodo = (userId: string, query: string) => ({
   type: SEARCH_TODO,
   payload: { userId, query },
@@ -25,6 +26,7 @@ export const deleteTodo = (todoId: string) => ({
   type: DELETE_TODO,
   payload: { todoId },
 });
+
 export const updateTodoStatus = (todoId: string) => ({
   type: UPDATE_TODO_STATUS,
   payload: { todoId },

@@ -2,7 +2,7 @@ import { Form, Input, Modal } from 'antd';
 import { ModalType } from 'common/enum';
 import { FC, useEffect } from 'react';
 
-interface IModalFormProps {
+interface ITodoModal {
   todoId: string;
   modalType: string;
   visible: boolean;
@@ -13,44 +13,52 @@ interface IModalFormProps {
   onUpdateContent: (todoId: string, content: string) => void;
 }
 
-const ModalForm: FC<IModalFormProps> = ({
+const TodoModal: FC<ITodoModal> = ({
   content,
-  onClose,
-  onAdd,
-  onUpdateContent,
   visible,
   title,
   modalType,
   todoId,
+  onClose,
+  onAdd,
+  onUpdateContent,
 }) => {
   const [form] = Form.useForm();
+
+  const handleOK = () => {
+    form.submit();
+  };
+
+  const handleFinish = () => {
+    const content = form.getFieldValue('content');
+    if (modalType === ModalType.Add) {
+      onAdd(content);
+    }
+    if (modalType === ModalType.Edit) {
+      onUpdateContent(todoId, content);
+    }
+    handleCancel();
+  };
+
+  const handleCancel = () => {
+    form.resetFields();
+    onClose();
+  };
 
   useEffect(() => {
     form.setFieldsValue({ content });
   }, [content]);
 
-  const onSubmit = () => {
-    if (modalType === ModalType.Add) {
-      onAdd(form.getFieldValue('content'));
-    }
-    if (modalType === ModalType.Edit) {
-      onUpdateContent(todoId, form.getFieldValue('content'));
-    }
-    onClose();
-  };
-
   return (
     <Modal
       title={title}
       visible={visible}
-      onOk={onSubmit}
-      onCancel={onClose}
+      onOk={handleOK}
+      onCancel={handleCancel}
       okText="提交"
       cancelText="取消"
-      destroyOnClose={true}
-      forceRender={true}
     >
-      <Form layout="horizontal" form={form}>
+      <Form layout="horizontal" form={form} onFinish={handleFinish}>
         <Form.Item
           label="内容"
           name="content"
@@ -63,4 +71,4 @@ const ModalForm: FC<IModalFormProps> = ({
   );
 };
 
-export default ModalForm;
+export default TodoModal;

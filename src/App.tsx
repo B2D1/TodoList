@@ -1,9 +1,10 @@
 import './App.css';
 
 import { message } from 'antd';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from 'views/Home';
 
-import Index from './views/Index';
+import Login from './views/Login';
 import Todo from './views/Todo';
 
 // 配置全局 message
@@ -15,10 +16,9 @@ message.config({
 const App = () => (
   <>
     <BrowserRouter>
-      <Switch>
-        <Route path="/" component={Index} exact={true} />
-        <Route path="/todo" component={Todo} />
-      </Switch>
+      <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/todo" component={Todo} />
     </BrowserRouter>
   </>
 );
