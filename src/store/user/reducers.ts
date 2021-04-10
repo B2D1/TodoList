@@ -21,7 +21,6 @@ export default function userReducer(
     case REGISTER_SUC:
       return {
         ...state,
-        ...action.payload,
       };
     case LOGIN_SUC:
       return {
@@ -29,12 +28,7 @@ export default function userReducer(
         ...action.payload,
       };
     case LOGOUT_SUC:
-      return {
-        ...state,
-        userId: '',
-        username: '',
-        errMsg: '',
-      };
+      return initialState;
     case KEEP_LOGIN:
       return {
         ...state,

@@ -1,72 +1,66 @@
 .wrapper {
-  padding: 5rem 0;
+  width: 90vw;
+  max-width: 600px;
+  min-width: 300px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
+  padding: 6rem 0;
 }
 
 .user {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 2rem;
+  top: 2rem;
 
   > span {
-    margin-right: 10px;
+    margin-right: 1rem;
   }
 }
 
 .newTodo {
-  margin-left: 50px;
+  margin-left: 2rem;
+}
 
-  @media screen and (max-width: 700px) {
-    margin-left: 20px;
-  }
+.main {
+  width: 100%;
 }
 
 .queryBar {
+  width: 80%;
   display: flex;
-  margin: 0 auto;
   margin-bottom: 30px;
-
-  @media screen and (max-width: 700px) {
-    max-width: 300px;
-  }
 }
 
 .nav {
   display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  border-bottom: 2px solid rgba(114, 111, 112, 0.5);
+
   li {
-    cursor: pointer;
-    width: 300px;
+    position: relative;
     display: flex;
-    padding: 1rem;
+    flex: 1;
+    padding: 1rem 0;
+    cursor: pointer;
 
-    &.active {
-      border-bottom: 2px solid rgba(114, 111, 112, 0.5);
+    .dot {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0 1rem;
+      border-radius: 100%;
     }
-    @media screen and (max-width: 700px) {
-      width: 150px;
+
+    &.active::after {
+      display: block;
+      content: '';
+      position: absolute;
+      background-color: #539fe6;
+      width: 100%;
+      bottom: -2px;
+      height: 2px;
     }
   }
-}
-
-.list {
-  width: 600px;
-
-  @media screen and (max-width: 700px) {
-    width: 300px;
-  }
-}
-
-.dot {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 100%;
-  margin-right: 1rem;
 }
 
 ul {

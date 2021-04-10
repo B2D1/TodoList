@@ -12,6 +12,7 @@ export interface IAuthState {
   username: string;
   password: string;
 }
+
 export interface IUserState {
   userId: string;
   username: string;
@@ -23,24 +24,29 @@ export interface ILoginAction {
   type: typeof LOGIN;
   payload: IAuthState;
 }
+
 export interface ILoginSucAction {
   type: typeof LOGIN_SUC;
   payload: IUserState;
 }
+
 export interface ILogoutAction {
   type: typeof LOGOUT;
 }
+
 export interface ILogoutSucAction {
   type: typeof LOGOUT_SUC;
 }
+
 export interface IRegisterAction {
   type: typeof REGISTER;
   payload: IAuthState;
 }
+
 export interface IRegSucAction {
   type: typeof REGISTER_SUC;
-  payload: IUserState;
 }
+
 export interface IKeepLogin {
   type: typeof KEEP_LOGIN;
   payload: IUserState;

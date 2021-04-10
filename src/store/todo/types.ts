@@ -25,10 +25,12 @@ export interface IFetchAction {
   type: typeof FETCH_TODO;
   payload: { userId: string };
 }
+
 export interface IFetchSucAction {
   type: typeof FETCH_TODO_SUC;
   payload: ITodoState[];
 }
+
 export interface IAddAction {
   type: typeof ADD_TODO;
   payload: {
@@ -36,30 +38,36 @@ export interface IAddAction {
     content: string;
   };
 }
+
 export interface IAddSucAction {
   type: typeof ADD_TODO_SUC;
   payload: ITodoState;
 }
+
 export interface ISearchAction {
   type: typeof SEARCH_TODO;
   payload: { userId: string; query: string };
 }
+
 export interface ISearchSucAction {
   type: typeof SEARCH_TODO_SUC;
   payload: ITodoState[];
 }
+
 export interface IDeleteAction {
   type: typeof DELETE_TODO;
   payload: {
     todoId: string;
   };
 }
+
 export interface IDeleteSucAction {
   type: typeof DELETE_TODO_SUC;
   payload: {
     todoId: string;
   };
 }
+
 export interface IUpdateContentAction {
   type: typeof UPDATE_TODO_CONTENT;
   payload: {
@@ -67,6 +75,7 @@ export interface IUpdateContentAction {
     content: string;
   };
 }
+
 export interface IUpdateContentSucAction {
   type: typeof UPDATE_TODO_CONTENT_SUC;
   payload: {
@@ -74,12 +83,14 @@ export interface IUpdateContentSucAction {
     content: string;
   };
 }
+
 export interface IUpdateStatusAction {
   type: typeof UPDATE_TODO_STATUS;
   payload: {
     todoId: string;
   };
 }
+
 export interface IUpdateStatusSucAction {
   type: typeof UPDATE_TODO_STATUS_SUC;
   payload: {

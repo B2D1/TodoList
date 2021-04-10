@@ -2,24 +2,22 @@ import { message } from 'antd';
 import UserAPI from 'api/user';
 import { IRes } from 'common/interface';
 import { call, put } from 'redux-saga/effects';
-import { LocalStorage } from 'utils/index';
+import { LocalStorage } from 'utils';
 
 import {
   ILoginAction,
-  ILogoutAction,
   IRegisterAction,
   LOGIN_SUC,
   LOGOUT_SUC,
   REGISTER_SUC,
 } from './types';
 
-const userAPI = new UserAPI();
-
 export function* login(action: ILoginAction) {
   const { username, password } = action.payload;
 
   try {
-    const res: IRes = yield call(userAPI.login, username, password);
+    const res: IRes = yield call(UserAPI.login, username, password);
+
     yield call(LocalStorage.set, 'userId', res.data.userId);
     yield call(LocalStorage.set, 'username', res.data.username);
     yield put({
@@ -29,7 +27,7 @@ export function* login(action: ILoginAction) {
   } catch {}
 }
 
-export function* logout(action: ILogoutAction) {
+export function* logout() {
   try {
     yield call(LocalStorage.remove, 'userId');
     yield call(LocalStorage.remove, 'username');
@@ -43,10 +41,11 @@ export function* register(action: IRegisterAction) {
   const { username, password } = action.payload;
 
   try {
-    yield call(userAPI.register, username, password);
+    yield call(UserAPI.register, username, password);
     yield put({
       type: REGISTER_SUC,
     });
+
     message.success('注册成功');
   } catch {}
 }
