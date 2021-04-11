@@ -47,6 +47,7 @@ const TodoModal: FC<ITodoModal> = ({
 
   useEffect(() => {
     form.setFieldsValue({ content });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
   return (

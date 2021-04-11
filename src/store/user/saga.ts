@@ -10,6 +10,7 @@ import {
   LOGIN_SUC,
   LOGOUT_SUC,
   REGISTER_SUC,
+  SET_LOADING,
 } from './types';
 
 export function* login(action: ILoginAction) {
@@ -24,7 +25,16 @@ export function* login(action: ILoginAction) {
       type: LOGIN_SUC,
       payload: { ...res.data, errMsg: res.msg },
     });
-  } catch {}
+    yield put({
+      type: SET_LOADING,
+      payload: { loading: false },
+    });
+  } catch {
+    yield put({
+      type: SET_LOADING,
+      payload: { loading: false },
+    });
+  }
 }
 
 export function* logout() {
@@ -45,7 +55,16 @@ export function* register(action: IRegisterAction) {
     yield put({
       type: REGISTER_SUC,
     });
+    yield put({
+      type: SET_LOADING,
+      payload: { loading: false },
+    });
 
     message.success('注册成功');
-  } catch {}
+  } catch {
+    yield put({
+      type: SET_LOADING,
+      payload: { loading: false },
+    });
+  }
 }

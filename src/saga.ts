@@ -16,8 +16,8 @@ import {
   UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from './store/todo/types';
-import { login, register, logout } from './store/user/saga';
-import { LOGIN, REGISTER, LOGOUT } from './store/user/types';
+import { login, logout, register } from './store/user/saga';
+import { LOGIN, LOGOUT, REGISTER } from './store/user/types';
 
 function* rootSaga() {
   yield takeEvery(LOGIN, login);
