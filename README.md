@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/B2D1/TodoList.svg?branch=master)](https://travis-ci.org/B2D1/TodoList)
 
-## 🚩 一款基于 TS React AntD Koa MongoDB 实现的 TodoList 全栈应用
+## 🚩 基于 TS React AntD Koa MongoDB 实现的 TodoList 全栈应用
 
-### [项目概述](https://www.baobangdong.cn/todolist-full-stack-application/)
+![](https://cdn.baobangdong.cn/website-todo-1.png)
 
-![](https://user-gold-cdn.xitu.io/2019/2/19/169053e1533bad8a?imageslim)
+![](https://cdn.baobangdong.cn/website-todo-2.png)
+
+### [项目概述](https://baobangdong.cn/todolist-full-stack-application/)
 
 ### 应用特点
 
@@ -32,29 +34,22 @@
 ```bash
 # clone
 git clone https://github.com/B2D1/TodoList.git
-
-# 全局安装 nodemon
-yarn global add nodemon
 ```
 
 ```bash
-# 进入 server 文件夹，运行服务端
 cd /TodoList/server
 
-# 安装后端所需要的依赖包
 yarn
 
 # 启动后端服务，监听本地 5000 端口，请自行下载 MongoDB，并开启数据库服务
-yarn run watch
+yarn start
 ```
 
 ```bash
-# 开启一个新的终端，运行浏览器端
 cd /TodoList
 
-# 安装前端所需要的依赖包
 yarn
 
-# 运行项目
+# 启动 react 项目
 yarn start
 ```
