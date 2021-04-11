@@ -1,12 +1,13 @@
 import {
   ADD_TODO_SUC,
+  CLEAR_TODO,
   DELETE_TODO_SUC,
   FETCH_TODO_SUC,
+  ITodoState,
   SEARCH_TODO_SUC,
+  TodoActionTypes,
   UPDATE_TODO_CONTENT_SUC,
   UPDATE_TODO_STATUS_SUC,
-  ITodoState,
-  TodoActionTypes,
 } from './types';
 
 const initialState: ITodoState[] = [];
@@ -34,6 +35,8 @@ export default function todoReducer(
           ? { ...v, content: action.payload.content }
           : v
       );
+    case CLEAR_TODO:
+      return initialState;
     default:
       return state;
   }

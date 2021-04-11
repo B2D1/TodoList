@@ -11,6 +11,7 @@ export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
 export const UPDATE_TODO_CONTENT_SUC = 'UPDATE_TODO_CONTENT_SUC';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_STATUS_SUC = 'UPDATE_TODO_STATUS_SUC';
+export const CLEAR_TODO = 'CLEAR_TODO';
 
 // State
 export interface ITodoState {
@@ -91,6 +92,10 @@ export interface IUpdateStatusAction {
   };
 }
 
+export interface IClearTodoAction {
+  type: typeof CLEAR_TODO;
+}
+
 export interface IUpdateStatusSucAction {
   type: typeof UPDATE_TODO_STATUS_SUC;
   payload: {
@@ -110,4 +115,5 @@ export type TodoActionTypes =
   | ISearchAction
   | ISearchSucAction
   | IDeleteAction
-  | IDeleteSucAction;
+  | IDeleteSucAction
+  | IClearTodoAction;

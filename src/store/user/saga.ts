@@ -2,6 +2,7 @@ import { message } from 'antd';
 import UserAPI from 'api/user';
 import { IRes } from 'common/interface';
 import { call, put } from 'redux-saga/effects';
+import { CLEAR_TODO } from 'store/todo/types';
 import { LocalStorage } from 'utils';
 
 import {
@@ -43,6 +44,9 @@ export function* logout() {
     yield call(LocalStorage.remove, 'username');
     yield put({
       type: LOGOUT_SUC,
+    });
+    yield put({
+      type: CLEAR_TODO,
     });
   } catch {}
 }

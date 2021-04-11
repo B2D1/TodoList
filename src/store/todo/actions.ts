@@ -1,5 +1,6 @@
 import {
   ADD_TODO,
+  CLEAR_TODO,
   DELETE_TODO,
   FETCH_TODO,
   SEARCH_TODO,
@@ -35,4 +36,8 @@ export const updateTodoStatus = (todoId: string) => ({
 export const updateTodoContent = (todoId: string, content: string) => ({
   type: UPDATE_TODO_CONTENT,
   payload: { todoId, content },
+});
+
+export const clearTodo = () => ({
+  type: CLEAR_TODO,
 });
