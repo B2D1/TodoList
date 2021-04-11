@@ -6,6 +6,7 @@ export const LOGIN_SUC = 'LOGIN_SUC';
 export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUC = 'LOGOUT_SUC';
 export const KEEP_LOGIN = 'KEEP_LOGIN';
+export const SET_LOADING = 'SET_LOADING';
 
 // State
 export interface IAuthState {
@@ -17,6 +18,7 @@ export interface IUserState {
   userId: string;
   username: string;
   errMsg: string;
+  loading: boolean;
 }
 
 // Action
@@ -52,6 +54,11 @@ export interface IKeepLogin {
   payload: IUserState;
 }
 
+export interface ISetLoadingAction {
+  type: typeof SET_LOADING;
+  payload: { loading: boolean };
+}
+
 export type UserActionTypes =
   | ILoginAction
   | ILoginSucAction
@@ -59,4 +66,5 @@ export type UserActionTypes =
   | ILogoutSucAction
   | IKeepLogin
   | IRegisterAction
-  | IRegSucAction;
+  | IRegSucAction
+  | ISetLoadingAction;

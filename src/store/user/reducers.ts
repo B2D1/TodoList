@@ -1,16 +1,18 @@
 import {
-  LOGIN_SUC,
-  UserActionTypes,
-  REGISTER_SUC,
   IUserState,
   KEEP_LOGIN,
+  LOGIN_SUC,
   LOGOUT_SUC,
+  REGISTER_SUC,
+  SET_LOADING,
+  UserActionTypes,
 } from './types';
 
 const initialState: IUserState = {
   userId: '',
   username: '',
   errMsg: '',
+  loading: false,
 };
 
 export default function userReducer(
@@ -33,6 +35,11 @@ export default function userReducer(
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload.loading,
       };
     default:
       return state;

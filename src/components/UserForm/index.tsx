@@ -2,26 +2,39 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { login, register } from 'store/user/actions';
+import { AppState } from 'store';
+import { login, register, setLoading } from 'store/user/actions';
 
 const mapDispatch = {
   register,
   login,
+  setLoading,
 };
+
+const mapState = ({ user }: AppState) => ({
+  user,
+});
 
 interface OwnProps {
   showLogin: boolean;
 }
 
-const connector = connect(() => ({}), mapDispatch);
+const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux & OwnProps;
 
-const UserForm: React.FC<Props> = ({ register, login, showLogin }) => {
+const UserForm: React.FC<Props> = ({
+  register,
+  login,
+  setLoading,
+  showLogin,
+  user: { loading },
+}) => {
   const [form] = Form.useForm();
-
   const onFinish = (values: any) => {
+    setLoading(true);
+
     const { username, password } = values;
 
     if (showLogin) {
@@ -58,7 +71,7 @@ const UserForm: React.FC<Props> = ({ register, login, showLogin }) => {
         <Input prefix={<LockOutlined />} type="password" placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
           {showLogin ? '登录' : '注册'}
         </Button>
       </Form.Item>

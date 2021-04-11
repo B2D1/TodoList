@@ -80,7 +80,6 @@ const Todo: FC<ITodoProps> = ({
   const handleCloseModal = () => {
     setVisible(false);
     setContent('');
-    console.log('11');
   };
 
   const handleOpenModal = (
@@ -104,6 +103,7 @@ const Todo: FC<ITodoProps> = ({
 
   useEffect(() => {
     userId && fetchTodo(userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   return (

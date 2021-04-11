@@ -27,8 +27,9 @@ const Home: FC<RouteComponentProps & PropsFromRedux> = ({
     const username = LocalStorage.get('username');
     // local 有用户信息，但 session 无 userId，自动登录
     if (userId && username && !user.userId) {
-      keepLogin({ userId, username, errMsg: '' });
+      keepLogin({ userId, username });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return user.userId ? <Redirect to="/todo" /> : <Redirect to="/login" />;
